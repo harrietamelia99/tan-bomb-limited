@@ -572,8 +572,8 @@ button {
 
 .site-header__logo img,
 .site-logo__img--header {
-  height: 76px;
-  max-width: min(42vw, 9.5rem);
+  height: 86px;
+  max-width: min(44vw, 10.5rem);
   width: auto;
   display: block;
   transition: height var(--transition-base);
@@ -4559,8 +4559,8 @@ body.cherry-popup-open {
 
   .site-header__logo img,
   .site-logo__img--header {
-    height: 68px;
-    max-width: min(38vw, 8.5rem);
+    height: 76px;
+    max-width: min(40vw, 9.25rem);
   }
 }
 
