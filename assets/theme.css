@@ -2,26 +2,6 @@
    Tan Bomb Ltd - Theme Styles
    ========================================================================== */
 
-/* --- Gotham (self-hosted - add Gotham-Light.woff2 & Gotham-Book.woff2 to /assets) */
-
-@font-face {
-  font-family: 'Gotham';
-  src: url('Gotham-Light.woff2') format('woff2'),
-       url('Gotham-Light.woff') format('woff');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Gotham';
-  src: url('Gotham-Book.woff2') format('woff2'),
-       url('Gotham-Book.woff') format('woff');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
 /* --- Custom properties --------------------------------------------------- */
 
 :root {
@@ -91,7 +71,7 @@
   );
 
   --font-heading: 'Arapey', Georgia, serif;
-  --font-body:    'Gotham', 'Helvetica Neue', Arial, sans-serif;
+  --font-body:    'Helvetica Neue', Helvetica, Arial, sans-serif;
   --letter-spacing-body: -0.03em;
   --letter-spacing-heading: -0.085em;
   --letter-spacing-button: 0.1em;
