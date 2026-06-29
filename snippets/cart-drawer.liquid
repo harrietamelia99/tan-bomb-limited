@@ -1,0 +1,91 @@
+<div
+  id="cart-drawer"
+  class="cart-drawer"
+  data-cart-drawer
+  aria-hidden="true"
+>
+  <div class="cart-drawer__overlay" data-cart-close tabindex="-1" aria-hidden="true"></div>
+
+  <aside
+    class="cart-drawer__panel"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="cart-drawer-heading"
+    tabindex="-1"
+  >
+    <header class="cart-drawer__header">
+      <h2 id="cart-drawer-heading" class="cart-drawer__heading">Your bag</h2>
+      <button
+        type="button"
+        class="cart-drawer__close"
+        data-cart-close
+        aria-label="Close cart"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </header>
+
+    <div class="cart-drawer__body" data-cart-drawer-body>
+      {%- if cart.item_count == 0 -%}
+        <div class="cart-drawer__empty" data-cart-empty>
+          <p>Your bag is empty.</p>
+          {%- if template.name == 'index' -%}
+            <a href="#shop" class="btn btn--primary" data-scroll-link data-cart-close>Shop now</a>
+          {%- else -%}
+            <a href="{{ routes.root_url }}#shop" class="btn btn--primary" data-cart-close>Shop now</a>
+          {%- endif -%}
+        </div>
+      {%- else -%}
+        <ul class="cart-drawer__items" data-cart-items>
+          {%- for item in cart.items -%}
+            <li class="cart-line" data-cart-line data-line-key="{{ item.key }}">
+              <a href="{{ item.url }}" class="cart-line__media">
+                {%- if item.image -%}
+                  <img
+                    src="{{ item.image | image_url: width: 160 }}"
+                    alt="{{ item.image.alt | default: item.product.title | escape }}"
+                    width="80"
+                    height="80"
+                    loading="lazy"
+                  >
+                {%- endif -%}
+              </a>
+              <div class="cart-line__details">
+                <a href="{{ item.url }}" class="cart-line__title">{{ item.product.title }}</a>
+                {%- unless item.product.has_only_default_variant -%}
+                  <p class="cart-line__variant">{{ item.variant.title }}</p>
+                {%- endunless -%}
+                <p class="cart-line__price">{{ item.final_line_price | money }}</p>
+                <div class="cart-line__actions">
+                  <div class="quantity-input quantity-input--compact">
+                    <button type="button" class="quantity-input__btn" data-cart-qty-minus aria-label="Decrease quantity">−</button>
+                    <input
+                      type="number"
+                      class="quantity-input__field"
+                      value="{{ item.quantity }}"
+                      min="0"
+                      data-cart-qty
+                      aria-label="Quantity for {{ item.product.title | escape }}"
+                    >
+                    <button type="button" class="quantity-input__btn" data-cart-qty-plus aria-label="Increase quantity">+</button>
+                  </div>
+                  <button type="button" class="cart-line__remove" data-cart-remove>Remove</button>
+                </div>
+              </div>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+
+    <footer class="cart-drawer__footer" data-cart-footer {% if cart.item_count == 0 %}hidden{% endif %}>
+      <p class="cart-drawer__subtotal">
+        Subtotal
+        <span data-cart-subtotal>{{ cart.total_price | money }}</span>
+      </p>
+      <p class="cart-drawer__note">Shipping and taxes calculated at checkout.</p>
+      <a href="{{ routes.cart_url }}" class="btn btn--outline btn--full cart-drawer__view-cart">View cart</a>
+      <button type="button" class="btn btn--primary btn--full" data-cart-checkout>Checkout</button>
+    </footer>
+  </aside>
+</div>

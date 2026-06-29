@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="{{ settings.color_dark }}">
+
+  <title>
+    {%- if page_title != blank -%}
+      {{ page_title }} | {{ shop.name }}
+    {%- else -%}
+      {{ shop.name }} | Luxury tanning for tanners and salons.
+    {%- endif -%}
+  </title>
+
+  {%- if page_description -%}
+    <meta name="description" content="{{ page_description | escape }}">
+  {%- endif -%}
+
+  <link rel="canonical" href="{{ canonical_url }}">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Arapey:ital@0;1&display=swap" rel="stylesheet">
+
+  {{ content_for_header }}
+
+  {{ 'theme.css' | asset_url | stylesheet_tag }}
+
+  <style>
+    :root {
+      --color-white:     {{ settings.color_white }};
+      --color-primary:   {{ settings.color_primary }};
+      --color-secondary: {{ settings.color_secondary }};
+      --color-dark:      {{ settings.color_dark }};
+      --color-bg:        {{ settings.color_bg }};
+      --color-text:      {{ settings.color_text }};
+    }
+  </style>
+
+  <script>
+    window.TanBomb = {
+      moneyFormat: {{ shop.money_format | json }},
+      currency: {{ cart.currency.iso_code | json }},
+      routes: {
+        root: {{ routes.root_url | json }},
+        cart: {{ routes.cart_url | json }},
+        cartAdd: {{ routes.cart_add_url | append: '.js' | json }},
+        cartChange: {{ routes.cart_change_url | append: '.js' | json }},
+        cartUpdate: {{ routes.cart_update_url | append: '.js' | json }},
+        cartJs: {{ routes.cart_url | append: '.js' | json }}
+      }
+    };
+  </script>
+</head>
+<body class="template-{{ template.name }}" data-home-url="{{ routes.root_url }}" data-is-index="{% if template.name == 'index' %}true{% else %}false{% endif %}">
+  {%- liquid
+    if template.name == 'index'
+      assign use_scroll = true
+      assign link_root = ''
+    else
+      assign use_scroll = false
+      assign link_root = routes.root_url
+    endif
+  -%}
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  {%- if template.name == 'index' -%}
+    {% render 'splash-screen' %}
+    {% render 'cherry-whip-popup' %}
+  {%- endif -%}
+
+  <header class="site-header" id="site-header">
+    <div class="site-header__scrim" aria-hidden="true"></div>
+    <div class="site-header__inner container">
+      <button
+        class="site-header__toggle"
+        type="button"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="site-nav"
+        id="nav-toggle"
+      >
+        <span class="site-header__toggle-bars" aria-hidden="true">
+          <span class="site-header__toggle-bar"></span>
+          <span class="site-header__toggle-bar"></span>
+          <span class="site-header__toggle-bar"></span>
+        </span>
+        <span class="site-header__toggle-label">Menu</span>
+      </button>
+
+      <a class="site-header__logo" href="{{ link_root }}#hero"{% if use_scroll %} data-scroll-link{% endif %}>
+        {% render 'logo', context: 'header' %}
+      </a>
+
+      <div class="site-header__actions">
+        <button
+          type="button"
+          class="cart-toggle"
+          id="cart-toggle"
+          aria-label="Open bag"
+          aria-controls="cart-drawer"
+          data-cart-open
+        >
+          <span class="cart-toggle__icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6 6h15l-1.5 9h-12L6 6Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+              <path d="M6 6 5 3H2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="9" cy="20" r="1.5" fill="currentColor"/>
+              <circle cx="18" cy="20" r="1.5" fill="currentColor"/>
+            </svg>
+          </span>
+          <span class="cart-toggle__label">Bag</span>
+          <span class="cart-toggle__count" data-cart-count {% if cart.item_count == 0 %}hidden{% endif %}>{{ cart.item_count }}</span>
+        </button>
+        <a href="{{ link_root }}#shop" class="btn btn--primary site-header__shop"{% if use_scroll %} data-scroll-link{% endif %}>Shop</a>
+      </div>
+    </div>
+
+    <nav class="site-nav" id="site-nav" aria-label="Main navigation" aria-hidden="true">
+      <div class="site-nav__overlay" data-nav-close tabindex="-1" aria-hidden="true"></div>
+      <div
+        class="site-nav__panel"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="site-nav-heading"
+      >
+        <header class="site-nav__header">
+          <p id="site-nav-heading" class="site-nav__title">Menu</p>
+          <button type="button" class="site-nav__close" data-nav-close aria-label="Close menu">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </header>
+        <ul class="site-nav__list">
+          <li><a href="{{ link_root }}#hero" class="site-nav__link"{% if use_scroll %} data-scroll-link{% endif %}>Home</a></li>
+          <li><a href="{{ link_root }}#shop" class="site-nav__link"{% if use_scroll %} data-scroll-link{% endif %}>Shop</a></li>
+          <li><a href="{{ link_root }}#cherry-whip" class="site-nav__link"{% if use_scroll %} data-scroll-link{% endif %}>Cherry Whip</a></li>
+          <li><a href="{{ link_root }}#brand-story" class="site-nav__link"{% if use_scroll %} data-scroll-link{% endif %}>About</a></li>
+          <li><a href="{{ link_root }}#benefits" class="site-nav__link"{% if use_scroll %} data-scroll-link{% endif %}>Benefits</a></li>
+          <li><a href="{{ link_root }}#stockists" class="site-nav__link"{% if use_scroll %} data-scroll-link{% endif %}>Stockists</a></li>
+          <li><a href="{{ link_root }}#instagram" class="site-nav__link"{% if use_scroll %} data-scroll-link{% endif %}>Instagram</a></li>
+          <li><a href="{{ link_root }}#contact" class="site-nav__link"{% if use_scroll %} data-scroll-link{% endif %}>Contact</a></li>
+        </ul>
+        <a href="{{ link_root }}#shop" class="btn btn--primary site-nav__cta"{% if use_scroll %} data-scroll-link{% endif %}>Shop now</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    {{ content_for_layout }}
+  </main>
+
+  {% render 'cart-drawer' %}
+
+  {{ 'theme.js' | asset_url | script_tag }}
+</body>
+</html>

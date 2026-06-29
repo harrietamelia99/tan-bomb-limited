@@ -1,0 +1,100 @@
+<section
+  id="brand-story"
+  class="section section--brand-story fade-in texture-marble{% if section.settings.image_position == 'left' %} section--brand-story--image-left{% endif %}"
+>
+  <div class="container section--brand-story__inner">
+    <div class="section--brand-story__content">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="section__heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.pull_quote != blank -%}
+        <blockquote class="section--brand-story__pull-quote">
+          <p><em>{{ section.settings.pull_quote }}</em></p>
+        </blockquote>
+      {%- endif -%}
+
+      {%- if section.settings.body != blank -%}
+        <div class="section--brand-story__body rte">
+          {{ section.settings.body }}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="section--brand-story__media">
+      {%- if section.settings.image != blank -%}
+        <img
+          src="{{ section.settings.image | image_url: width: 800 }}"
+          srcset="
+            {{ section.settings.image | image_url: width: 400 }} 400w,
+            {{ section.settings.image | image_url: width: 600 }} 600w,
+            {{ section.settings.image | image_url: width: 800 }} 800w
+          "
+          sizes="(max-width: 767px) 90vw, 40vw"
+          alt="{{ section.settings.image.alt | default: 'Hand holding Cherry Whip tanning accelerator sachet in a salon' }}"
+          width="800"
+          height="1000"
+          loading="lazy"
+          class="section--brand-story__image"
+        >
+      {%- else -%}
+        <img
+          src="{{ 'brand-story.png' | asset_url }}"
+          alt="Hand holding Cherry Whip tanning accelerator sachet in a salon"
+          width="768"
+          height="1024"
+          loading="lazy"
+          class="section--brand-story__image section--brand-story__image--default"
+        >
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Brand story",
+  "tag": "section",
+  "class": "section-brand-story",
+  "settings": [
+    {
+      "type": "html",
+      "id": "heading",
+      "label": "Heading",
+      "default": "We <em>built this</em> because tanners and salons deserved better <span aria-hidden=\"true\">❤️</span>"
+    },
+    {
+      "type": "text",
+      "id": "pull_quote",
+      "label": "Pull quote",
+      "default": "For your skin. For your shelf."
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Body",
+      "default": "<p>We're sunbed salon owners who got tired of stocking products we wouldn't use ourselves. After years on the salon floor, we saw the gap: a premium tanning accelerator that looked luxury, felt modern, and was built for the UK market.</p><p>Tan Bomb is the result. Something we're proud to use ourselves, stock on our shelves, and put in our customers' hands.</p><p>L-Tyrosine, Hyaluronic Acid, Aloe Vera, Vitamin E and Marine Algae Extract. Use it indoors. Use it out. Use it all year. <span aria-hidden=\"true\">❤️</span></p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image position",
+      "options": [
+        { "value": "right", "label": "Right" },
+        { "value": "left", "label": "Left" }
+      ],
+      "default": "right"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand story"
+    }
+  ]
+}
+{% endschema %}

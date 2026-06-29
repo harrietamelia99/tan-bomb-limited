@@ -1,0 +1,46 @@
+{%- comment -%}
+  Accepted payment method icons.
+  Uses Shopify checkout types when available; falls back to bundled SVG assets for preview.
+{%- endcomment -%}
+
+{%- liquid
+  assign payment_types = shop.enabled_payment_types
+  if payment_types == blank or payment_types.size == 0
+    assign payment_types = 'visa,master,american_express,apple_pay,google_pay,paypal,shopify_pay' | split: ','
+    assign use_fallback = true
+  else
+    assign use_fallback = false
+  endif
+-%}
+
+<div class="payment-icons">
+  <p class="payment-icons__label visually-hidden">Accepted payment methods</p>
+  <ul class="payment-icons__list" role="list">
+    {%- for type in payment_types -%}
+      <li class="payment-icons__item">
+        {%- if use_fallback -%}
+          {%- case type -%}
+            {%- when 'visa' -%}
+              <img src="{{ 'payment-visa.svg' | asset_url }}" alt="Visa" class="payment-icons__icon" width="38" height="24" loading="lazy">
+            {%- when 'master' -%}
+              <img src="{{ 'payment-mastercard.svg' | asset_url }}" alt="Mastercard" class="payment-icons__icon" width="38" height="24" loading="lazy">
+            {%- when 'american_express' -%}
+              <img src="{{ 'payment-amex.svg' | asset_url }}" alt="American Express" class="payment-icons__icon" width="38" height="24" loading="lazy">
+            {%- when 'apple_pay' -%}
+              <img src="{{ 'payment-apple-pay.svg' | asset_url }}" alt="Apple Pay" class="payment-icons__icon" width="38" height="24" loading="lazy">
+            {%- when 'google_pay' -%}
+              <img src="{{ 'payment-google-pay.svg' | asset_url }}" alt="Google Pay" class="payment-icons__icon" width="38" height="24" loading="lazy">
+            {%- when 'paypal' -%}
+              <img src="{{ 'payment-paypal.svg' | asset_url }}" alt="PayPal" class="payment-icons__icon" width="38" height="24" loading="lazy">
+            {%- when 'shopify_pay' -%}
+              <img src="{{ 'payment-shop-pay.svg' | asset_url }}" alt="Shop Pay" class="payment-icons__icon" width="38" height="24" loading="lazy">
+            {%- else -%}
+              <span class="payment-icons__fallback">{{ type | replace: '_', ' ' | upcase }}</span>
+          {%- endcase -%}
+        {%- else -%}
+          {{ type | payment_type_svg_tag: class: 'payment-icons__icon' }}
+        {%- endif -%}
+      </li>
+    {%- endfor -%}
+  </ul>
+</div>

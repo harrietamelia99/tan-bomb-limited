@@ -1,0 +1,138 @@
+<section id="cherry-whip" class="section section--cherry-whip fade-in">
+  <div class="cherry-whip__details texture-satin">
+    <div class="container cherry-whip__details-inner">
+      <div class="cherry-whip__showcase">
+        {%- if section.settings.show_image -%}
+          <div class="cherry-whip__visual">
+            <div class="cherry-whip__image-frame">
+              {%- if section.settings.image != blank -%}
+                <img
+                  src="{{ section.settings.image | image_url: width: 900 }}"
+                  srcset="
+                    {{ section.settings.image | image_url: width: 500 }} 500w,
+                    {{ section.settings.image | image_url: width: 700 }} 700w,
+                    {{ section.settings.image | image_url: width: 900 }} 900w
+                  "
+                  sizes="(min-width: 768px) 38vw, 78vw"
+                  alt="{{ section.settings.image.alt | default: section.settings.product_name | strip_html | default: 'Cherry Whip' }}"
+                  width="699"
+                  height="928"
+                  loading="lazy"
+                  class="cherry-whip__visual-image"
+                >
+              {%- else -%}
+                <img
+                  src="{{ 'cherry-whip-salon.jpg' | asset_url }}"
+                  alt="Cherry Whip tanning accelerator held in a tanning salon"
+                  width="768"
+                  height="1024"
+                  loading="lazy"
+                  class="cherry-whip__visual-image"
+                >
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endif -%}
+
+        <div class="cherry-whip__content">
+          {%- if section.settings.eyebrow != blank -%}
+            <p class="cherry-whip__eyebrow">{{ section.settings.eyebrow }}</p>
+          {%- endif -%}
+
+          {%- if section.settings.product_name != blank -%}
+            <h2 class="cherry-whip__product-name">{{ section.settings.product_name }}</h2>
+          {%- endif -%}
+
+          {%- if section.settings.body != blank -%}
+            <div class="cherry-whip__body rte">{{ section.settings.body }}</div>
+          {%- endif -%}
+
+          {%- if section.settings.show_ingredients -%}
+            <p class="ingredients-list">
+              {%- assign ingredients = 'L-Tyrosine|Hyaluronic Acid|Aloe Vera|Vitamin E|Marine Algae Extract' | split: '|' -%}
+              {%- for ingredient in ingredients -%}
+                {%- unless forloop.first -%}<span class="ingredients-list__sep" aria-hidden="true">·</span>{%- endunless -%}
+                <span class="ingredients-list__item">{{ ingredient }}</span>
+              {%- endfor -%}
+            </p>
+          {%- endif -%}
+
+          {%- assign cta_href = section.settings.cta_url | default: '#shop' -%}
+          <div class="cherry-whip__actions">
+            <a
+              href="{{ cta_href }}"
+              class="btn btn--primary"
+              {% if cta_href contains '#' %}data-scroll-link{% endif %}
+            >
+              {{ section.settings.cta_label | default: 'Shop Cherry Whip' }}
+            </a>
+          </div>
+
+          {% render 'spf-disclaimer' %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Cherry Whip",
+  "tag": "section",
+  "class": "section-cherry-whip",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "The formula"
+    },
+    {
+      "type": "html",
+      "id": "product_name",
+      "label": "Product name",
+      "default": "Cherry Whip"
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Body",
+      "default": "<p>Use it on the sunbed. Use it outdoors. Use it at home or recommend it to clients. Formulated with L-Tyrosine, Hyaluronic Acid, Aloe Vera, Vitamin E and Marine Algae Extract, because great skin and a great tan should go together.</p>"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_image",
+      "label": "Show product image",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Product image (optional, falls back to theme asset)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_ingredients",
+      "label": "Show ingredients list",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "CTA label",
+      "default": "Shop Cherry Whip"
+    },
+    {
+      "type": "text",
+      "id": "cta_url",
+      "label": "CTA URL",
+      "default": "#shop"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Cherry Whip"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,42 @@
+<section id="product-details" class="section section--product-details fade-in texture-satin">
+  <div class="container section--product-details__inner">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="section__heading">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+
+    {%- if section.settings.body != blank -%}
+      <div class="section--product-details__body rte">
+        {{ section.settings.body }}
+      </div>
+    {%- endif -%}
+
+    {% render 'spf-disclaimer' %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product details",
+  "tag": "section",
+  "class": "section-product-details",
+  "settings": [
+    {
+      "type": "html",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Works indoors. Works outdoors. Works <em>on you</em>. <span aria-hidden=\"true\">🍒</span>"
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Body",
+      "default": "<p>All year round. All skin types. Sunbed or sunshine, Tan Bomb fits your routine, whether you're tanning for yourself or recommending it in salon. A luxurious accelerator formula that supports a deeper-looking tan while keeping skin feeling hydrated, smooth and nourished.</p>"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product details"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,354 @@
+<section id="stockists" class="section section--stockists fade-in">
+  <div class="container section--stockists__inner">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="section__heading">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+
+    {%- if section.settings.subheading != blank -%}
+      <p class="section--stockists__subheading lead">{{ section.settings.subheading }}</p>
+    {%- endif -%}
+
+    <div class="section--stockists__actions">
+      <a href="#contact" class="btn btn--primary" data-scroll-link>
+        {{ section.settings.cta_label | default: 'Enquire about wholesale' }}
+      </a>
+    </div>
+
+    {%- if section.settings.secondary_line != blank -%}
+      <p class="section--stockists__secondary">{{ section.settings.secondary_line }}</p>
+    {%- endif -%}
+
+    <div
+      class="stockist-locator"
+      data-stockist-locator
+      data-default-radius="{{ section.settings.default_radius | default: 25 }}"
+    >
+      <form class="stockist-locator__search" data-stockist-search novalidate>
+        <div class="stockist-locator__search-field">
+          <label class="visually-hidden" for="StockistSearch-{{ section.id }}">Postcode or town</label>
+          <input
+            type="search"
+            id="StockistSearch-{{ section.id }}"
+            class="stockist-locator__input"
+            name="q"
+            placeholder="{{ section.settings.search_placeholder | default: 'Enter postcode or town' }}"
+            autocomplete="postal-code"
+            data-stockist-query
+          >
+        </div>
+        <div class="stockist-locator__search-field stockist-locator__search-field--radius">
+          <label class="visually-hidden" for="StockistRadius-{{ section.id }}">Search radius</label>
+          <select id="StockistRadius-{{ section.id }}" class="stockist-locator__select" data-stockist-radius>
+            <option value="10"{% if section.settings.default_radius == 10 %} selected{% endif %}>10 miles</option>
+            <option value="25"{% if section.settings.default_radius == 25 or section.settings.default_radius == blank %} selected{% endif %}>25 miles</option>
+            <option value="50"{% if section.settings.default_radius == 50 %} selected{% endif %}>50 miles</option>
+            <option value="100"{% if section.settings.default_radius == 100 %} selected{% endif %}>100 miles</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn--primary stockist-locator__submit">Find stockists</button>
+      </form>
+
+      <p class="stockist-locator__status" data-stockist-status aria-live="polite">
+        {%- if section.blocks.size > 0 -%}
+          Showing {{ section.blocks.size }} stockist{% if section.blocks.size != 1 %}s{% endif %} near you
+        {%- else -%}
+          No stockists added yet
+        {%- endif -%}
+      </p>
+
+      <div class="stockist-locator__layout">
+        <div class="stockist-locator__results" data-stockist-results>
+          {%- if section.blocks.size > 0 -%}
+            <ul class="stockist-locator__list" role="list">
+              {%- for block in section.blocks -%}
+                {%- if block.type == 'stockist' -%}
+                  <li
+                    class="stockist-locator__item{% if forloop.first %} is-active{% endif %}"
+                    data-stockist-item
+                    data-stockist-id="{{ block.id }}"
+                    data-lat="{{ block.settings.latitude }}"
+                    data-lng="{{ block.settings.longitude }}"
+                    {{ block.shopify_attributes }}
+                  >
+                    <button type="button" class="stockist-locator__item-btn" data-stockist-select>
+                      <span class="stockist-locator__item-head">
+                        <span class="stockist-locator__name">{{ block.settings.name }}</span>
+                        <span class="stockist-locator__distance" data-stockist-distance>—</span>
+                      </span>
+                      <span class="stockist-locator__address">
+                        {%- if block.settings.address != blank -%}
+                          {{ block.settings.address }}<br>
+                        {%- endif -%}
+                        {{ block.settings.city }}{% if block.settings.postcode != blank %}, {{ block.settings.postcode }}{% endif %}
+                      </span>
+                      {%- if block.settings.products != blank -%}
+                        <span class="stockist-locator__badge">{{ block.settings.products }}</span>
+                      {%- endif -%}
+                    </button>
+                    <div class="stockist-locator__item-actions">
+                      {%- if block.settings.phone != blank -%}
+                        <a href="tel:{{ block.settings.phone | replace: ' ', '' }}" class="stockist-locator__link">
+                          {{ block.settings.phone }}
+                        </a>
+                      {%- endif -%}
+                      {%- if block.settings.maps_url != blank -%}
+                        <a
+                          href="{{ block.settings.maps_url }}"
+                          class="stockist-locator__link stockist-locator__link--directions"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Get directions
+                        </a>
+                      {%- endif -%}
+                    </div>
+                  </li>
+                {%- endif -%}
+              {%- endfor -%}
+            </ul>
+          {%- else -%}
+            <div class="stockist-locator__empty">
+              <p>Add stockist blocks in the theme editor to populate the locator.</p>
+            </div>
+          {%- endif -%}
+
+          <p class="stockist-locator__empty stockist-locator__empty--search" data-stockist-empty hidden>
+            No stockists found within that radius. Try widening your search or <a href="#contact" data-scroll-link>get in touch</a> and we'll help.
+          </p>
+        </div>
+
+        <div class="stockist-locator__map-panel" aria-hidden="false">
+          <div class="stockist-locator__map" data-stockist-map>
+            <div class="stockist-locator__map-canvas">
+              {% render 'uk-map-svg' %}
+              <div class="stockist-locator__pins" data-stockist-pins>
+                {%- for block in section.blocks -%}
+                  {%- if block.type == 'stockist' -%}
+                    <button
+                      type="button"
+                      class="stockist-locator__pin{% if forloop.first %} is-active{% endif %}"
+                      data-stockist-pin
+                      data-stockist-id="{{ block.id }}"
+                      data-lat="{{ block.settings.latitude }}"
+                      data-lng="{{ block.settings.longitude }}"
+                      aria-label="{{ block.settings.name }}"
+                      style="--pin-x: 50%; --pin-y: 50%;"
+                    >
+                      <span class="stockist-locator__pin-dot" aria-hidden="true"></span>
+                    </button>
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+              <div class="stockist-locator__map-user" data-stockist-user-pin hidden aria-hidden="true">
+                <span class="stockist-locator__user-dot"></span>
+              </div>
+            </div>
+            <p class="stockist-locator__map-caption">Map preview — locations shown for demonstration</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Stockists",
+  "tag": "section",
+  "class": "section-stockists",
+  "settings": [
+    {
+      "type": "html",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Want Tan Bomb in <em>your</em> salon?"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "We work with tanning salons and distributors across the UK. Wholesale pricing, retail-ready packaging, and a product your customers will actually ask for."
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "CTA label",
+      "default": "Enquire about wholesale"
+    },
+    {
+      "type": "text",
+      "id": "secondary_line",
+      "label": "Secondary line",
+      "default": "Buying for yourself or your salon? Find your nearest stockist below."
+    },
+    {
+      "type": "text",
+      "id": "search_placeholder",
+      "label": "Search placeholder",
+      "default": "Enter postcode or town"
+    },
+    {
+      "type": "range",
+      "id": "default_radius",
+      "label": "Default search radius (miles)",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "default": 25
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stockist",
+      "name": "Stockist",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Salon name",
+          "default": "Stockist name"
+        },
+        {
+          "type": "textarea",
+          "id": "address",
+          "label": "Street address",
+          "default": "12 High Street"
+        },
+        {
+          "type": "text",
+          "id": "city",
+          "label": "City",
+          "default": "Manchester"
+        },
+        {
+          "type": "text",
+          "id": "postcode",
+          "label": "Postcode",
+          "default": "M1 4AB"
+        },
+        {
+          "type": "text",
+          "id": "phone",
+          "label": "Phone",
+          "default": "0161 123 4567"
+        },
+        {
+          "type": "text",
+          "id": "products",
+          "label": "Products badge",
+          "default": "Cherry Whip in stock",
+          "info": "Short label shown on the listing, e.g. product availability"
+        },
+        {
+          "type": "text",
+          "id": "latitude",
+          "label": "Latitude",
+          "default": "53.4808"
+        },
+        {
+          "type": "text",
+          "id": "longitude",
+          "label": "Longitude",
+          "default": "-2.2426"
+        },
+        {
+          "type": "url",
+          "id": "maps_url",
+          "label": "Directions link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Stockists",
+      "blocks": [
+        {
+          "type": "stockist",
+          "settings": {
+            "name": "Glow House Tanning",
+            "address": "42 Deansgate",
+            "city": "Manchester",
+            "postcode": "M3 2BW",
+            "phone": "0161 834 2290",
+            "products": "Cherry Whip in stock",
+            "latitude": "53.4808",
+            "longitude": "-2.2426",
+            "maps_url": "https://maps.google.com/?q=Deansgate+Manchester"
+          }
+        },
+        {
+          "type": "stockist",
+          "settings": {
+            "name": "Bronze Boulevard",
+            "address": "8 Briggate",
+            "city": "Leeds",
+            "postcode": "LS1 6NU",
+            "phone": "0113 496 1182",
+            "products": "Cherry Whip in stock",
+            "latitude": "53.7997",
+            "longitude": "-1.5492",
+            "maps_url": "https://maps.google.com/?q=Briggate+Leeds"
+          }
+        },
+        {
+          "type": "stockist",
+          "settings": {
+            "name": "Sunbed Society",
+            "address": "19 New Street",
+            "city": "Birmingham",
+            "postcode": "B2 4QA",
+            "phone": "0121 643 7701",
+            "products": "Cherry Whip in stock",
+            "latitude": "52.4862",
+            "longitude": "-1.8904",
+            "maps_url": "https://maps.google.com/?q=New+Street+Birmingham"
+          }
+        },
+        {
+          "type": "stockist",
+          "settings": {
+            "name": "The Tan Room",
+            "address": "27 Park Street",
+            "city": "Bristol",
+            "postcode": "BS1 5JA",
+            "phone": "0117 927 4410",
+            "products": "Cherry Whip in stock",
+            "latitude": "51.4545",
+            "longitude": "-2.5879",
+            "maps_url": "https://maps.google.com/?q=Park+Street+Bristol"
+          }
+        },
+        {
+          "type": "stockist",
+          "settings": {
+            "name": "Golden Hour Lounge",
+            "address": "64 Kings Road",
+            "city": "London",
+            "postcode": "SW3 4UD",
+            "phone": "020 7352 8894",
+            "products": "Cherry Whip in stock",
+            "latitude": "51.4875",
+            "longitude": "-0.1687",
+            "maps_url": "https://maps.google.com/?q=Kings+Road+London"
+          }
+        },
+        {
+          "type": "stockist",
+          "settings": {
+            "name": "Highland Glow",
+            "address": "3 George Street",
+            "city": "Edinburgh",
+            "postcode": "EH2 2PA",
+            "phone": "0131 225 6618",
+            "products": "Cherry Whip in stock",
+            "latitude": "55.9533",
+            "longitude": "-3.1883",
+            "maps_url": "https://maps.google.com/?q=George+Street+Edinburgh"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,305 @@
+<section id="instagram" class="section section--instagram fade-in texture-satin">
+  <div class="container section--instagram__inner">
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="section--instagram__eyebrow">{{ section.settings.eyebrow }}</p>
+    {%- endif -%}
+
+    {%- if section.settings.heading != blank -%}
+      <h2 class="section__heading text-center">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+
+    {%- if section.settings.subheading != blank -%}
+      <p class="section--instagram__subheading lead text-center">{{ section.settings.subheading }}</p>
+    {%- endif -%}
+
+    {%- if section.settings.handle != blank -%}
+      <p class="section--instagram__handle text-center">
+        {%- if section.settings.profile_url != blank -%}
+          <a href="{{ section.settings.profile_url }}" target="_blank" rel="noopener noreferrer">@{{ section.settings.handle | remove: '@' }}</a>
+        {%- else -%}
+          @{{ section.settings.handle | remove: '@' }}
+        {%- endif -%}
+      </p>
+    {%- endif -%}
+
+    <hr class="gold-divider section--instagram__divider" aria-hidden="true">
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="instagram-grid">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            case forloop.index
+              when 1
+                assign fallback_asset = 'instagram-1.png'
+                assign fallback_alt = 'Cherry Whip teaser, Something is coming'
+              when 2
+                assign fallback_asset = 'instagram-2.png'
+                assign fallback_alt = 'Cherry Whip with fresh cherries on marble'
+              when 3
+                assign fallback_asset = 'instagram-3.png'
+                assign fallback_alt = 'Cherry Whip promotional shot, You are not ready for this'
+              else
+                assign fallback_asset = 'instagram-1.png'
+                assign fallback_alt = 'Tan Bomb on Instagram'
+            endcase
+          -%}
+
+          <div class="instagram-grid__item" {{ block.shopify_attributes }}>
+            {%- if block.settings.image != blank -%}
+              {%- capture image_alt -%}
+                {{- block.settings.alt | default: block.settings.image.alt | default: 'Tan Bomb on Instagram' -}}
+              {%- endcapture -%}
+
+              {%- if block.settings.link != blank -%}
+                <a
+                  href="{{ block.settings.link }}"
+                  class="instagram-grid__link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="{{ image_alt | escape }}"
+                >
+                  <img
+                    src="{{ block.settings.image | image_url: width: 800 }}"
+                    srcset="
+                      {{ block.settings.image | image_url: width: 400 }} 400w,
+                      {{ block.settings.image | image_url: width: 800 }} 800w
+                    "
+                    sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                    alt="{{ image_alt | escape }}"
+                    width="819"
+                    height="1024"
+                    loading="lazy"
+                    class="instagram-grid__image"
+                  >
+                </a>
+              {%- elsif section.settings.profile_url != blank -%}
+                <a
+                  href="{{ section.settings.profile_url }}"
+                  class="instagram-grid__link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="{{ image_alt | escape }}"
+                >
+                  <img
+                    src="{{ block.settings.image | image_url: width: 800 }}"
+                    srcset="
+                      {{ block.settings.image | image_url: width: 400 }} 400w,
+                      {{ block.settings.image | image_url: width: 800 }} 800w
+                    "
+                    sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                    alt="{{ image_alt | escape }}"
+                    width="819"
+                    height="1024"
+                    loading="lazy"
+                    class="instagram-grid__image"
+                  >
+                </a>
+              {%- else -%}
+                <div class="instagram-grid__link">
+                  <img
+                    src="{{ block.settings.image | image_url: width: 800 }}"
+                    srcset="
+                      {{ block.settings.image | image_url: width: 400 }} 400w,
+                      {{ block.settings.image | image_url: width: 800 }} 800w
+                    "
+                    sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                    alt="{{ image_alt | escape }}"
+                    width="819"
+                    height="1024"
+                    loading="lazy"
+                    class="instagram-grid__image"
+                  >
+                </div>
+              {%- endif -%}
+            {%- else -%}
+              {%- assign image_alt = block.settings.alt | default: fallback_alt -%}
+
+              {%- if block.settings.link != blank -%}
+                <a
+                  href="{{ block.settings.link }}"
+                  class="instagram-grid__link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="{{ image_alt | escape }}"
+                >
+                  <img
+                    src="{{ fallback_asset | asset_url }}"
+                    alt="{{ image_alt | escape }}"
+                    width="819"
+                    height="1024"
+                    loading="lazy"
+                    class="instagram-grid__image"
+                  >
+                </a>
+              {%- elsif section.settings.profile_url != blank -%}
+                <a
+                  href="{{ section.settings.profile_url }}"
+                  class="instagram-grid__link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="{{ image_alt | escape }}"
+                >
+                  <img
+                    src="{{ fallback_asset | asset_url }}"
+                    alt="{{ image_alt | escape }}"
+                    width="819"
+                    height="1024"
+                    loading="lazy"
+                    class="instagram-grid__image"
+                  >
+                </a>
+              {%- else -%}
+                <div class="instagram-grid__link">
+                  <img
+                    src="{{ fallback_asset | asset_url }}"
+                    alt="{{ image_alt | escape }}"
+                    width="819"
+                    height="1024"
+                    loading="lazy"
+                    class="instagram-grid__image"
+                  >
+                </div>
+              {%- endif -%}
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      <div class="instagram-grid">
+        {%- assign default_instagram_photos = 'instagram-1.png|instagram-2.png|instagram-3.png' | split: '|' -%}
+        {%- assign default_instagram_alts = 'Cherry Whip teaser, Something is coming|Cherry Whip with fresh cherries on marble|Cherry Whip promotional shot, You are not ready for this' | split: '|' -%}
+        {%- for asset in default_instagram_photos -%}
+          <div class="instagram-grid__item">
+            {%- assign image_alt = default_instagram_alts[forloop.index0] -%}
+            {%- if section.settings.profile_url != blank -%}
+              <a
+                href="{{ section.settings.profile_url }}"
+                class="instagram-grid__link"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="{{ image_alt | escape }}"
+              >
+                <img
+                  src="{{ asset | asset_url }}"
+                  alt="{{ image_alt | escape }}"
+                  width="819"
+                  height="1024"
+                  loading="lazy"
+                  class="instagram-grid__image"
+                >
+              </a>
+            {%- else -%}
+              <div class="instagram-grid__link">
+                <img
+                  src="{{ asset | asset_url }}"
+                  alt="{{ image_alt | escape }}"
+                  width="819"
+                  height="1024"
+                  loading="lazy"
+                  class="instagram-grid__image"
+                >
+              </div>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.show_follow_button and section.settings.profile_url != blank -%}
+      <div class="section--instagram__actions">
+        <a
+          href="{{ section.settings.profile_url }}"
+          class="btn btn--outline-light"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {{ section.settings.follow_label | default: 'Follow on Instagram' }}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Instagram",
+  "tag": "section",
+  "class": "section-instagram",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "On Instagram"
+    },
+    {
+      "type": "html",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Tan so good we had to post it <span aria-hidden=\"true\">🍒</span>"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Tan life, salon shelves, new drops and moments worth sharing."
+    },
+    {
+      "type": "text",
+      "id": "handle",
+      "label": "Instagram handle",
+      "default": "tanbombltd"
+    },
+    {
+      "type": "url",
+      "id": "profile_url",
+      "label": "Instagram profile URL"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_follow_button",
+      "label": "Show follow button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "follow_label",
+      "label": "Follow button label",
+      "default": "Follow on Instagram"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "photo",
+      "name": "Photo",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "alt",
+          "label": "Image description (accessibility)"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link (optional, e.g. Instagram post URL)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Instagram",
+      "blocks": [
+        { "type": "photo" },
+        { "type": "photo" },
+        { "type": "photo" }
+      ]
+    }
+  ]
+}
+{% endschema %}

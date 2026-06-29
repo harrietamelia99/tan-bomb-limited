@@ -1,0 +1,143 @@
+{%- comment -%}
+  Renders a product card with add-to-cart form.
+  Accepts:
+  - product: {Product}
+  - show_description: {Boolean} optional
+  - featured: {Boolean} optional, horizontal featured layout
+{%- endcomment -%}
+
+{%- if product == blank -%}
+  <article class="product-card product-card--placeholder{% if featured %} product-card--featured{% endif %}">
+    <div class="product-card__media">
+      <img
+        src="{{ 'cherry-whip-product.png' | asset_url }}"
+        alt="Cherry Whip tanning accelerator on salon shelf"
+        width="699"
+        height="928"
+        loading="lazy"
+        class="product-card__image product-card__image--product"
+      >
+    </div>
+    <div class="product-card__body">
+      <h3 class="product-card__title">Cherry Whip</h3>
+      <p class="product-card__price">£24.00</p>
+      {%- if show_description -%}
+        <p class="product-card__description">Connect your Shopify store and assign products in the theme editor.</p>
+      {%- endif -%}
+      <button type="button" class="btn btn--primary btn--full" disabled>Add to cart</button>
+    </div>
+  </article>
+{%- else -%}
+  {%- assign current_variant = product.selected_or_first_available_variant -%}
+  {%- assign description_limit = 160 -%}
+  {%- if featured -%}
+    {%- assign description_limit = 320 -%}
+  {%- endif -%}
+  <article class="product-card{% if featured %} product-card--featured{% endif %}" data-product-card>
+    <a href="{{ product.url }}" class="product-card__media">
+      {%- if product.featured_image != blank -%}
+        <img
+          src="{{ product.featured_image | image_url: width: 1200 }}"
+          srcset="
+            {{ product.featured_image | image_url: width: 600 }} 600w,
+            {{ product.featured_image | image_url: width: 900 }} 900w,
+            {{ product.featured_image | image_url: width: 1200 }} 1200w
+          "
+          sizes="{% if featured %}(min-width: 768px) 50vw, 100vw{% else %}(min-width: 768px) 33vw, 100vw{% endif %}"
+          alt="{{ product.featured_image.alt | default: product.title | escape }}"
+          width="1200"
+          height="1200"
+          loading="lazy"
+          class="product-card__image"
+        >
+      {%- else -%}
+        <img
+          src="{{ 'cherry-whip-product.png' | asset_url }}"
+          alt="{{ product.title | escape }}"
+          width="699"
+          height="928"
+          loading="lazy"
+          class="product-card__image product-card__image--product"
+        >
+      {%- endif -%}
+    </a>
+
+    <div class="product-card__body">
+      <h3 class="product-card__title">
+        <a href="{{ product.url }}">{{ product.title }}</a>
+      </h3>
+
+      <p class="product-card__price" data-product-price>
+        {%- if product.price_varies -%}
+          From {{ product.price_min | money }}
+        {%- else -%}
+          {{ product.price | money }}
+        {%- endif -%}
+      </p>
+
+      {%- if show_description and product.description != blank -%}
+        <div class="product-card__description rte">
+          {{ product.description | strip_html | truncate: description_limit }}
+        </div>
+      {%- endif -%}
+
+      {%- form 'product', product, class: 'product-card__form', data-product-form: '' -%}
+        {%- if product.has_only_default_variant -%}
+          <input type="hidden" name="id" value="{{ current_variant.id }}">
+        {%- else -%}
+          <div class="form-field product-card__variant">
+            <label class="visually-hidden" for="variant-{{ product.id }}-{{ section.id }}">Option</label>
+            <select
+              id="variant-{{ product.id }}-{{ section.id }}"
+              name="id"
+              class="product-card__variant-select"
+              data-variant-select
+            >
+              {%- for variant in product.variants -%}
+                <option
+                  value="{{ variant.id }}"
+                  {% if variant == current_variant %}selected{% endif %}
+                  {% unless variant.available %}disabled{% endunless %}
+                >
+                  {{ variant.title }}
+                  {%- unless variant.available %} (sold out){% endunless -%}
+                  — {{ variant.price | money }}
+                </option>
+              {%- endfor -%}
+            </select>
+          </div>
+        {%- endif -%}
+
+        <div class="product-card__quantity">
+          <label class="visually-hidden" for="qty-{{ product.id }}-{{ section.id }}">Quantity</label>
+          <div class="quantity-input">
+            <button type="button" class="quantity-input__btn" data-qty-minus aria-label="Decrease quantity">−</button>
+            <input
+              type="number"
+              id="qty-{{ product.id }}-{{ section.id }}"
+              name="quantity"
+              class="quantity-input__field"
+              value="1"
+              min="1"
+              inputmode="numeric"
+            >
+            <button type="button" class="quantity-input__btn" data-qty-plus aria-label="Increase quantity">+</button>
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          class="btn btn--primary{% unless featured %} btn--full{% endunless %}"
+          data-add-to-cart
+          {% unless current_variant.available %}disabled{% endunless %}
+        >
+          {%- if current_variant.available -%}
+            Add to cart
+          {%- else -%}
+            Sold out
+          {%- endif -%}
+        </button>
+      {%- endform -%}
+    </div>
+  </article>
+{%- endif -%}

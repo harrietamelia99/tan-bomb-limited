@@ -1,0 +1,28 @@
+{%- liquid
+  assign logo_alt = settings.logo_text | default: shop.name
+  assign logo_image = settings.logo
+
+  if override != blank
+    assign logo_image = override
+  endif
+-%}
+
+{%- if logo_image != blank -%}
+  <img
+    src="{{ logo_image | image_url: width: 400 }}"
+    alt="{{ logo_alt }}"
+    width="160"
+    height="160"
+    {% if context == 'header' %}loading="eager"{% elsif context == 'splash' %}loading="eager"{% else %}loading="lazy"{% endif %}
+    class="site-logo__img{% if context == 'header' %} site-logo__img--header{% endif %}{% if context == 'footer' %} site-logo__img--footer{% endif %}{% if context == 'splash' %} site-logo__img--splash{% endif %}"
+  >
+{%- else -%}
+  <img
+    src="{{ 'logo.png' | asset_url }}"
+    alt="{{ logo_alt }}"
+    width="160"
+    height="160"
+    {% if context == 'header' %}loading="eager"{% elsif context == 'splash' %}loading="eager"{% else %}loading="lazy"{% endif %}
+    class="site-logo__img{% if context == 'header' %} site-logo__img--header{% endif %}{% if context == 'footer' %} site-logo__img--footer{% endif %}{% if context == 'splash' %} site-logo__img--splash{% endif %}"
+  >
+{%- endif -%}

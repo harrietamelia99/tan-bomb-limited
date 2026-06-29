@@ -1,0 +1,149 @@
+<section id="shop" class="section section--shop fade-in texture-marble">
+  <div class="container section--shop__inner">
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="section--shop__eyebrow">{{ section.settings.eyebrow }}</p>
+    {%- endif -%}
+
+    {%- if section.settings.heading != blank -%}
+      <h2 class="section__heading text-center">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+
+    {%- if section.settings.subheading != blank -%}
+      <p class="section--shop__subheading lead text-center">{{ section.settings.subheading }}</p>
+    {%- endif -%}
+
+    <hr class="gold-divider section--shop__divider" aria-hidden="true">
+
+    {%- liquid
+      assign product_count = 0
+
+      if section.blocks.size > 0
+        for block in section.blocks
+          if block.type == 'product' and block.settings.product != blank
+            assign product_count = product_count | plus: 1
+          endif
+        endfor
+      elsif section.settings.collection != blank
+        for product in section.settings.collection.products limit: section.settings.products_limit
+          assign product_count = product_count | plus: 1
+        endfor
+      else
+        assign product_count = 1
+      endif
+
+      assign single_product_layout = false
+      if product_count == 1
+        assign single_product_layout = true
+      endif
+    -%}
+
+    <div class="shop-grid{% if single_product_layout %} shop-grid--single{% endif %}">
+      {%- assign has_products = false -%}
+
+      {%- if section.blocks.size > 0 -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'product' and block.settings.product != blank -%}
+            {%- assign has_products = true -%}
+            <div {{ block.shopify_attributes }}>
+              {% render 'product-card',
+                product: block.settings.product,
+                show_description: section.settings.show_descriptions,
+                featured: single_product_layout
+              %}
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      {%- elsif section.settings.collection != blank -%}
+        {%- for product in section.settings.collection.products limit: section.settings.products_limit -%}
+          {%- assign has_products = true -%}
+          {% render 'product-card',
+            product: product,
+            show_description: section.settings.show_descriptions,
+            featured: single_product_layout
+          %}
+        {%- endfor -%}
+      {%- endif -%}
+
+      {%- unless has_products -%}
+        {% render 'product-card',
+          product: blank,
+          show_description: true,
+          featured: true
+        %}
+      {%- endunless -%}
+    </div>
+
+    {% render 'spf-disclaimer' %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Shop",
+  "tag": "section",
+  "class": "section-shop",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "Shop Tan Bomb"
+    },
+    {
+      "type": "html",
+      "id": "heading",
+      "label": "Heading",
+      "default": "For your bag & your <em>shelf</em> <span aria-hidden=\"true\">🍒</span>"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Salon-quality tanning accelerator, shipped straight to you. Whether you're buying for yourself or your business, add to bag and checkout securely online."
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection (used when no product blocks are added)"
+    },
+    {
+      "type": "range",
+      "id": "products_limit",
+      "label": "Maximum products from collection",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 6
+    },
+    {
+      "type": "checkbox",
+      "id": "show_descriptions",
+      "label": "Show short product descriptions",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop",
+      "blocks": [
+        {
+          "type": "product"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

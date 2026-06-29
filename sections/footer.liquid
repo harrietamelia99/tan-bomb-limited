@@ -1,0 +1,113 @@
+<footer class="site-footer fade-in">
+  {%- liquid
+    if template.name == 'index'
+      assign use_scroll = true
+      assign link_root = ''
+    else
+      assign use_scroll = false
+      assign link_root = routes.root_url
+    endif
+  -%}
+  <div class="container site-footer__inner">
+    <div class="site-footer__brand">
+      <a href="{{ link_root }}#hero" class="site-footer__logo"{% if use_scroll %} data-scroll-link{% endif %}>
+        {% render 'logo', context: 'footer', override: section.settings.logo %}
+      </a>
+
+      {%- if section.settings.tagline != blank -%}
+        <p class="site-footer__tagline">{{ section.settings.tagline }}</p>
+      {%- endif -%}
+
+      <div class="site-footer__social">
+        {% render 'social-icons',
+          instagram_url: section.settings.instagram_url,
+          tiktok_url: section.settings.tiktok_url
+        %}
+      </div>
+    </div>
+
+    <nav class="site-footer__nav" aria-label="Footer navigation">
+      <ul class="site-footer__nav-list">
+        <li><a href="{{ link_root }}#shop"{% if use_scroll %} data-scroll-link{% endif %}>Shop</a></li>
+        <li><a href="{{ link_root }}#brand-story"{% if use_scroll %} data-scroll-link{% endif %}>About</a></li>
+        <li><a href="{{ link_root }}#stockists"{% if use_scroll %} data-scroll-link{% endif %}>Stockists</a></li>
+        <li><a href="{{ link_root }}#instagram"{% if use_scroll %} data-scroll-link{% endif %}>Instagram</a></li>
+        <li><a href="{{ link_root }}#contact"{% if use_scroll %} data-scroll-link{% endif %}>Contact</a></li>
+      </ul>
+    </nav>
+
+    {%- if section.settings.show_payment_icons -%}
+      <div class="site-footer__payments">
+        {% render 'payment-icons' %}
+      </div>
+    {%- endif -%}
+
+    <div class="site-footer__bottom">
+      <div class="site-footer__disclaimer">
+        {% render 'spf-disclaimer' %}
+      </div>
+
+      <div class="site-footer__meta">
+        <p class="site-footer__legal">
+          &copy; {{ 'now' | date: '%Y' }} Tan Bomb Ltd. All rights reserved.
+        </p>
+
+        {%- if section.settings.show_studio_credit -%}
+          <p class="site-footer__credit">
+            Made by <a href="{{ section.settings.studio_credit_url | default: 'https://collectivstudio.uk' }}" target="_blank" rel="noopener noreferrer">collectivstudio.uk</a>
+          </p>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "tag": "section",
+  "class": "section-footer",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Footer logo (optional, falls back to theme logo)"
+    },
+    {
+      "type": "html",
+      "id": "tagline",
+      "label": "Tagline",
+      "default": "Tan Bomb. For tanners and salons. <span aria-hidden=\"true\">🖤</span>"
+    },
+    {
+      "type": "text",
+      "id": "instagram_url",
+      "label": "Instagram URL",
+      "default": "https://instagram.com/tanbombltd"
+    },
+    {
+      "type": "text",
+      "id": "tiktok_url",
+      "label": "TikTok URL",
+      "default": "https://www.tiktok.com/@tanbombltd"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_studio_credit",
+      "label": "Show studio credit",
+      "default": true
+    },
+    {
+      "type": "url",
+      "id": "studio_credit_url",
+      "label": "Studio credit link",
+      "default": "https://collectivstudio.uk"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Footer"
+    }
+  ]
+}
+{% endschema %}

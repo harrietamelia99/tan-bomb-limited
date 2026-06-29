@@ -1,0 +1,18 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-cart",
+      "settings": {}
+    },
+    "footer": {
+      "type": "footer",
+      "settings": {
+        "tagline": "Tan Bomb. No compromises. <span aria-hidden=\"true\">🖤</span>"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "footer"
+  ]
+}

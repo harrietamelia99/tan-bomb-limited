@@ -1,0 +1,173 @@
+<section
+  id="hero"
+  class="section section--hero section--hero--immersive fade-in texture-dark"
+  style="--section-bg: {{ section.settings.bg_color | default: '#292624' }};"
+>
+  {%- if section.settings.image != blank -%}
+    <link
+      rel="preload"
+      as="image"
+      href="{{ section.settings.image | image_url: width: 1440 }}"
+    >
+  {%- else -%}
+    <link rel="preload" as="image" href="{{ 'hero-sachets.webp' | asset_url }}" type="image/webp">
+  {%- endif -%}
+
+  <div class="section--hero__media section--hero__media--immersive">
+    {%- if section.settings.image != blank -%}
+      <img
+        src="{{ section.settings.image | image_url: width: 1920 }}"
+        srcset="
+          {{ section.settings.image | image_url: width: 1200 }} 1200w,
+          {{ section.settings.image | image_url: width: 1920 }} 1920w,
+          {{ section.settings.image | image_url: width: 2560 }} 2560w
+        "
+        sizes="100vw"
+        alt="{{ section.settings.image.alt | default: section.settings.product_name | strip_html | default: 'Cherry Whip' }}"
+        width="2560"
+        height="1360"
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+        class="section--hero__image section--hero__image--immersive section--hero__image--faded"
+      >
+    {%- else -%}
+      <picture>
+        <source
+          type="image/webp"
+          srcset="{{ 'hero-sachets.webp' | asset_url }} 2560w"
+          sizes="100vw"
+        >
+        <img
+          src="{{ 'hero-sachets.jpg' | asset_url }}"
+          srcset="{{ 'hero-sachets.jpg' | asset_url }} 2560w"
+          sizes="100vw"
+          alt="Cherry Whip tanning accelerator sachets with cherries on a dark background"
+          width="2560"
+          height="1360"
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+          class="section--hero__image section--hero__image--immersive section--hero__image--faded section--hero__image--default"
+        >
+      </picture>
+    {%- endif -%}
+    <div class="section--hero__scrim section--hero__scrim--soft" aria-hidden="true"></div>
+  </div>
+
+  <div class="container section--hero__content section--hero__content--overlay">
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="section--hero__eyebrow">{{ section.settings.eyebrow }}</p>
+    {%- endif -%}
+
+    {%- if section.settings.product_name != blank or section.settings.heading != blank -%}
+      <h1 class="section--hero__heading">
+        {%- if section.settings.product_name != blank -%}
+          <span class="section--hero__product-name">{{ section.settings.product_name }}</span>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <span class="section--hero__tagline">{{ section.settings.heading }}</span>
+        {%- endif -%}
+      </h1>
+    {%- endif -%}
+
+    <hr class="gold-divider section--hero__divider" aria-hidden="true">
+
+    {%- if section.settings.subheading != blank -%}
+      <p class="section--hero__subheading lead">{{ section.settings.subheading }}</p>
+    {%- endif -%}
+
+    <div class="section--hero__actions">
+      {%- assign cta_href = section.settings.cta_url | default: '#shop' -%}
+      <a
+        href="{{ cta_href }}"
+        class="btn btn--primary"
+        {% if cta_href contains '#' %}data-scroll-link{% endif %}
+      >
+        {{ section.settings.cta_label | default: 'Shop Cherry Whip' }}
+      </a>
+
+      <a
+        href="{{ section.settings.secondary_cta_url | default: '#cherry-whip' }}"
+        class="btn btn--outline btn--outline-light"
+        data-scroll-link
+      >
+        {{ section.settings.secondary_cta_label | default: 'See more' }}
+      </a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero",
+  "tag": "section",
+  "class": "section-hero",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "Tan Bomb presents"
+    },
+    {
+      "type": "html",
+      "id": "product_name",
+      "label": "Product name",
+      "default": "Cherry Whip"
+    },
+    {
+      "type": "html",
+      "id": "heading",
+      "label": "Heading",
+      "default": "<em>now</em> live <span aria-hidden=\"true\">👀</span>"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Cherry-infused tanning accelerator built for tanners and salons alike. Shop for yourself or stock your shelf. Salon-quality formula, packaging that sells."
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Primary CTA label",
+      "default": "Shop Cherry Whip"
+    },
+    {
+      "type": "text",
+      "id": "cta_url",
+      "label": "Primary CTA URL",
+      "default": "#shop"
+    },
+    {
+      "type": "text",
+      "id": "secondary_cta_label",
+      "label": "Secondary CTA label",
+      "default": "See more"
+    },
+    {
+      "type": "text",
+      "id": "secondary_cta_url",
+      "label": "Secondary CTA URL",
+      "default": "#cherry-whip"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Hero image (full width, optional — defaults to sachets photo)"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background colour",
+      "default": "#292624"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero"
+    }
+  ]
+}
+{% endschema %}

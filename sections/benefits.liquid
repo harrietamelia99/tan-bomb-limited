@@ -1,0 +1,121 @@
+<section id="benefits" class="section section--benefits fade-in texture-marble">
+  <div class="container">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="section__heading text-center">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+
+    <div class="benefits-grid">
+      {%- for block in section.blocks -%}
+        <div class="benefit-card" {{ block.shopify_attributes }}>
+          <div class="benefit-card__icon" aria-hidden="true">
+            {% render 'benefit-icon', icon: block.settings.icon %}
+          </div>
+
+          {%- if block.settings.heading != blank -%}
+            <h3 class="benefit-card__heading">{{ block.settings.heading }}</h3>
+          {%- endif -%}
+
+          {%- if block.settings.description != blank -%}
+            <p class="benefit-card__description">{{ block.settings.description }}</p>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Benefits",
+  "tag": "section",
+  "class": "section-benefits",
+  "settings": [
+    {
+      "type": "html",
+      "id": "heading",
+      "label": "Heading",
+      "default": "You're <em>not</em> ready for this <span aria-hidden=\"true\">👀</span>"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefit",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "formula", "label": "Tan / sun" },
+            { "value": "hydrate", "label": "Hydration" },
+            { "value": "tyrosine", "label": "Molecule / ingredient" },
+            { "value": "salon", "label": "Shop / salon" },
+            { "value": "luxury", "label": "Gift" }
+          ],
+          "default": "formula"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Benefit heading"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Benefit description."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Benefits",
+      "blocks": [
+        {
+          "type": "benefit",
+          "settings": {
+            "icon": "formula",
+            "heading": "Salon-quality accelerator",
+            "description": "Designed to support a deeper, darker-looking tan, whether you're on the sunbed or catching rays outdoors."
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "icon": "hydrate",
+            "heading": "Skin that feels as good as it looks",
+            "description": "Hyaluronic Acid, Aloe Vera, Vitamin E and Marine Algae Extract, because nourished skin is the best canvas for a tan."
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "icon": "tyrosine",
+            "heading": "Powered by L-Tyrosine",
+            "description": "A go-to tanning ingredient in accelerator formulas, here to support your skin's natural tanning process."
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "icon": "salon",
+            "heading": "Built by salon owners",
+            "description": "We run sunbed salons ourselves. We know what tanners reach for, and what salon owners need on the shelf."
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "icon": "luxury",
+            "heading": "Packaging that sells itself",
+            "description": "Premium, modern branding that looks good at home and stands out on salon shelves."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,39 @@
+<div id="cherry-whip-popup" class="cherry-popup" hidden aria-hidden="true">
+  <div class="cherry-popup__backdrop" data-cherry-popup-close tabindex="-1" aria-hidden="true"></div>
+  <div class="cherry-popup__rain" data-cherry-popup-rain aria-hidden="true"></div>
+
+  <div
+    class="cherry-popup__dialog"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="cherry-popup-heading"
+    tabindex="-1"
+  >
+    <button type="button" class="cherry-popup__close" data-cherry-popup-close aria-label="Close popup">
+      <span aria-hidden="true">&times;</span>
+    </button>
+
+    <article class="product-card product-card--featured cherry-popup__card">
+      <div class="product-card__media">
+        <img
+          src="{{ 'cherry-whip-product.png' | asset_url }}"
+          alt="Cherry Whip tanning accelerator on salon shelf"
+          width="699"
+          height="928"
+          loading="eager"
+          class="product-card__image product-card__image--product"
+        >
+      </div>
+
+      <div class="product-card__body">
+        <p class="cherry-popup__eyebrow">Tan Bomb presents</p>
+        <h2 id="cherry-popup-heading" class="product-card__title">Cherry Whip</h2>
+        <p class="cherry-popup__tagline"><em>now</em> live <span aria-hidden="true">👀</span></p>
+        <p class="product-card__description">Cherry-infused tanning accelerator is here. Shop for yourself or stock your salon.</p>
+        <div class="cherry-popup__actions">
+          <a href="#shop" class="btn btn--primary cherry-popup__cta" data-scroll-link data-cherry-popup-close>Shop Cherry Whip</a>
+        </div>
+      </div>
+    </article>
+  </div>
+</div>

@@ -1,0 +1,189 @@
+<section id="contact" class="section section--contact fade-in texture-marble">
+  <div class="container section--contact__inner">
+    <div class="section--contact__header text-center">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="section__heading text-center">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.subheading != blank -%}
+        <p class="section--contact__subheading lead">{{ section.settings.subheading }}</p>
+      {%- endif -%}
+
+      <hr class="gold-divider section--contact__divider" aria-hidden="true">
+    </div>
+
+    <div class="section--contact__grid">
+      <div class="contact-form-card">
+        <div class="contact-form-card__intro">
+          <h3 class="contact-form-card__title">Send an enquiry</h3>
+          <p class="contact-form-card__text">Tell us what you need and we'll come back within 1–2 business days.</p>
+        </div>
+
+        {%- form 'contact', id: 'ContactForm', class: 'contact-form' -%}
+          {%- if form.posted_successfully? -%}
+            <div class="form-message form-message--success" role="status">
+              <p>Thank you for your enquiry. We'll be in touch shortly.</p>
+            </div>
+          {%- endif -%}
+
+          {%- if form.errors -%}
+            <div class="form-message form-message--error" role="alert">
+              <p>Please correct the following errors:</p>
+              <ul>
+                {%- for field in form.errors -%}
+                  <li>
+                    <a href="#ContactForm-{{ field }}">
+                      {{ form.errors.translated_fields[field] | capitalize }}
+                      {{ form.errors.messages[field] }}
+                    </a>
+                  </li>
+                {%- endfor -%}
+              </ul>
+            </div>
+          {%- endif -%}
+
+          <div class="contact-form__grid">
+          <div class="form-field">
+            <label for="ContactForm-name">Name <span aria-hidden="true">*</span></label>
+            <input
+              type="text"
+              id="ContactForm-name"
+              name="contact[name]"
+              value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
+              required
+              autocomplete="name"
+            >
+          </div>
+
+          <div class="form-field">
+            <label for="ContactForm-email">Email <span aria-hidden="true">*</span></label>
+            <input
+              type="email"
+              id="ContactForm-email"
+              name="contact[email]"
+              value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+              required
+              autocomplete="email"
+              spellcheck="false"
+            >
+          </div>
+
+          <div class="form-field">
+            <label for="ContactForm-phone">Phone</label>
+            <input
+              type="tel"
+              id="ContactForm-phone"
+              name="contact[phone]"
+              value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}"
+              autocomplete="tel"
+            >
+          </div>
+
+          <div class="form-field">
+            <label for="ContactForm-type">I am a…</label>
+            <select id="ContactForm-type" name="contact[I am a]">
+              <option value="Customer">Customer</option>
+              <option value="Salon owner">Salon owner</option>
+              <option value="Distributor">Distributor</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <div class="form-field form-field--full">
+            <label for="ContactForm-body">Message <span aria-hidden="true">*</span></label>
+            <textarea
+              id="ContactForm-body"
+              name="contact[body]"
+              rows="6"
+              required
+            >{% if form.body %}{{ form.body }}{% endif %}</textarea>
+          </div>
+
+          </div>
+
+          <button type="submit" class="btn btn--primary contact-form__submit">Send enquiry</button>
+        {%- endform -%}
+      </div>
+
+      {%- if section.settings.show_contact_details -%}
+        <aside class="contact-details-card">
+          <h3 class="contact-details__heading">Other ways to reach us</h3>
+          <p class="contact-details__lead">Whether you're buying for yourself, stocking your salon, or exploring wholesale, we're happy to help.</p>
+          <ul class="contact-details__list">
+            {%- if section.settings.email != blank -%}
+              <li>
+                <span class="contact-details__label">Email</span>
+                <a href="mailto:{{ section.settings.email }}">{{ section.settings.email }}</a>
+              </li>
+            {%- endif -%}
+          </ul>
+
+          <div class="contact-details__social">
+            <span class="contact-details__label">Follow</span>
+            {% render 'social-icons',
+              instagram_url: section.settings.instagram_url,
+              tiktok_url: section.settings.tiktok_url
+            %}
+          </div>
+
+          <div class="contact-details__tags" aria-label="We work with">
+            <span class="contact-details__tag">Customers</span>
+            <span class="contact-details__tag">Salon owners</span>
+            <span class="contact-details__tag">Distributors</span>
+          </div>
+        </aside>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Contact form",
+  "tag": "section",
+  "class": "section-contact",
+  "settings": [
+    {
+      "type": "html",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Let's <em>talk</em>"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Shopping for yourself, running a salon, or distributing? Drop us a line. We read every message."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_contact_details",
+      "label": "Show contact details",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "Email address",
+      "default": "hello@tan-bomb.com"
+    },
+    {
+      "type": "text",
+      "id": "instagram_url",
+      "label": "Instagram URL",
+      "default": "https://instagram.com/tanbombltd"
+    },
+    {
+      "type": "text",
+      "id": "tiktok_url",
+      "label": "TikTok URL",
+      "default": "https://www.tiktok.com/@tanbombltd"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact form"
+    }
+  ]
+}
+{% endschema %}

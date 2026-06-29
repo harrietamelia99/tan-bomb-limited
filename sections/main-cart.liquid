@@ -1,0 +1,85 @@
+<section class="section section--cart fade-in texture-marble">
+  <div class="container section--cart__inner">
+    <h1 class="section__heading">Your bag</h1>
+
+    {%- if cart.item_count == 0 -%}
+      <div class="cart-empty">
+        <p class="cart-empty__text lead">Your bag is empty right now.</p>
+        <a href="{{ routes.root_url }}#shop" class="btn btn--primary">Shop now</a>
+      </div>
+    {%- else -%}
+      <form action="{{ routes.cart_url }}" method="post" id="cart-form" class="cart-form" data-cart-form>
+        <div class="cart-form__items" data-cart-page-items>
+          {%- for item in cart.items -%}
+            <article class="cart-line cart-line--page" data-cart-line data-line-key="{{ item.key }}">
+              <a href="{{ item.url }}" class="cart-line__media">
+                {%- if item.image -%}
+                  <img
+                    src="{{ item.image | image_url: width: 240 }}"
+                    alt="{{ item.image.alt | default: item.product.title | escape }}"
+                    width="120"
+                    height="120"
+                    loading="lazy"
+                  >
+                {%- endif -%}
+              </a>
+
+              <div class="cart-line__details">
+                <a href="{{ item.url }}" class="cart-line__title">{{ item.product.title }}</a>
+                {%- unless item.product.has_only_default_variant -%}
+                  <p class="cart-line__variant">{{ item.variant.title }}</p>
+                {%- endunless -%}
+                <p class="cart-line__price">{{ item.final_line_price | money }}</p>
+              </div>
+
+              <div class="cart-line__quantity">
+                <label class="visually-hidden" for="cart-qty-{{ item.key }}">Quantity</label>
+                <div class="quantity-input">
+                  <button type="button" class="quantity-input__btn" data-cart-qty-minus aria-label="Decrease quantity">−</button>
+                  <input
+                    type="number"
+                    id="cart-qty-{{ item.key }}"
+                    name="updates[]"
+                    class="quantity-input__field"
+                    value="{{ item.quantity }}"
+                    min="0"
+                    data-cart-qty
+                    data-line-index="{{ forloop.index0 }}"
+                    aria-label="Quantity for {{ item.product.title | escape }}"
+                  >
+                  <button type="button" class="quantity-input__btn" data-cart-qty-plus aria-label="Increase quantity">+</button>
+                </div>
+              </div>
+
+              <button type="button" class="cart-line__remove" data-cart-remove>Remove</button>
+            </article>
+          {%- endfor -%}
+        </div>
+
+        <footer class="cart-form__footer">
+          <p class="cart-form__subtotal">
+            Subtotal
+            <span data-cart-subtotal>{{ cart.total_price | money }}</span>
+          </p>
+          <p class="cart-form__note">Shipping and taxes calculated at checkout.</p>
+
+          <div class="cart-form__actions">
+            <button type="submit" name="update" class="btn btn--outline">Update bag</button>
+            <button type="submit" name="checkout" class="btn btn--primary">Checkout</button>
+          </div>
+        </footer>
+      </form>
+
+      {% render 'spf-disclaimer' %}
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Cart",
+  "tag": "section",
+  "class": "section-main-cart",
+  "settings": []
+}
+{% endschema %}

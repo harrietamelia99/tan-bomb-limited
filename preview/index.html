@@ -1,0 +1,714 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#292624">
+  <title>Tan Bomb | Cherry Whip</title>
+  <meta name="description" content="Premium tanning accelerator for tanners and salons. Meet Cherry Whip.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Arapey:ital@0;1&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../assets/theme.css">
+
+  <script>
+    window.TanBomb = {
+      moneyFormat: '£{{amount}}',
+      currency: 'GBP',
+      routes: {
+        root: '/',
+        cart: '/cart',
+        cartAdd: '/cart/add.js',
+        cartChange: '/cart/change.js',
+        cartUpdate: '/cart/update.js',
+        cartJs: '/cart.js'
+      }
+    };
+  </script>
+
+  <style>
+  .preview-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9998;
+    padding: 0.5rem max(1rem, env(safe-area-inset-right)) calc(0.5rem + env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left));
+    background: #AD2234;
+    color: #fff;
+    font-family: Gotham, 'Helvetica Neue', Arial, sans-serif;
+    letter-spacing: -0.03em;
+    font-size: 0.75rem;
+    text-align: center;
+  }
+  .preview-banner code {
+    background: rgba(0,0,0,0.2);
+    padding: 0.1em 0.4em;
+    border-radius: 3px;
+  }
+  body { padding-bottom: calc(2.5rem + env(safe-area-inset-bottom)); }
+  </style>
+</head>
+<body class="template-index">
+  <div id="site-splash" class="splash-screen" role="dialog" aria-modal="true" aria-label="Loading Tan Bomb">
+    <div class="splash-screen__rain" data-splash-rain aria-hidden="true"></div>
+    <div class="splash-screen__logo">
+      <img src="../assets/logo.png" alt="Tan Bomb" width="200" height="200" loading="eager" class="site-logo__img site-logo__img--splash">
+    </div>
+  </div>
+
+  <div id="cherry-whip-popup" class="cherry-popup" hidden aria-hidden="true">
+    <div class="cherry-popup__backdrop" data-cherry-popup-close tabindex="-1" aria-hidden="true"></div>
+    <div class="cherry-popup__rain" data-cherry-popup-rain aria-hidden="true"></div>
+    <div class="cherry-popup__dialog" role="dialog" aria-modal="true" aria-labelledby="cherry-popup-heading" tabindex="-1">
+      <button type="button" class="cherry-popup__close" data-cherry-popup-close aria-label="Close popup">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <article class="product-card product-card--featured cherry-popup__card">
+        <div class="product-card__media">
+          <img src="../assets/cherry-whip-product.png" alt="Cherry Whip tanning accelerator on salon shelf" width="699" height="928" loading="eager" class="product-card__image product-card__image--product">
+        </div>
+        <div class="product-card__body">
+          <p class="cherry-popup__eyebrow">Tan Bomb presents</p>
+          <h2 id="cherry-popup-heading" class="product-card__title">Cherry Whip</h2>
+          <p class="cherry-popup__tagline"><em>now</em> live <span aria-hidden="true">👀</span></p>
+          <p class="product-card__description">Cherry-infused tanning accelerator is here. Shop for yourself or stock your salon.</p>
+          <div class="cherry-popup__actions">
+            <a href="#shop" class="btn btn--primary cherry-popup__cta" data-scroll-link data-cherry-popup-close>Shop Cherry Whip</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <header class="site-header" id="site-header">
+    <div class="site-header__scrim" aria-hidden="true"></div>
+    <div class="site-header__inner container">
+      <button class="site-header__toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav" id="nav-toggle">
+        <span class="site-header__toggle-bars" aria-hidden="true">
+          <span class="site-header__toggle-bar"></span>
+          <span class="site-header__toggle-bar"></span>
+          <span class="site-header__toggle-bar"></span>
+        </span>
+        <span class="site-header__toggle-label">Menu</span>
+      </button>
+      <a class="site-header__logo" href="#hero" data-scroll-link>
+        <img src="../assets/logo.png" alt="Tan Bomb" width="160" height="160" class="site-logo__img site-logo__img--header" loading="eager">
+      </a>
+      <div class="site-header__actions">
+        <button type="button" class="cart-toggle" id="cart-toggle" aria-label="Open bag" aria-controls="cart-drawer" data-cart-open>
+          <span class="cart-toggle__icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6 6h15l-1.5 9h-12L6 6Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+              <path d="M6 6 5 3H2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="9" cy="20" r="1.5" fill="currentColor"/>
+              <circle cx="18" cy="20" r="1.5" fill="currentColor"/>
+            </svg>
+          </span>
+          <span class="cart-toggle__label">Bag</span>
+          <span class="cart-toggle__count" data-cart-count hidden>0</span>
+        </button>
+        <a href="#shop" class="btn btn--primary site-header__shop" data-scroll-link>Shop</a>
+      </div>
+    </div>
+
+    <nav class="site-nav" id="site-nav" aria-label="Main navigation" aria-hidden="true">
+      <div class="site-nav__overlay" data-nav-close tabindex="-1" aria-hidden="true"></div>
+      <div class="site-nav__panel" role="dialog" aria-modal="true" aria-labelledby="site-nav-heading">
+        <header class="site-nav__header">
+          <p id="site-nav-heading" class="site-nav__title">Menu</p>
+          <button type="button" class="site-nav__close" data-nav-close aria-label="Close menu">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </header>
+        <ul class="site-nav__list">
+          <li><a href="#hero" class="site-nav__link" data-scroll-link>Home</a></li>
+          <li><a href="#shop" class="site-nav__link" data-scroll-link>Shop</a></li>
+          <li><a href="#cherry-whip" class="site-nav__link" data-scroll-link>Cherry Whip</a></li>
+          <li><a href="#brand-story" class="site-nav__link" data-scroll-link>About</a></li>
+          <li><a href="#benefits" class="site-nav__link" data-scroll-link>Benefits</a></li>
+          <li><a href="#stockists" class="site-nav__link" data-scroll-link>Stockists</a></li>
+          <li><a href="#instagram" class="site-nav__link" data-scroll-link>Instagram</a></li>
+          <li><a href="#contact" class="site-nav__link" data-scroll-link>Contact</a></li>
+        </ul>
+        <a href="#shop" class="btn btn--primary site-nav__cta" data-scroll-link>Shop now</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content">
+
+    <section id="hero" class="section section--hero section--hero--immersive fade-in texture-dark">
+      <div class="section--hero__media section--hero__media--immersive">
+        <picture>
+          <source
+            type="image/webp"
+            srcset="../assets/hero-sachets.webp 2560w"
+            sizes="100vw"
+          >
+          <img
+            src="../assets/hero-sachets.jpg"
+            srcset="../assets/hero-sachets.jpg 2560w"
+            sizes="100vw"
+            alt="Cherry Whip tanning accelerator sachets with cherries on a dark background"
+            width="2560"
+            height="1360"
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+            class="section--hero__image section--hero__image--immersive section--hero__image--faded section--hero__image--default"
+          >
+        </picture>
+        <div class="section--hero__scrim section--hero__scrim--soft" aria-hidden="true"></div>
+      </div>
+      <div class="container section--hero__content section--hero__content--overlay">
+        <p class="section--hero__eyebrow">Tan Bomb presents</p>
+        <h1 class="section--hero__heading">
+          <span class="section--hero__product-name">Cherry Whip</span>
+          <span class="section--hero__tagline"><em>now</em> live <span aria-hidden="true">👀</span></span>
+        </h1>
+        <hr class="gold-divider section--hero__divider" aria-hidden="true">
+        <p class="section--hero__subheading lead">Cherry-infused tanning accelerator built for tanners and salons alike. Shop for yourself or stock your shelf. Salon-quality formula, packaging that sells.</p>
+        <div class="section--hero__actions">
+          <a href="#shop" class="btn btn--primary" data-scroll-link>Shop Cherry Whip</a>
+          <a href="#cherry-whip" class="btn btn--outline btn--outline-light" data-scroll-link>See more</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="cherry-whip" class="section section--cherry-whip fade-in">
+      <div class="cherry-whip__details texture-satin">
+        <div class="container cherry-whip__details-inner">
+          <div class="cherry-whip__showcase">
+            <div class="cherry-whip__visual">
+              <div class="cherry-whip__image-frame">
+                <img
+                  src="../assets/cherry-whip-salon.jpg"
+                  alt="Cherry Whip tanning accelerator held in a tanning salon"
+                  width="768"
+                  height="1024"
+                  loading="lazy"
+                  class="cherry-whip__visual-image"
+                >
+              </div>
+            </div>
+            <div class="cherry-whip__content">
+              <p class="cherry-whip__eyebrow">The formula</p>
+              <h2 class="cherry-whip__product-name">Cherry Whip</h2>
+              <div class="cherry-whip__body rte">
+                <p>Use it on the sunbed. Use it outdoors. Use it at home or recommend it to clients. Formulated with L-Tyrosine, Hyaluronic Acid, Aloe Vera, Vitamin E and Marine Algae Extract, because great skin and a great tan should go together.</p>
+              </div>
+              <p class="ingredients-list">
+                <span class="ingredients-list__item">L-Tyrosine</span><span class="ingredients-list__sep" aria-hidden="true">·</span><span class="ingredients-list__item">Hyaluronic Acid</span><span class="ingredients-list__sep" aria-hidden="true">·</span><span class="ingredients-list__item">Aloe Vera</span><span class="ingredients-list__sep" aria-hidden="true">·</span><span class="ingredients-list__item">Vitamin E</span><span class="ingredients-list__sep" aria-hidden="true">·</span><span class="ingredients-list__item">Marine Algae Extract</span>
+              </p>
+              <div class="cherry-whip__actions">
+                <a href="#shop" class="btn btn--primary" data-scroll-link>Shop Cherry Whip</a>
+              </div>
+              <p class="spf-disclaimer">Tan Bomb does not contain SPF. Always use suitable sun protection when tanning outdoors.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="shop" class="section section--shop fade-in texture-marble">
+      <div class="container section--shop__inner">
+        <p class="section--shop__eyebrow">Shop Tan Bomb</p>
+        <h2 class="section__heading text-center">For your bag & your <em>shelf</em> <span aria-hidden="true">🍒</span></h2>
+        <p class="section--shop__subheading lead text-center">Salon-quality tanning accelerator, shipped straight to you. Whether you're buying for yourself or your business, add to bag and checkout securely online.</p>
+        <hr class="gold-divider section--shop__divider" aria-hidden="true">
+        <div class="shop-grid shop-grid--single">
+          <article class="product-card product-card--featured" data-product-card>
+            <div class="product-card__media">
+              <img
+                src="../assets/cherry-whip-product.png"
+                alt="Cherry Whip tanning accelerator on salon shelf"
+                width="699"
+                height="928"
+                loading="lazy"
+                class="product-card__image product-card__image--product"
+              >
+            </div>
+            <div class="product-card__body">
+              <h3 class="product-card__title">Cherry Whip</h3>
+              <p class="product-card__price">£24.00</p>
+              <p class="product-card__description">Cherry-infused tanning accelerator with L-Tyrosine, Hyaluronic Acid, Aloe Vera, Vitamin E and Marine Algae Extract. For sunbed and outdoor tanning, at home or in salon.</p>
+              <form class="product-card__form" data-product-form data-preview-product>
+                <input type="hidden" name="id" value="preview-cherry-whip">
+                <div class="product-card__quantity">
+                  <label class="visually-hidden" for="preview-qty">Quantity</label>
+                  <div class="quantity-input">
+                    <button type="button" class="quantity-input__btn" data-qty-minus aria-label="Decrease quantity">−</button>
+                    <input type="number" id="preview-qty" name="quantity" class="quantity-input__field" value="1" min="1" inputmode="numeric">
+                    <button type="button" class="quantity-input__btn" data-qty-plus aria-label="Increase quantity">+</button>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn--primary" data-add-to-cart>Add to cart</button>
+              </form>
+            </div>
+          </article>
+        </div>
+        <p class="spf-disclaimer">Tan Bomb does not contain SPF. Always use suitable sun protection when tanning outdoors.</p>
+      </div>
+    </section>
+
+    <section id="benefits" class="section section--benefits fade-in texture-marble">
+      <div class="container">
+        <h2 class="section__heading text-center">You're <em>not</em> ready for this <span aria-hidden="true">👀</span></h2>
+        <div class="benefits-grid">
+          <div class="benefit-card">
+            <div class="benefit-card__icon" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><circle cx="24" cy="24" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M24 8v4M24 36v4M8 24h4M36 24h4M13.8 13.8l2.8 2.8M31.4 31.4l2.8 2.8M13.8 34.2l2.8-2.8M31.4 16.6l2.8-2.8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+            <h3 class="benefit-card__heading">Salon-quality accelerator</h3>
+            <p class="benefit-card__description">Designed to support a deeper, darker-looking tan, whether you're on the sunbed or catching rays outdoors.</p>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-card__icon" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M24 8c-2 8-12 14-12 24a12 12 0 1024 0C36 22 26 16 24 8z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M20 30c1.5 2 3.5 3 6 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/></svg></div>
+            <h3 class="benefit-card__heading">Skin that feels as good as it looks</h3>
+            <p class="benefit-card__description">Hyaluronic Acid, Aloe Vera, Vitamin E and Marine Algae Extract, because nourished skin is the best canvas for a tan.</p>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-card__icon" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><circle cx="24" cy="14" r="3" stroke="currentColor" stroke-width="1.5"/><circle cx="14" cy="28" r="3" stroke="currentColor" stroke-width="1.5"/><circle cx="34" cy="28" r="3" stroke="currentColor" stroke-width="1.5"/><circle cx="24" cy="36" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M24 17v5M16.5 26.2l5-4.4M31.5 26.2l-5-4.4M24 31v2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+            <h3 class="benefit-card__heading">Powered by L-Tyrosine</h3>
+            <p class="benefit-card__description">A go-to tanning ingredient in accelerator formulas, here to support your skin's natural tanning process.</p>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-card__icon" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M8 20l4-8h24l4 8" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M10 20h28v16a2 2 0 01-2 2H12a2 2 0 01-2-2V20z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M8 20c0 2 2 4 4 4s4-2 4-4M20 20c0 2 2 4 4 4s4-2 4-4M32 20c0 2 2 4 4 4s4-2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><rect x="20" y="28" width="8" height="10" rx="1" stroke="currentColor" stroke-width="1.5"/></svg></div>
+            <h3 class="benefit-card__heading">Built by salon owners</h3>
+            <p class="benefit-card__description">We run sunbed salons ourselves. We know what tanners reach for, and what salon owners need on the shelf.</p>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-card__icon" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M14 22h20v18a2 2 0 01-2 2H16a2 2 0 01-2-2V22z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><rect x="12" y="18" width="24" height="6" rx="1" stroke="currentColor" stroke-width="1.5"/><path d="M24 18v22" stroke="currentColor" stroke-width="1.5"/><path d="M24 18c-3.5-4-9-3.5-9 0s3.5 4.5 9 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M24 18c3.5-4 9-3.5 9 0s-3.5 4.5-9 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <h3 class="benefit-card__heading">Packaging that sells itself</h3>
+            <p class="benefit-card__description">Premium, modern branding that looks good at home and stands out on salon shelves.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="product-details" class="section section--product-details fade-in texture-satin">
+      <div class="container section--product-details__inner">
+        <h2 class="section__heading">Works indoors. Works outdoors. Works <em>on you</em>. <span aria-hidden="true">🍒</span></h2>
+        <div class="section--product-details__body rte">
+          <p>All year round. All skin types. Sunbed or sunshine, Tan Bomb fits your routine, whether you're tanning for yourself or recommending it in salon. A luxurious accelerator formula that supports a deeper-looking tan while keeping skin feeling hydrated, smooth and nourished.</p>
+        </div>
+        <p class="spf-disclaimer">Tan Bomb does not contain SPF. Always use suitable sun protection when tanning outdoors.</p>
+      </div>
+    </section>
+
+    <section id="brand-story" class="section section--brand-story fade-in texture-marble">
+      <div class="container section--brand-story__inner">
+        <div class="section--brand-story__content">
+          <h2 class="section__heading">We <em>built this</em> because tanners and salons deserved better <span aria-hidden="true">❤️</span></h2>
+          <blockquote class="section--brand-story__pull-quote"><p><em>For your skin. For your shelf.</em></p></blockquote>
+          <div class="section--brand-story__body rte">
+            <p>We're sunbed salon owners who got tired of stocking products we wouldn't use ourselves. After years on the salon floor, we saw the gap: a premium tanning accelerator that looked luxury, felt modern, and was built for the UK market.</p>
+            <p>Tan Bomb is the result. Something we're proud to use ourselves, stock on our shelves, and put in our customers' hands.</p>
+            <p>L-Tyrosine, Hyaluronic Acid, Aloe Vera, Vitamin E and Marine Algae Extract. Use it indoors. Use it out. Use it all year. <span aria-hidden="true">❤️</span></p>
+          </div>
+        </div>
+        <div class="section--brand-story__media">
+          <img
+            src="../assets/brand-story.png"
+            alt="Hand holding Cherry Whip tanning accelerator sachet in a salon"
+            width="768"
+            height="1024"
+            loading="lazy"
+            class="section--brand-story__image section--brand-story__image--default"
+          >
+        </div>
+      </div>
+    </section>
+
+    <section id="stockists" class="section section--stockists fade-in">
+      <div class="container section--stockists__inner">
+        <h2 class="section__heading">Want Tan Bomb in <em>your</em> salon?</h2>
+        <p class="section--stockists__subheading lead">We work with tanning salons and distributors across the UK. Wholesale pricing, retail-ready packaging, and a product your customers will actually ask for.</p>
+        <div class="section--stockists__actions">
+          <a href="#contact" class="btn btn--primary" data-scroll-link>Enquire about wholesale</a>
+        </div>
+        <p class="section--stockists__secondary">Buying for yourself or your salon? Find your nearest stockist below.</p>
+        <div class="stockist-locator" data-stockist-locator data-default-radius="25">
+          <form class="stockist-locator__search" data-stockist-search novalidate>
+            <div class="stockist-locator__search-field">
+              <label class="visually-hidden" for="preview-stockist-search">Postcode or town</label>
+              <input type="search" id="preview-stockist-search" class="stockist-locator__input" name="q" placeholder="Enter postcode or town" autocomplete="postal-code" data-stockist-query>
+            </div>
+            <div class="stockist-locator__search-field stockist-locator__search-field--radius">
+              <label class="visually-hidden" for="preview-stockist-radius">Search radius</label>
+              <select id="preview-stockist-radius" class="stockist-locator__select" data-stockist-radius>
+                <option value="10">10 miles</option>
+                <option value="25" selected>25 miles</option>
+                <option value="50">50 miles</option>
+                <option value="100">100 miles</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn--primary stockist-locator__submit">Find stockists</button>
+          </form>
+
+          <p class="stockist-locator__status" data-stockist-status aria-live="polite">Showing 6 stockists near you</p>
+
+          <div class="stockist-locator__layout">
+            <div class="stockist-locator__results" data-stockist-results>
+              <ul class="stockist-locator__list" role="list">
+                <li class="stockist-locator__item is-active" data-stockist-item data-stockist-id="manchester" data-lat="53.4808" data-lng="-2.2426">
+                  <button type="button" class="stockist-locator__item-btn" data-stockist-select>
+                    <span class="stockist-locator__item-head">
+                      <span class="stockist-locator__name">Glow House Tanning</span>
+                      <span class="stockist-locator__distance" data-stockist-distance>—</span>
+                    </span>
+                    <span class="stockist-locator__address">42 Deansgate<br>Manchester, M3 2BW</span>
+                    <span class="stockist-locator__badge">Cherry Whip in stock</span>
+                  </button>
+                  <div class="stockist-locator__item-actions">
+                    <a href="tel:01618342290" class="stockist-locator__link">0161 834 2290</a>
+                    <a href="https://maps.google.com/?q=Deansgate+Manchester" class="stockist-locator__link stockist-locator__link--directions" target="_blank" rel="noopener noreferrer">Get directions</a>
+                  </div>
+                </li>
+                <li class="stockist-locator__item" data-stockist-item data-stockist-id="leeds" data-lat="53.7997" data-lng="-1.5492">
+                  <button type="button" class="stockist-locator__item-btn" data-stockist-select>
+                    <span class="stockist-locator__item-head">
+                      <span class="stockist-locator__name">Bronze Boulevard</span>
+                      <span class="stockist-locator__distance" data-stockist-distance>—</span>
+                    </span>
+                    <span class="stockist-locator__address">8 Briggate<br>Leeds, LS1 6NU</span>
+                    <span class="stockist-locator__badge">Cherry Whip in stock</span>
+                  </button>
+                  <div class="stockist-locator__item-actions">
+                    <a href="tel:01134961182" class="stockist-locator__link">0113 496 1182</a>
+                    <a href="https://maps.google.com/?q=Briggate+Leeds" class="stockist-locator__link stockist-locator__link--directions" target="_blank" rel="noopener noreferrer">Get directions</a>
+                  </div>
+                </li>
+                <li class="stockist-locator__item" data-stockist-item data-stockist-id="birmingham" data-lat="52.4862" data-lng="-1.8904">
+                  <button type="button" class="stockist-locator__item-btn" data-stockist-select>
+                    <span class="stockist-locator__item-head">
+                      <span class="stockist-locator__name">Sunbed Society</span>
+                      <span class="stockist-locator__distance" data-stockist-distance>—</span>
+                    </span>
+                    <span class="stockist-locator__address">19 New Street<br>Birmingham, B2 4QA</span>
+                    <span class="stockist-locator__badge">Cherry Whip in stock</span>
+                  </button>
+                  <div class="stockist-locator__item-actions">
+                    <a href="tel:01216437701" class="stockist-locator__link">0121 643 7701</a>
+                    <a href="https://maps.google.com/?q=New+Street+Birmingham" class="stockist-locator__link stockist-locator__link--directions" target="_blank" rel="noopener noreferrer">Get directions</a>
+                  </div>
+                </li>
+                <li class="stockist-locator__item" data-stockist-item data-stockist-id="bristol" data-lat="51.4545" data-lng="-2.5879">
+                  <button type="button" class="stockist-locator__item-btn" data-stockist-select>
+                    <span class="stockist-locator__item-head">
+                      <span class="stockist-locator__name">The Tan Room</span>
+                      <span class="stockist-locator__distance" data-stockist-distance>—</span>
+                    </span>
+                    <span class="stockist-locator__address">27 Park Street<br>Bristol, BS1 5JA</span>
+                    <span class="stockist-locator__badge">Cherry Whip in stock</span>
+                  </button>
+                  <div class="stockist-locator__item-actions">
+                    <a href="tel:01179274410" class="stockist-locator__link">0117 927 4410</a>
+                    <a href="https://maps.google.com/?q=Park+Street+Bristol" class="stockist-locator__link stockist-locator__link--directions" target="_blank" rel="noopener noreferrer">Get directions</a>
+                  </div>
+                </li>
+                <li class="stockist-locator__item" data-stockist-item data-stockist-id="london" data-lat="51.4875" data-lng="-0.1687">
+                  <button type="button" class="stockist-locator__item-btn" data-stockist-select>
+                    <span class="stockist-locator__item-head">
+                      <span class="stockist-locator__name">Golden Hour Lounge</span>
+                      <span class="stockist-locator__distance" data-stockist-distance>—</span>
+                    </span>
+                    <span class="stockist-locator__address">64 Kings Road<br>London, SW3 4UD</span>
+                    <span class="stockist-locator__badge">Cherry Whip in stock</span>
+                  </button>
+                  <div class="stockist-locator__item-actions">
+                    <a href="tel:02073528894" class="stockist-locator__link">020 7352 8894</a>
+                    <a href="https://maps.google.com/?q=Kings+Road+London" class="stockist-locator__link stockist-locator__link--directions" target="_blank" rel="noopener noreferrer">Get directions</a>
+                  </div>
+                </li>
+                <li class="stockist-locator__item" data-stockist-item data-stockist-id="edinburgh" data-lat="55.9533" data-lng="-3.1883">
+                  <button type="button" class="stockist-locator__item-btn" data-stockist-select>
+                    <span class="stockist-locator__item-head">
+                      <span class="stockist-locator__name">Highland Glow</span>
+                      <span class="stockist-locator__distance" data-stockist-distance>—</span>
+                    </span>
+                    <span class="stockist-locator__address">3 George Street<br>Edinburgh, EH2 2PA</span>
+                    <span class="stockist-locator__badge">Cherry Whip in stock</span>
+                  </button>
+                  <div class="stockist-locator__item-actions">
+                    <a href="tel:01312256618" class="stockist-locator__link">0131 225 6618</a>
+                    <a href="https://maps.google.com/?q=George+Street+Edinburgh" class="stockist-locator__link stockist-locator__link--directions" target="_blank" rel="noopener noreferrer">Get directions</a>
+                  </div>
+                </li>
+              </ul>
+              <p class="stockist-locator__empty stockist-locator__empty--search" data-stockist-empty hidden>
+                No stockists found within that radius. Try widening your search or <a href="#contact" data-scroll-link>get in touch</a> and we'll help.
+              </p>
+            </div>
+
+            <div class="stockist-locator__map-panel" aria-hidden="false">
+              <div class="stockist-locator__map" data-stockist-map>
+                <div class="stockist-locator__map-canvas">
+                  <img src="../assets/uk-map.svg" alt="" width="400" height="520" class="stockist-locator__map-svg" aria-hidden="true" loading="lazy">
+                  <div class="stockist-locator__pins" data-stockist-pins>
+                    <button type="button" class="stockist-locator__pin is-active" data-stockist-pin data-stockist-id="manchester" data-lat="53.4808" data-lng="-2.2426" aria-label="Glow House Tanning" style="--pin-x: 50%; --pin-y: 50%;"><span class="stockist-locator__pin-dot" aria-hidden="true"></span></button>
+                    <button type="button" class="stockist-locator__pin" data-stockist-pin data-stockist-id="leeds" data-lat="53.7997" data-lng="-1.5492" aria-label="Bronze Boulevard" style="--pin-x: 50%; --pin-y: 50%;"><span class="stockist-locator__pin-dot" aria-hidden="true"></span></button>
+                    <button type="button" class="stockist-locator__pin" data-stockist-pin data-stockist-id="birmingham" data-lat="52.4862" data-lng="-1.8904" aria-label="Sunbed Society" style="--pin-x: 50%; --pin-y: 50%;"><span class="stockist-locator__pin-dot" aria-hidden="true"></span></button>
+                    <button type="button" class="stockist-locator__pin" data-stockist-pin data-stockist-id="bristol" data-lat="51.4545" data-lng="-2.5879" aria-label="The Tan Room" style="--pin-x: 50%; --pin-y: 50%;"><span class="stockist-locator__pin-dot" aria-hidden="true"></span></button>
+                    <button type="button" class="stockist-locator__pin" data-stockist-pin data-stockist-id="london" data-lat="51.4875" data-lng="-0.1687" aria-label="Golden Hour Lounge" style="--pin-x: 50%; --pin-y: 50%;"><span class="stockist-locator__pin-dot" aria-hidden="true"></span></button>
+                    <button type="button" class="stockist-locator__pin" data-stockist-pin data-stockist-id="edinburgh" data-lat="55.9533" data-lng="-3.1883" aria-label="Highland Glow" style="--pin-x: 50%; --pin-y: 50%;"><span class="stockist-locator__pin-dot" aria-hidden="true"></span></button>
+                  </div>
+                  <div class="stockist-locator__map-user" data-stockist-user-pin hidden aria-hidden="true">
+                    <span class="stockist-locator__user-dot"></span>
+                  </div>
+                </div>
+                <p class="stockist-locator__map-caption">Map preview — locations shown for demonstration</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="instagram" class="section section--instagram fade-in texture-satin">
+      <div class="container section--instagram__inner">
+        <p class="section--instagram__eyebrow">On Instagram</p>
+        <h2 class="section__heading text-center">Tan so good we had to post it <span aria-hidden="true">🍒</span></h2>
+        <p class="section--instagram__subheading lead text-center">Tan life, salon shelves, new drops and moments worth sharing.</p>
+        <p class="section--instagram__handle text-center"><a href="https://instagram.com/tanbombltd" target="_blank" rel="noopener noreferrer">@tanbombltd</a></p>
+        <hr class="gold-divider section--instagram__divider" aria-hidden="true">
+        <div class="instagram-grid">
+          <div class="instagram-grid__item">
+            <a href="https://instagram.com/tanbombltd" class="instagram-grid__link" target="_blank" rel="noopener noreferrer" aria-label="Cherry Whip teaser, Something is coming">
+              <img src="../assets/instagram-1.png" alt="Cherry Whip teaser, Something is coming" width="819" height="1024" loading="lazy" class="instagram-grid__image">
+            </a>
+          </div>
+          <div class="instagram-grid__item">
+            <a href="https://instagram.com/tanbombltd" class="instagram-grid__link" target="_blank" rel="noopener noreferrer" aria-label="Cherry Whip with fresh cherries on marble">
+              <img src="../assets/instagram-2.png" alt="Cherry Whip with fresh cherries on marble" width="819" height="1024" loading="lazy" class="instagram-grid__image">
+            </a>
+          </div>
+          <div class="instagram-grid__item">
+            <a href="https://instagram.com/tanbombltd" class="instagram-grid__link" target="_blank" rel="noopener noreferrer" aria-label="Cherry Whip promotional shot, You are not ready for this">
+              <img src="../assets/instagram-3.png" alt="Cherry Whip promotional shot, You are not ready for this" width="819" height="1024" loading="lazy" class="instagram-grid__image">
+            </a>
+          </div>
+        </div>
+        <div class="section--instagram__actions">
+          <a href="https://instagram.com/tanbombltd" class="btn btn--outline-light" target="_blank" rel="noopener noreferrer">Follow on Instagram</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section section--contact fade-in texture-marble">
+      <div class="container section--contact__inner">
+        <div class="section--contact__header text-center">
+          <h2 class="section__heading text-center">Let's <em>talk</em></h2>
+          <p class="section--contact__subheading lead">Shopping for yourself, running a salon, or distributing? Drop us a line. We read every message.</p>
+          <hr class="gold-divider section--contact__divider" aria-hidden="true">
+        </div>
+        <div class="section--contact__grid">
+          <div class="contact-form-card">
+            <div class="contact-form-card__intro">
+              <h3 class="contact-form-card__title">Send an enquiry</h3>
+              <p class="contact-form-card__text">Tell us what you need and we'll come back within 1–2 business days.</p>
+            </div>
+            <form class="contact-form" id="ContactForm">
+              <div class="contact-form__grid">
+                <div class="form-field"><label for="ContactForm-name">Name <span aria-hidden="true">*</span></label><input type="text" id="ContactForm-name" required autocomplete="name"></div>
+                <div class="form-field"><label for="ContactForm-email">Email <span aria-hidden="true">*</span></label><input type="email" id="ContactForm-email" required autocomplete="email"></div>
+                <div class="form-field"><label for="ContactForm-phone">Phone</label><input type="tel" id="ContactForm-phone" autocomplete="tel"></div>
+                <div class="form-field"><label for="ContactForm-type">I am a…</label><select id="ContactForm-type"><option>Customer</option><option>Salon owner</option><option>Distributor</option><option>Other</option></select></div>
+                <div class="form-field form-field--full"><label for="ContactForm-body">Message <span aria-hidden="true">*</span></label><textarea id="ContactForm-body" rows="6" required></textarea></div>
+              </div>
+              <button type="submit" class="btn btn--primary contact-form__submit">Send enquiry</button>
+            </form>
+          </div>
+          <aside class="contact-details-card">
+            <h3 class="contact-details__heading">Other ways to reach us</h3>
+            <p class="contact-details__lead">Whether you're buying for yourself, stocking your salon, or exploring wholesale, we're happy to help.</p>
+            <ul class="contact-details__list">
+              <li><span class="contact-details__label">Email</span><a href="mailto:hello@tan-bomb.com">hello@tan-bomb.com</a></li>
+            </ul>
+            <div class="contact-details__social">
+              <span class="contact-details__label">Follow</span>
+              <ul class="social-icons" role="list">
+                <li class="social-icons__item">
+                  <a href="https://instagram.com/tanbombltd" class="social-icons__link" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                    <svg class="social-icons__icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                      <path fill="currentColor" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
+                    </svg>
+                  </a>
+                </li>
+                <li class="social-icons__item">
+                  <a href="https://www.tiktok.com/@tanbombltd" class="social-icons__link" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+                    <svg class="social-icons__icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                      <path fill="currentColor" d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+                    </svg>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="contact-details__tags" aria-label="We work with">
+              <span class="contact-details__tag">Customers</span>
+              <span class="contact-details__tag">Salon owners</span>
+              <span class="contact-details__tag">Distributors</span>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <footer class="site-footer fade-in">
+      <div class="container site-footer__inner">
+        <div class="site-footer__brand">
+          <a href="#hero" class="site-footer__logo" data-scroll-link>
+            <img src="../assets/logo.png" alt="Tan Bomb" width="56" height="56" class="site-logo__img site-logo__img--footer" loading="lazy">
+          </a>
+          <p class="site-footer__tagline">Tan Bomb. For tanners and salons. <span aria-hidden="true">🖤</span></p>
+          <div class="site-footer__social">
+            <ul class="social-icons" role="list">
+              <li class="social-icons__item">
+                <a href="https://instagram.com/tanbombltd" class="social-icons__link" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                  <svg class="social-icons__icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path fill="currentColor" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
+                  </svg>
+                </a>
+              </li>
+              <li class="social-icons__item">
+                <a href="https://www.tiktok.com/@tanbombltd" class="social-icons__link" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+                  <svg class="social-icons__icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path fill="currentColor" d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+                  </svg>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <nav class="site-footer__nav" aria-label="Footer navigation">
+          <ul class="site-footer__nav-list">
+            <li><a href="#shop" data-scroll-link>Shop</a></li>
+            <li><a href="#brand-story" data-scroll-link>About</a></li>
+            <li><a href="#stockists" data-scroll-link>Stockists</a></li>
+            <li><a href="#instagram" data-scroll-link>Instagram</a></li>
+            <li><a href="#contact" data-scroll-link>Contact</a></li>
+          </ul>
+        </nav>
+        <div class="site-footer__payments">
+          <div class="payment-icons">
+            <p class="payment-icons__label visually-hidden">Accepted payment methods</p>
+            <ul class="payment-icons__list" role="list">
+              <li class="payment-icons__item"><img src="../assets/payment-visa.svg" alt="Visa" class="payment-icons__icon" width="38" height="24" loading="lazy"></li>
+              <li class="payment-icons__item"><img src="../assets/payment-mastercard.svg" alt="Mastercard" class="payment-icons__icon" width="38" height="24" loading="lazy"></li>
+              <li class="payment-icons__item"><img src="../assets/payment-amex.svg" alt="American Express" class="payment-icons__icon" width="38" height="24" loading="lazy"></li>
+              <li class="payment-icons__item"><img src="../assets/payment-apple-pay.svg" alt="Apple Pay" class="payment-icons__icon" width="38" height="24" loading="lazy"></li>
+              <li class="payment-icons__item"><img src="../assets/payment-google-pay.svg" alt="Google Pay" class="payment-icons__icon" width="38" height="24" loading="lazy"></li>
+              <li class="payment-icons__item"><img src="../assets/payment-paypal.svg" alt="PayPal" class="payment-icons__icon" width="38" height="24" loading="lazy"></li>
+              <li class="payment-icons__item"><img src="../assets/payment-shop-pay.svg" alt="Shop Pay" class="payment-icons__icon" width="38" height="24" loading="lazy"></li>
+            </ul>
+          </div>
+        </div>
+        <div class="site-footer__bottom">
+          <div class="site-footer__disclaimer">
+            <p class="spf-disclaimer">Tan Bomb does not contain SPF. Always use suitable sun protection when tanning outdoors.</p>
+          </div>
+          <div class="site-footer__meta">
+            <p class="site-footer__legal">&copy; 2026 Tan Bomb Ltd. All rights reserved.</p>
+            <p class="site-footer__credit">Made by <a href="https://collectivstudio.uk" target="_blank" rel="noopener noreferrer">collectivstudio.uk</a></p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </main>
+
+  <div id="cart-drawer" class="cart-drawer" data-cart-drawer aria-hidden="true">
+    <div class="cart-drawer__overlay" data-cart-close tabindex="-1" aria-hidden="true"></div>
+    <aside class="cart-drawer__panel" role="dialog" aria-modal="true" aria-labelledby="cart-drawer-heading" tabindex="-1">
+      <header class="cart-drawer__header">
+        <h2 id="cart-drawer-heading" class="cart-drawer__heading">Your bag</h2>
+        <button type="button" class="cart-drawer__close" data-cart-close aria-label="Close cart"><span aria-hidden="true">&times;</span></button>
+      </header>
+      <div class="cart-drawer__body" data-cart-drawer-body>
+        <div class="cart-drawer__empty" data-cart-empty>
+          <p>Your bag is empty.</p>
+          <a href="#shop" class="btn btn--primary" data-scroll-link data-cart-close>Shop now</a>
+        </div>
+      </div>
+      <footer class="cart-drawer__footer" data-cart-footer hidden>
+        <p class="cart-drawer__subtotal">Subtotal <span data-cart-subtotal>£0.00</span></p>
+        <p class="cart-drawer__note">Shipping and taxes calculated at checkout.</p>
+        <button type="button" class="btn btn--primary btn--full" data-cart-checkout>Checkout</button>
+      </footer>
+    </aside>
+  </div>
+
+  <p class="preview-banner" role="status">Local preview, refresh after edits. Upload images via Shopify theme editor when connected.</p>
+
+  <script src="../assets/theme.js"></script>
+  <script>
+    (function () {
+      var previewCart = { item_count: 0, total_price: 0, items: [] };
+
+      function formatMoney(cents) {
+        return '£' + (cents / 100).toFixed(2);
+      }
+
+      function renderPreviewCart() {
+        var drawer = document.querySelector('[data-cart-drawer]');
+        var body = drawer.querySelector('[data-cart-drawer-body]');
+        var footer = drawer.querySelector('[data-cart-footer]');
+        document.querySelectorAll('[data-cart-count]').forEach(function (el) {
+          el.textContent = previewCart.item_count;
+          if (previewCart.item_count > 0) el.removeAttribute('hidden');
+          else el.setAttribute('hidden', '');
+        });
+        document.querySelectorAll('[data-cart-subtotal]').forEach(function (el) {
+          el.textContent = formatMoney(previewCart.total_price);
+        });
+
+        if (previewCart.item_count === 0) {
+          body.innerHTML = '<div class="cart-drawer__empty" data-cart-empty><p>Your bag is empty.</p><a href="#shop" class="btn btn--primary" data-scroll-link data-cart-close>Shop now</a></div>';
+          footer.setAttribute('hidden', '');
+          return;
+        }
+
+        var html = '<ul class="cart-drawer__items" data-cart-items>';
+        previewCart.items.forEach(function (item) {
+          html += '<li class="cart-line" data-cart-line data-line-key="' + item.key + '"><div class="cart-line__details"><span class="cart-line__title">' + item.title + '</span><p class="cart-line__price">' + formatMoney(item.final_line_price) + '</p><div class="cart-line__actions"><div class="quantity-input quantity-input--compact"><button type="button" class="quantity-input__btn" data-cart-qty-minus aria-label="Decrease quantity">−</button><input type="number" class="quantity-input__field" value="' + item.quantity + '" min="0" data-cart-qty><button type="button" class="quantity-input__btn" data-cart-qty-plus aria-label="Increase quantity">+</button></div><button type="button" class="cart-line__remove" data-cart-remove>Remove</button></div></div></li>';
+        });
+        html += '</ul>';
+        body.innerHTML = html;
+        footer.removeAttribute('hidden');
+      }
+
+      document.querySelector('[data-preview-product]').addEventListener('submit', function (e) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        var qty = parseInt(document.getElementById('preview-qty').value, 10) || 1;
+        var existing = previewCart.items.find(function (i) { return i.key === 'preview-cherry-whip'; });
+        if (existing) {
+          existing.quantity += qty;
+          existing.final_line_price = existing.quantity * 2400;
+        } else {
+          previewCart.items.push({ key: 'preview-cherry-whip', title: 'Cherry Whip', quantity: qty, final_line_price: qty * 2400 });
+        }
+        previewCart.item_count = previewCart.items.reduce(function (n, i) { return n + i.quantity; }, 0);
+        previewCart.total_price = previewCart.items.reduce(function (n, i) { return n + i.final_line_price; }, 0);
+        renderPreviewCart();
+        if (window.TanBomb && typeof window.TanBomb.cherryRain === 'function') {
+          window.TanBomb.cherryRain();
+        }
+        document.querySelector('[data-cart-open]').click();
+      });
+
+      document.querySelector('[data-cart-checkout]').addEventListener('click', function () {
+        alert('Preview mode. Checkout will work once the theme is connected to Shopify.');
+      });
+
+      document.getElementById('ContactForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        alert('Preview mode, the contact form will work once the theme is connected to Shopify.');
+      });
+    })();
+  </script>
+</body>
+</html>

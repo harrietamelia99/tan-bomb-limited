@@ -1,0 +1,278 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "eyebrow": "Tan Bomb presents",
+        "product_name": "Cherry Whip",
+        "heading": "<em>now</em> live <span aria-hidden=\"true\">👀</span>",
+        "subheading": "Cherry-infused tanning accelerator built for tanners and salons alike. Shop for yourself or stock your shelf. Salon-quality formula, packaging that sells.",
+        "cta_label": "Shop Cherry Whip",
+        "cta_url": "#shop",
+        "secondary_cta_label": "See more",
+        "secondary_cta_url": "#cherry-whip",
+        "bg_color": "#292624"
+      }
+    },
+    "cherry-whip": {
+      "type": "cherry-whip",
+      "settings": {
+        "eyebrow": "The formula",
+        "product_name": "Cherry Whip",
+        "body": "<p>Use it on the sunbed. Use it outdoors. Use it at home or recommend it to clients. Formulated with L-Tyrosine, Hyaluronic Acid, Aloe Vera, Vitamin E and Marine Algae Extract, because great skin and a great tan should go together.</p>",
+        "show_image": true,
+        "show_ingredients": true,
+        "cta_label": "Shop Cherry Whip",
+        "cta_url": "#shop"
+      }
+    },
+    "shop": {
+      "type": "shop",
+      "settings": {
+        "eyebrow": "Shop Tan Bomb",
+        "heading": "For your bag & your <em>shelf</em> <span aria-hidden=\"true\">🍒</span>",
+        "subheading": "Salon-quality tanning accelerator, shipped straight to you. Whether you're buying for yourself or your business, add to bag and checkout securely online.",
+        "show_descriptions": true,
+        "products_limit": 6
+      },
+      "blocks": {
+        "product-1": {
+          "type": "product",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "product-1"
+      ]
+    },
+    "benefits": {
+      "type": "benefits",
+      "settings": {
+        "heading": "You're <em>not</em> ready for this <span aria-hidden=\"true\">👀</span>"
+      },
+      "blocks": {
+        "benefit-1": {
+          "type": "benefit",
+          "settings": {
+            "icon": "formula",
+            "heading": "Salon-quality accelerator",
+            "description": "Designed to support a deeper, darker-looking tan, whether you're on the sunbed or catching rays outdoors."
+          }
+        },
+        "benefit-2": {
+          "type": "benefit",
+          "settings": {
+            "icon": "hydrate",
+            "heading": "Skin that feels as good as it looks",
+            "description": "Hyaluronic Acid, Aloe Vera, Vitamin E and Marine Algae Extract, because nourished skin is the best canvas for a tan."
+          }
+        },
+        "benefit-3": {
+          "type": "benefit",
+          "settings": {
+            "icon": "tyrosine",
+            "heading": "Powered by L-Tyrosine",
+            "description": "A go-to tanning ingredient in accelerator formulas, here to support your skin's natural tanning process."
+          }
+        },
+        "benefit-4": {
+          "type": "benefit",
+          "settings": {
+            "icon": "salon",
+            "heading": "Built by salon owners",
+            "description": "We run sunbed salons ourselves. We know what tanners reach for, and what salon owners need on the shelf."
+          }
+        },
+        "benefit-5": {
+          "type": "benefit",
+          "settings": {
+            "icon": "luxury",
+            "heading": "Packaging that sells itself",
+            "description": "Premium, modern branding that looks good at home and stands out on salon shelves."
+          }
+        }
+      },
+      "block_order": [
+        "benefit-1",
+        "benefit-2",
+        "benefit-3",
+        "benefit-4",
+        "benefit-5"
+      ]
+    },
+    "product-details": {
+      "type": "product-details",
+      "settings": {
+        "heading": "Works indoors. Works outdoors. Works <em>on you</em>. <span aria-hidden=\"true\">🍒</span>",
+        "body": "<p>All year round. All skin types. Sunbed or sunshine, Tan Bomb fits your routine, whether you're tanning for yourself or recommending it in salon. A luxurious accelerator formula that supports a deeper-looking tan while keeping skin feeling hydrated, smooth and nourished.</p>"
+      }
+    },
+    "brand-story": {
+      "type": "brand-story",
+      "settings": {
+        "heading": "We <em>built this</em> because tanners and salons deserved better <span aria-hidden=\"true\">❤️</span>",
+        "body": "<p>We're sunbed salon owners who got tired of stocking products we wouldn't use ourselves. After years on the salon floor, we saw the gap: a premium tanning accelerator that looked luxury, felt modern, and was built for the UK market.</p><p>Tan Bomb is the result. Something we're proud to use ourselves, stock on our shelves, and put in our customers' hands.</p><p>L-Tyrosine, Hyaluronic Acid, Aloe Vera, Vitamin E and Marine Algae Extract. Use it indoors. Use it out. Use it all year. <span aria-hidden=\"true\">❤️</span></p>",
+        "pull_quote": "For your skin. For your shelf.",
+        "image_position": "right"
+      }
+    },
+    "stockists": {
+      "type": "stockists",
+      "settings": {
+        "heading": "Want Tan Bomb in <em>your</em> salon?",
+        "subheading": "We work with tanning salons and distributors across the UK. Wholesale pricing, retail-ready packaging, and a product your customers will actually ask for.",
+        "cta_label": "Enquire about wholesale",
+        "secondary_line": "Buying for yourself or your salon? Find your nearest stockist below.",
+        "search_placeholder": "Enter postcode or town",
+        "default_radius": 25
+      },
+      "blocks": {
+        "stockist-1": {
+          "type": "stockist",
+          "settings": {
+            "name": "Glow House Tanning",
+            "address": "42 Deansgate",
+            "city": "Manchester",
+            "postcode": "M3 2BW",
+            "phone": "0161 834 2290",
+            "products": "Cherry Whip in stock",
+            "latitude": "53.4808",
+            "longitude": "-2.2426",
+            "maps_url": "https://maps.google.com/?q=Deansgate+Manchester"
+          }
+        },
+        "stockist-2": {
+          "type": "stockist",
+          "settings": {
+            "name": "Bronze Boulevard",
+            "address": "8 Briggate",
+            "city": "Leeds",
+            "postcode": "LS1 6NU",
+            "phone": "0113 496 1182",
+            "products": "Cherry Whip in stock",
+            "latitude": "53.7997",
+            "longitude": "-1.5492",
+            "maps_url": "https://maps.google.com/?q=Briggate+Leeds"
+          }
+        },
+        "stockist-3": {
+          "type": "stockist",
+          "settings": {
+            "name": "Sunbed Society",
+            "address": "19 New Street",
+            "city": "Birmingham",
+            "postcode": "B2 4QA",
+            "phone": "0121 643 7701",
+            "products": "Cherry Whip in stock",
+            "latitude": "52.4862",
+            "longitude": "-1.8904",
+            "maps_url": "https://maps.google.com/?q=New+Street+Birmingham"
+          }
+        },
+        "stockist-4": {
+          "type": "stockist",
+          "settings": {
+            "name": "The Tan Room",
+            "address": "27 Park Street",
+            "city": "Bristol",
+            "postcode": "BS1 5JA",
+            "phone": "0117 927 4410",
+            "products": "Cherry Whip in stock",
+            "latitude": "51.4545",
+            "longitude": "-2.5879",
+            "maps_url": "https://maps.google.com/?q=Park+Street+Bristol"
+          }
+        },
+        "stockist-5": {
+          "type": "stockist",
+          "settings": {
+            "name": "Golden Hour Lounge",
+            "address": "64 Kings Road",
+            "city": "London",
+            "postcode": "SW3 4UD",
+            "phone": "020 7352 8894",
+            "products": "Cherry Whip in stock",
+            "latitude": "51.4875",
+            "longitude": "-0.1687",
+            "maps_url": "https://maps.google.com/?q=Kings+Road+London"
+          }
+        },
+        "stockist-6": {
+          "type": "stockist",
+          "settings": {
+            "name": "Highland Glow",
+            "address": "3 George Street",
+            "city": "Edinburgh",
+            "postcode": "EH2 2PA",
+            "phone": "0131 225 6618",
+            "products": "Cherry Whip in stock",
+            "latitude": "55.9533",
+            "longitude": "-3.1883",
+            "maps_url": "https://maps.google.com/?q=George+Street+Edinburgh"
+          }
+        }
+      },
+      "block_order": [
+        "stockist-1",
+        "stockist-2",
+        "stockist-3",
+        "stockist-4",
+        "stockist-5",
+        "stockist-6"
+      ]
+    },
+    "instagram": {
+      "type": "instagram",
+      "settings": {
+        "eyebrow": "On Instagram",
+        "heading": "Tan so good we had to post it <span aria-hidden=\"true\">🍒</span>",
+        "subheading": "Tan life, salon shelves, new drops and moments worth sharing.",
+        "handle": "tanbombltd",
+        "profile_url": "https://instagram.com/tanbombltd",
+        "show_follow_button": true,
+        "follow_label": "Follow on Instagram"
+      },
+      "blocks": {
+        "photo-1": { "type": "photo", "settings": {} },
+        "photo-2": { "type": "photo", "settings": {} },
+        "photo-3": { "type": "photo", "settings": {} }
+      },
+      "block_order": [
+        "photo-1",
+        "photo-2",
+        "photo-3"
+      ]
+    },
+    "contact-form": {
+      "type": "contact-form",
+      "settings": {
+        "heading": "Let's <em>talk</em>",
+        "subheading": "Shopping for yourself, running a salon, or distributing? Drop us a line. We read every message.",
+        "show_contact_details": true,
+        "email": "hello@tan-bomb.com",
+        "instagram_url": "https://instagram.com/tanbombltd",
+        "tiktok_url": "https://www.tiktok.com/@tanbombltd"
+      }
+    },
+    "footer": {
+      "type": "footer",
+      "settings": {
+        "tagline": "Tan Bomb. For tanners and salons. <span aria-hidden=\"true\">🖤</span>",
+        "instagram_url": "https://instagram.com/tanbombltd",
+        "tiktok_url": "https://www.tiktok.com/@tanbombltd"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "cherry-whip",
+    "shop",
+    "benefits",
+    "product-details",
+    "brand-story",
+    "stockists",
+    "instagram",
+    "contact-form",
+    "footer"
+  ]
+}
