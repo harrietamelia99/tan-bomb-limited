@@ -13,7 +13,7 @@
     alt="{{ logo_alt }}"
     width="160"
     height="160"
-    {% if context == 'header' %}loading="eager"{% elsif context == 'splash' %}loading="eager"{% else %}loading="lazy"{% endif %}
+    {% if context == 'header' %}loading="eager"{% elsif context == 'splash' %}loading="eager" fetchpriority="high" decoding="sync"{% else %}loading="lazy"{% endif %}
     class="site-logo__img{% if context == 'header' %} site-logo__img--header{% endif %}{% if context == 'footer' %} site-logo__img--footer{% endif %}{% if context == 'splash' %} site-logo__img--splash{% endif %}"
   >
 {%- else -%}
@@ -22,7 +22,7 @@
     alt="{{ logo_alt }}"
     width="160"
     height="160"
-    {% if context == 'header' %}loading="eager"{% elsif context == 'splash' %}loading="eager"{% else %}loading="lazy"{% endif %}
+    {% if context == 'header' %}loading="eager"{% elsif context == 'splash' %}loading="eager" fetchpriority="high" decoding="sync"{% else %}loading="lazy"{% endif %}
     class="site-logo__img{% if context == 'header' %} site-logo__img--header{% endif %}{% if context == 'footer' %} site-logo__img--footer{% endif %}{% if context == 'splash' %} site-logo__img--splash{% endif %}"
   >
 {%- endif -%}
