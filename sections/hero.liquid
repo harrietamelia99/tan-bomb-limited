@@ -1,7 +1,7 @@
 <section
   id="hero"
-  class="section section--hero section--hero--immersive fade-in texture-dark"
-  style="--section-bg: {{ section.settings.bg_color | default: '#292624' }};"
+  class="section section--hero section--hero--immersive section--hero--light fade-in"
+  style="--section-bg: {{ section.settings.bg_color | default: '#FFFFFF' }};"
 >
   {%- if section.settings.image != blank -%}
     <link
@@ -89,7 +89,7 @@
 
       <a
         href="{{ section.settings.secondary_cta_url | default: '#cherry-whip' }}"
-        class="btn btn--outline btn--outline-light"
+        class="btn btn--outline"
         data-scroll-link
       >
         {{ section.settings.secondary_cta_label | default: 'See more' }}
@@ -161,7 +161,7 @@
       "type": "color",
       "id": "bg_color",
       "label": "Background colour",
-      "default": "#292624"
+      "default": "#FFFFFF"
     }
   ],
   "presets": [
