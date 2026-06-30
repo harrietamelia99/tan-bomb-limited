@@ -1,60 +1,8 @@
 <section
   id="hero"
-  class="section section--hero section--hero--immersive section--hero--light fade-in"
-  style="--section-bg: {{ section.settings.bg_color | default: '#FFFFFF' }};"
+  class="section section--hero section--hero--immersive section--hero--light fade-in texture-marble"
+  style="--section-bg: {{ section.settings.bg_color | default: '#f5f2ee' }};"
 >
-  {%- if section.settings.image != blank -%}
-    <link
-      rel="preload"
-      as="image"
-      href="{{ section.settings.image | image_url: width: 1440 }}"
-    >
-  {%- else -%}
-    <link rel="preload" as="image" href="{{ 'hero-sachets.webp' | asset_url }}" type="image/webp">
-  {%- endif -%}
-
-  <div class="section--hero__media section--hero__media--immersive">
-    {%- if section.settings.image != blank -%}
-      <img
-        src="{{ section.settings.image | image_url: width: 1920 }}"
-        srcset="
-          {{ section.settings.image | image_url: width: 1200 }} 1200w,
-          {{ section.settings.image | image_url: width: 1920 }} 1920w,
-          {{ section.settings.image | image_url: width: 2560 }} 2560w
-        "
-        sizes="100vw"
-        alt="{{ section.settings.image.alt | default: section.settings.product_name | strip_html | default: 'Cherry Whip' }}"
-        width="2560"
-        height="1360"
-        loading="eager"
-        fetchpriority="high"
-        decoding="async"
-        class="section--hero__image section--hero__image--immersive section--hero__image--faded"
-      >
-    {%- else -%}
-      <picture>
-        <source
-          type="image/webp"
-          srcset="{{ 'hero-sachets.webp' | asset_url }} 2560w"
-          sizes="100vw"
-        >
-        <img
-          src="{{ 'hero-sachets.jpg' | asset_url }}"
-          srcset="{{ 'hero-sachets.jpg' | asset_url }} 2560w"
-          sizes="100vw"
-          alt="Cherry Whip tanning accelerator sachets with cherries on a dark background"
-          width="2560"
-          height="1360"
-          loading="eager"
-          fetchpriority="high"
-          decoding="async"
-          class="section--hero__image section--hero__image--immersive section--hero__image--faded section--hero__image--default"
-        >
-      </picture>
-    {%- endif -%}
-    <div class="section--hero__scrim section--hero__scrim--soft" aria-hidden="true"></div>
-  </div>
-
   <div class="container section--hero__content section--hero__content--overlay">
     {%- if section.settings.eyebrow != blank -%}
       <p class="section--hero__eyebrow">{{ section.settings.eyebrow }}</p>
@@ -153,15 +101,10 @@
       "default": "#cherry-whip"
     },
     {
-      "type": "image_picker",
-      "id": "image",
-      "label": "Hero image (full width, optional — defaults to sachets photo)"
-    },
-    {
       "type": "color",
       "id": "bg_color",
       "label": "Background colour",
-      "default": "#FFFFFF"
+      "default": "#f5f2ee"
     }
   ],
   "presets": [
