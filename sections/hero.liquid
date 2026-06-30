@@ -44,6 +44,48 @@
     media="(max-width: 1023px)"
   >
 
+  <div class="container section--hero__content section--hero__content--overlay">
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="section--hero__eyebrow">{{ section.settings.eyebrow }}</p>
+    {%- endif -%}
+
+    {%- if section.settings.product_name != blank or section.settings.heading != blank -%}
+      <h1 class="section--hero__heading">
+        {%- if section.settings.product_name != blank -%}
+          <span class="section--hero__product-name">{{ section.settings.product_name }}</span>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <span class="section--hero__tagline">{{ section.settings.heading }}</span>
+        {%- endif -%}
+      </h1>
+    {%- endif -%}
+
+    <hr class="gold-divider section--hero__divider" aria-hidden="true">
+
+    {%- if section.settings.subheading != blank -%}
+      <p class="section--hero__subheading lead">{{ section.settings.subheading }}</p>
+    {%- endif -%}
+
+    <div class="section--hero__actions">
+      {%- assign cta_href = section.settings.cta_url | default: '#shop' -%}
+      <a
+        href="{{ cta_href }}"
+        class="btn btn--primary"
+        {% if cta_href contains '#' %}data-scroll-link{% endif %}
+      >
+        {{ section.settings.cta_label | default: 'Shop Cherry Whip' }}
+      </a>
+
+      <a
+        href="{{ section.settings.secondary_cta_url | default: '#cherry-whip' }}"
+        class="btn btn--outline"
+        data-scroll-link
+      >
+        {{ section.settings.secondary_cta_label | default: 'See more' }}
+      </a>
+    </div>
+  </div>
+
   <div class="section--hero__media section--hero__media--mobile" aria-hidden="true">
     {%- if section.settings.mobile_image != blank -%}
       <img
@@ -124,48 +166,6 @@
       >
     {%- endif -%}
     <div class="section--hero__scrim section--hero__scrim--desktop"></div>
-  </div>
-
-  <div class="container section--hero__content section--hero__content--overlay">
-    {%- if section.settings.eyebrow != blank -%}
-      <p class="section--hero__eyebrow">{{ section.settings.eyebrow }}</p>
-    {%- endif -%}
-
-    {%- if section.settings.product_name != blank or section.settings.heading != blank -%}
-      <h1 class="section--hero__heading">
-        {%- if section.settings.product_name != blank -%}
-          <span class="section--hero__product-name">{{ section.settings.product_name }}</span>
-        {%- endif -%}
-        {%- if section.settings.heading != blank -%}
-          <span class="section--hero__tagline">{{ section.settings.heading }}</span>
-        {%- endif -%}
-      </h1>
-    {%- endif -%}
-
-    <hr class="gold-divider section--hero__divider" aria-hidden="true">
-
-    {%- if section.settings.subheading != blank -%}
-      <p class="section--hero__subheading lead">{{ section.settings.subheading }}</p>
-    {%- endif -%}
-
-    <div class="section--hero__actions">
-      {%- assign cta_href = section.settings.cta_url | default: '#shop' -%}
-      <a
-        href="{{ cta_href }}"
-        class="btn btn--primary"
-        {% if cta_href contains '#' %}data-scroll-link{% endif %}
-      >
-        {{ section.settings.cta_label | default: 'Shop Cherry Whip' }}
-      </a>
-
-      <a
-        href="{{ section.settings.secondary_cta_url | default: '#cherry-whip' }}"
-        class="btn btn--outline"
-        data-scroll-link
-      >
-        {{ section.settings.secondary_cta_label | default: 'See more' }}
-      </a>
-    </div>
   </div>
 </section>
 

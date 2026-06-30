@@ -4448,18 +4448,20 @@ body.cherry-popup-open {
 
 @media (max-width: 1023px) {
   .section--hero.section--hero--has-mobile-image {
-    overflow: visible;
+    overflow: hidden;
   }
 
   .section--hero--has-mobile-image.section--hero--immersive {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: stretch;
-    min-height: auto;
-    padding-top: calc(var(--header-offset) - 0.75rem);
+    min-height: 100svh;
+    min-height: 100dvh;
+    padding-top: 0;
     background-color: #f5f2ee;
-    overflow: visible;
+    overflow: hidden;
   }
 
   .section--hero--has-mobile-image.texture-marble {
@@ -4467,37 +4469,13 @@ body.cherry-popup-open {
     background-image: none;
   }
 
-  .section--hero--has-mobile-image .section--hero__content--overlay {
-    order: 1;
-    position: relative;
-    z-index: 2;
-    flex: 0 0 auto;
-    justify-content: flex-start;
-    align-items: center;
-    text-align: center;
-    width: 100%;
-    max-width: 100%;
-    min-height: 0;
-    background: linear-gradient(
-      180deg,
-      #ffffff 0%,
-      #faf8f5 38%,
-      #f5f2ee 100%
-    );
-    padding-block: var(--space-xs) var(--space-md);
-    padding-inline: max(var(--space-sm), var(--safe-left)) max(var(--space-sm), var(--safe-right));
-    margin-bottom: -1.5rem;
-  }
-
   .section--hero__media--mobile {
-    order: 2;
     display: block;
-    position: relative;
-    flex: 0 0 auto;
+    position: absolute;
+    inset: 0;
+    z-index: 0;
     width: 100%;
-    height: min(50svh, 27rem);
-    min-height: 15.5rem;
-    z-index: 1;
+    height: 100%;
     overflow: hidden;
   }
 
@@ -4505,22 +4483,29 @@ body.cherry-popup-open {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center 68%;
+    object-position: center top;
     display: block;
   }
 
   .section--hero--has-mobile-image .section--hero__scrim--mobile {
-    display: block;
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    pointer-events: none;
-    background: linear-gradient(
-      to bottom,
-      rgba(245, 242, 238, 0.72) 0%,
-      rgba(245, 242, 238, 0.28) 14%,
-      transparent 28%
-    );
+    display: none;
+  }
+
+  .section--hero--has-mobile-image .section--hero__content--overlay {
+    position: relative;
+    z-index: 2;
+    flex: 1 1 auto;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    max-width: 100%;
+    min-height: 100svh;
+    min-height: 100dvh;
+    background: transparent;
+    padding-block: calc(var(--header-offset) - 1rem) clamp(10rem, 36svh, 14.5rem);
+    padding-inline: max(var(--space-sm), var(--safe-left)) max(var(--space-sm), var(--safe-right));
+    margin-bottom: 0;
   }
 
   .section--hero--has-mobile-image .section--hero__eyebrow {
@@ -4989,8 +4974,9 @@ body.cherry-popup-open {
   }
 
   .section--hero--has-mobile-image.section--hero--immersive {
-    min-height: auto;
-    padding-top: calc(var(--header-offset) - 0.75rem);
+    min-height: 100svh;
+    min-height: 100dvh;
+    padding-top: 0;
   }
 
   .section--hero__media--immersive > .section--hero__image--immersive,
@@ -5121,16 +5107,12 @@ body.cherry-popup-open {
 
   .section--hero--has-mobile-image.section--hero--immersive,
   .section--hero--has-mobile-image .section--hero__content--overlay {
-    min-height: 0;
+    min-height: 100svh;
+    min-height: 100dvh;
   }
 
   .section--hero--has-mobile-image .section--hero__content--overlay {
-    padding-block: var(--space-xs) var(--space-sm);
-  }
-
-  .section--hero--has-mobile-image .section--hero__media--mobile {
-    height: min(38svh, 12rem);
-    min-height: 10rem;
+    padding-block: calc(var(--header-offset) - 0.75rem) clamp(7rem, 28svh, 10rem);
   }
 
   .section--hero__content--overlay {
