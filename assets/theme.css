@@ -4485,10 +4485,28 @@ body.cherry-popup-open {
     object-fit: cover;
     object-position: center top;
     display: block;
+    filter: brightness(1.08) saturate(1.05) contrast(1.02);
   }
 
   .section--hero--has-mobile-image .section--hero__scrim--mobile {
-    display: none;
+    display: block;
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(
+      to bottom,
+      #ffffff 0%,
+      #ffffff 8%,
+      #faf8f5 16%,
+      rgba(250, 248, 245, 0.98) 26%,
+      rgba(245, 242, 238, 0.96) 38%,
+      rgba(245, 242, 238, 0.88) 48%,
+      rgba(245, 242, 238, 0.62) 56%,
+      rgba(245, 242, 238, 0.28) 64%,
+      rgba(245, 242, 238, 0.08) 72%,
+      transparent 80%
+    );
   }
 
   .section--hero--has-mobile-image .section--hero__content--overlay {
@@ -4503,7 +4521,7 @@ body.cherry-popup-open {
     min-height: 100svh;
     min-height: 100dvh;
     background: transparent;
-    padding-block: calc(var(--header-offset) - 1rem) clamp(10rem, 36svh, 14.5rem);
+    padding-block: calc(var(--safe-top) + var(--header-height) + 1.35rem) clamp(10rem, 36svh, 14.5rem);
     padding-inline: max(var(--space-sm), var(--safe-left)) max(var(--space-sm), var(--safe-right));
     margin-bottom: 0;
   }
@@ -5112,7 +5130,7 @@ body.cherry-popup-open {
   }
 
   .section--hero--has-mobile-image .section--hero__content--overlay {
-    padding-block: calc(var(--header-offset) - 0.75rem) clamp(7rem, 28svh, 10rem);
+    padding-block: calc(var(--safe-top) + var(--header-height) + 0.85rem) clamp(7rem, 28svh, 10rem);
   }
 
   .section--hero__content--overlay {
