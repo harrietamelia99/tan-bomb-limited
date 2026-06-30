@@ -1629,15 +1629,54 @@ main .section + .section::after,
 
 .texture-satin {
   position: relative;
-  background-color: var(--color-primary);
-  background-image: linear-gradient(
-    160deg,
-    #6b1520 0%,
-    var(--color-secondary) 32%,
-    var(--color-primary) 55%,
-    #8f1c2a 78%,
-    var(--color-secondary) 100%
-  );
+  isolation: isolate;
+  overflow: hidden;
+  background-color: #5c151e;
+  background-image:
+    radial-gradient(ellipse 48% 32% at 24% 20%, rgba(255, 250, 245, 0.1) 0%, transparent 72%),
+    radial-gradient(ellipse 42% 28% at 76% 72%, rgba(255, 200, 210, 0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 85% 60% at 16% 14%, rgba(255, 232, 232, 0.16) 0%, transparent 58%),
+    radial-gradient(ellipse 75% 55% at 84% 88%, rgba(28, 5, 9, 0.34) 0%, transparent 54%),
+    radial-gradient(ellipse 110% 75% at 50% 108%, rgba(18, 3, 6, 0.28) 0%, transparent 62%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, transparent 16%, transparent 84%, rgba(0, 0, 0, 0.12) 100%),
+    linear-gradient(
+      142deg,
+      #421016 0%,
+      #641a24 20%,
+      #8f2434 42%,
+      #a83242 52%,
+      #7a2230 66%,
+      #5a151e 84%,
+      #3f0e14 100%
+    );
+}
+
+.texture-satin::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.82;
+  background:
+    linear-gradient(
+      124deg,
+      rgba(255, 255, 255, 0.1) 0%,
+      rgba(255, 255, 255, 0.03) 14%,
+      transparent 28%,
+      rgba(255, 245, 245, 0.08) 42%,
+      transparent 56%,
+      rgba(0, 0, 0, 0.07) 72%,
+      transparent 86%,
+      rgba(255, 225, 230, 0.05) 100%
+    ),
+    linear-gradient(
+      34deg,
+      rgba(255, 240, 242, 0.06) 0%,
+      transparent 36%,
+      rgba(0, 0, 0, 0.1) 78%,
+      rgba(255, 210, 218, 0.04) 100%
+    );
 }
 
 .texture-satin > * {
