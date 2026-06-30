@@ -2157,7 +2157,7 @@ body:not(.template-index) #main-content {
   max-width: 480px;
 }
 
-.section--hero--immersive .section--hero__media {
+.section--hero--immersive .section--hero__media:not(.section--hero__media--desktop):not(.section--hero__media--mobile) {
   display: block;
 }
 
@@ -4648,6 +4648,22 @@ body.cherry-popup-open {
 
   .section--hero--immersive {
     min-height: 100vh;
+  }
+
+  .section--hero__media--mobile {
+    display: none;
+  }
+
+  .section--hero--has-mobile-image.section--hero--immersive {
+    padding-top: 0;
+    justify-content: center;
+  }
+
+  .section--hero--has-mobile-image .section--hero__content--overlay {
+    order: unset;
+    background-color: transparent;
+    flex: unset;
+    padding-block: calc(var(--header-offset) + var(--space-lg)) var(--section-padding);
   }
 
   .section--hero__media--desktop {
