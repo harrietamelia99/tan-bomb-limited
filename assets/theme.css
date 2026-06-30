@@ -502,29 +502,11 @@ button {
 }
 
 .site-header__scrim {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.78) 0%,
-    rgba(0, 0, 0, 0.42) 70%,
-    transparent 100%
-  );
-  pointer-events: none;
-  transition: opacity var(--transition-base);
-}
-
-body:has(.section--hero--light) .site-header:not(.is-scrolled) .site-header__scrim {
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.72) 0%,
-    rgba(0, 0, 0, 0.48) 68%,
-    transparent 100%
-  );
+  display: none;
 }
 
 .site-header.is-scrolled .site-header__scrim {
-  opacity: 0;
+  display: none;
 }
 
 .site-header__inner {
@@ -4521,10 +4503,32 @@ body.cherry-popup-open {
     margin-inline: 0;
     max-width: min(40vw, 540px);
     align-items: flex-start;
+    width: 100%;
+  }
+
+  .section--hero--has-desktop-image .section--hero__eyebrow {
+    width: 100%;
+    max-width: min(40vw, 540px);
+    text-align: left;
   }
 
   .section--hero--has-desktop-image .section--hero__product-name {
     margin-inline: 0;
+    padding-left: 0;
+    padding-right: 0.14em;
+    align-self: flex-start;
+  }
+
+  .section--hero--has-desktop-image .section--hero__tagline {
+    margin-inline: 0;
+    width: 100%;
+    text-align: left;
+    align-self: stretch;
+  }
+
+  .section--hero--has-desktop-image .section--hero__tagline em {
+    padding-left: 0;
+    margin-left: 0;
   }
 
   .section--hero--has-desktop-image .section--hero__subheading {
