@@ -6,7 +6,7 @@
   <link
     rel="preload"
     as="image"
-    href="{% if section.settings.desktop_image != blank %}{{ section.settings.desktop_image | image_url: width: 2048 }}{% else %}{{ 'hero-desktop.jpg' | asset_url }}{% endif %}"
+    href="{% if section.settings.desktop_image != blank %}{{ section.settings.desktop_image | image_url: width: 2560 }}{% else %}{{ 'hero-desktop-2560.jpg' | asset_url }}{% endif %}"
     media="(min-width: 1024px)"
   >
 
@@ -31,9 +31,14 @@
     {%- else -%}
       <img
         src="{{ 'hero-desktop.jpg' | asset_url }}"
+        srcset="
+          {{ 'hero-desktop.jpg' | asset_url }} 1920w,
+          {{ 'hero-desktop-2560.jpg' | asset_url }} 2560w
+        "
+        sizes="100vw"
         alt="Cherry Whip tanning accelerator on a tropical beach at sunset"
-        width="1024"
-        height="640"
+        width="1920"
+        height="1200"
         loading="eager"
         fetchpriority="high"
         decoding="async"

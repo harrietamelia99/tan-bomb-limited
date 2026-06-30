@@ -514,43 +514,13 @@ button {
   transition: opacity var(--transition-base);
 }
 
-body:has(.section--hero--light) .site-header:not(.is-scrolled) {
-  color: var(--color-dark);
-}
-
 body:has(.section--hero--light) .site-header:not(.is-scrolled) .site-header__scrim {
   background: linear-gradient(
     to bottom,
-    rgba(245, 242, 238, 0.98) 0%,
-    rgba(245, 242, 238, 0.88) 72%,
+    rgba(0, 0, 0, 0.72) 0%,
+    rgba(0, 0, 0, 0.48) 68%,
     transparent 100%
   );
-}
-
-body:has(.section--hero--light) .site-header:not(.is-scrolled) .site-header__toggle {
-  color: var(--color-dark);
-  background: rgba(255, 255, 255, 0.94);
-  border: 1px solid rgba(41, 38, 36, 0.2);
-  border-radius: var(--radius-pill);
-  box-shadow: 0 2px 14px rgba(41, 38, 36, 0.1);
-}
-
-body:has(.section--hero--light) .site-header:not(.is-scrolled) .site-header__toggle:hover {
-  color: var(--color-primary);
-  background: #fff;
-  border-color: rgba(173, 34, 52, 0.35);
-}
-
-body:has(.section--hero--light) .site-header:not(.is-scrolled) .site-header__actions {
-  background: rgba(255, 255, 255, 0.96);
-  border-color: rgba(41, 38, 36, 0.2);
-  box-shadow: 0 2px 14px rgba(41, 38, 36, 0.1);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-}
-
-body:has(.section--hero--light) .site-header:not(.is-scrolled) .cart-toggle {
-  color: var(--color-dark);
 }
 
 .site-header.is-scrolled .site-header__scrim {
@@ -4526,13 +4496,17 @@ body.cherry-popup-open {
     position: absolute;
     inset: 0;
     pointer-events: none;
-    background: linear-gradient(
-      to right,
-      rgba(245, 242, 238, 0.94) 0%,
-      rgba(245, 242, 238, 0.62) 26%,
-      rgba(245, 242, 238, 0.18) 46%,
-      transparent 64%
-    );
+    background:
+      linear-gradient(
+        to right,
+        rgba(245, 242, 238, 1) 0%,
+        rgba(245, 242, 238, 0.96) 14%,
+        rgba(245, 242, 238, 0.88) 28%,
+        rgba(245, 242, 238, 0.68) 42%,
+        rgba(245, 242, 238, 0.38) 54%,
+        rgba(245, 242, 238, 0.12) 66%,
+        transparent 78%
+      );
   }
 
   .section--hero--has-desktop-image .section--hero__content--overlay {
