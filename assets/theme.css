@@ -77,6 +77,26 @@
   --letter-spacing-button: 0.1em;
   --letter-spacing-button-hover: 0.12em;
   --weight-button: var(--weight-medium);
+  --btn-gradient-angle: 135deg;
+  --btn-primary-gradient: linear-gradient(
+    var(--btn-gradient-angle),
+    #ff6b7d 0%,
+    #e83a50 22%,
+    var(--color-primary) 55%,
+    #6b1520 100%
+  );
+  --btn-outline-gradient: linear-gradient(
+    var(--btn-gradient-angle),
+    rgba(255, 255, 255, 0.98) 0%,
+    rgba(248, 244, 239, 0.94) 48%,
+    rgba(232, 226, 220, 0.9) 100%
+  );
+  --btn-outline-light-gradient: linear-gradient(
+    var(--btn-gradient-angle),
+    rgba(255, 255, 255, 0.28) 0%,
+    rgba(255, 255, 255, 0.1) 52%,
+    rgba(255, 255, 255, 0.04) 100%
+  );
 
   --text-xs:    0.75rem;
   --text-sm:    0.875rem;
@@ -339,21 +359,13 @@ button {
 
 .btn--primary {
   color: var(--color-white);
-  background: linear-gradient(
-    145deg,
-    #e83a50 0%,
-    #c42838 22%,
-    var(--color-primary) 50%,
-    #8f1c2a 78%,
-    var(--color-secondary) 100%
-  );
-  background-size: 200% 200%;
-  background-position: 0% 50%;
+  background: var(--btn-primary-gradient);
+  background-size: 180% 180%;
+  background-position: 12% 12%;
   box-shadow:
-    0 4px 20px rgba(173, 34, 52, 0.45),
-    inset 0 1px 0 rgba(255, 255, 255, 0.35),
-    inset 0 -2px 4px rgba(0, 0, 0, 0.2),
-    0 0 0 1px rgba(212, 176, 74, 0.35);
+    0 4px 20px rgba(173, 34, 52, 0.42),
+    inset 0 1px 0 rgba(255, 255, 255, 0.32),
+    0 0 0 1px rgba(212, 176, 74, 0.32);
 }
 
 .btn--primary::before {
@@ -362,21 +374,20 @@ button {
 
 .btn--primary::after {
   background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.28) 0%,
-    rgba(255, 255, 255, 0.06) 40%,
-    transparent 55%,
-    rgba(0, 0, 0, 0.12) 100%
+    var(--btn-gradient-angle),
+    rgba(255, 255, 255, 0.34) 0%,
+    rgba(255, 255, 255, 0.08) 42%,
+    transparent 58%,
+    rgba(0, 0, 0, 0.14) 100%
   );
 }
 
 .btn--primary:hover {
-  background-position: 100% 50%;
+  background-position: 88% 88%;
   box-shadow:
-    0 6px 28px rgba(173, 34, 52, 0.55),
-    inset 0 1px 0 rgba(255, 255, 255, 0.4),
-    inset 0 -2px 4px rgba(0, 0, 0, 0.22),
-    0 0 16px rgba(212, 176, 74, 0.35);
+    0 6px 28px rgba(173, 34, 52, 0.52),
+    inset 0 1px 0 rgba(255, 255, 255, 0.38),
+    0 0 16px rgba(212, 176, 74, 0.32);
 }
 
 .btn--primary:hover::before {
@@ -385,12 +396,7 @@ button {
 
 .btn--outline {
   color: var(--color-dark);
-  background: linear-gradient(
-    145deg,
-    rgba(255, 255, 255, 0.95) 0%,
-    rgba(245, 242, 238, 0.9) 50%,
-    rgba(230, 225, 220, 0.85) 100%
-  );
+  background: var(--btn-outline-gradient);
   box-shadow:
     0 2px 12px rgba(41, 38, 36, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.9);
@@ -401,14 +407,25 @@ button {
 }
 
 .btn--outline::after {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.6) 0%, transparent 50%);
+  background: linear-gradient(
+    var(--btn-gradient-angle),
+    rgba(255, 255, 255, 0.72) 0%,
+    rgba(255, 255, 255, 0.18) 45%,
+    transparent 70%
+  );
 }
 
 .btn--outline:hover {
+  background: linear-gradient(
+    var(--btn-gradient-angle),
+    #ffffff 0%,
+    #f8f4ef 48%,
+    #ece6df 100%
+  );
   box-shadow:
     0 4px 16px rgba(41, 38, 36, 0.14),
     inset 0 1px 0 rgba(255, 255, 255, 1),
-    0 0 14px rgba(212, 176, 74, 0.3);
+    0 0 14px rgba(212, 176, 74, 0.28);
 }
 
 .btn--outline:hover::before {
@@ -417,12 +434,7 @@ button {
 
 .btn--outline-light {
   color: var(--color-white);
-  background: linear-gradient(
-    145deg,
-    rgba(255, 255, 255, 0.22) 0%,
-    rgba(255, 255, 255, 0.08) 50%,
-    rgba(255, 255, 255, 0.04) 100%
-  );
+  background: var(--btn-outline-light-gradient);
   backdrop-filter: blur(8px);
   box-shadow:
     0 2px 16px rgba(0, 0, 0, 0.2),
@@ -434,20 +446,25 @@ button {
 }
 
 .btn--outline-light::after {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, transparent 45%);
+  background: linear-gradient(
+    var(--btn-gradient-angle),
+    rgba(255, 255, 255, 0.26) 0%,
+    rgba(255, 255, 255, 0.08) 42%,
+    transparent 68%
+  );
 }
 
 .btn--outline-light:hover {
   background: linear-gradient(
-    145deg,
-    rgba(255, 255, 255, 0.32) 0%,
-    rgba(255, 255, 255, 0.14) 50%,
+    var(--btn-gradient-angle),
+    rgba(255, 255, 255, 0.36) 0%,
+    rgba(255, 255, 255, 0.16) 52%,
     rgba(255, 255, 255, 0.08) 100%
   );
   box-shadow:
     0 4px 20px rgba(0, 0, 0, 0.25),
     inset 0 1px 0 rgba(255, 255, 255, 0.45),
-    0 0 18px rgba(212, 176, 74, 0.4);
+    0 0 18px rgba(212, 176, 74, 0.36);
 }
 
 .btn--outline-light:hover::before {
