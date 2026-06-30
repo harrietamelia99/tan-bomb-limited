@@ -355,11 +355,16 @@
     options = options || {};
     var cherry = document.createElement('span');
     cherry.className = 'cherry-rain__item';
-    cherry.textContent = '🍒';
+    var icon = document.createElement('img');
+    icon.src = (config.assets && config.assets.cherryIcon) ? config.assets.cherryIcon : 'assets/cherry-icon.svg';
+    icon.alt = '';
+    icon.setAttribute('aria-hidden', 'true');
+    icon.setAttribute('decoding', 'async');
+    cherry.appendChild(icon);
     cherry.style.left = (Math.random() * 100) + '%';
     cherry.style.animationDelay = (options.delay != null ? options.delay : Math.random() * 0.9) + 's';
     cherry.style.animationDuration = (options.duration != null ? options.duration : (1.1 + Math.random() * 1.5)) + 's';
-    cherry.style.fontSize = (options.size != null ? options.size : (0.9 + Math.random() * 1.4)) + 'rem';
+    cherry.style.setProperty('--cherry-size', (options.size != null ? options.size : (0.9 + Math.random() * 1.4)) + 'rem');
     cherry.style.setProperty('--cherry-drift', ((Math.random() * 140) - 70) + 'px');
     cherry.style.setProperty('--cherry-spin', ((Math.random() * 720) - 360) + 'deg');
     cherry.style.setProperty('--cherry-speed', String(Math.random()));

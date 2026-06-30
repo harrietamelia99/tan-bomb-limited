@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+  <defs>
+    <radialGradient id="cherryRedL" cx="32%" cy="28%" r="68%">
+      <stop offset="0%" stop-color="#ff8a96"/>
+      <stop offset="38%" stop-color="#d62839"/>
+      <stop offset="72%" stop-color="#9b1424"/>
+      <stop offset="100%" stop-color="#5c0a14"/>
+    </radialGradient>
+    <radialGradient id="cherryRedR" cx="36%" cy="26%" r="68%">
+      <stop offset="0%" stop-color="#ff9aa5"/>
+      <stop offset="38%" stop-color="#de3344"/>
+      <stop offset="72%" stop-color="#a01828"/>
+      <stop offset="100%" stop-color="#620c16"/>
+    </radialGradient>
+    <radialGradient id="cherryHighlightL" cx="28%" cy="22%" r="28%">
+      <stop offset="0%" stop-color="#fff" stop-opacity="0.95"/>
+      <stop offset="55%" stop-color="#fff" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="cherryHighlightR" cx="30%" cy="20%" r="26%">
+      <stop offset="0%" stop-color="#fff" stop-opacity="0.9"/>
+      <stop offset="55%" stop-color="#fff" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="stemGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#6f9b4d"/>
+      <stop offset="100%" stop-color="#3f5f2d"/>
+    </linearGradient>
+    <linearGradient id="leafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8fbf62"/>
+      <stop offset="55%" stop-color="#5f8f3d"/>
+      <stop offset="100%" stop-color="#3f6428"/>
+    </linearGradient>
+    <filter id="cherryShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="1.5" stdDeviation="1.2" flood-color="#3a0a10" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+  <g filter="url(#cherryShadow)">
+    <path d="M33.2 8.4c-1.2 2.1-2.1 4.4-2.6 6.8-.5 2.1-.7 4.2-.6 6.3" stroke="url(#stemGrad)" stroke-width="2.1" stroke-linecap="round"/>
+    <path d="M30.8 8.2c1.4 2.2 2.4 4.6 2.9 7.1.4 1.8.5 3.6.4 5.4" stroke="url(#stemGrad)" stroke-width="2.1" stroke-linecap="round"/>
+    <path d="M32 7.8c.8-2.6 2.8-4.6 5.4-5.1 1.2-.2 2.4-.1 3.5.3-2.8 1.2-4.7 3.8-5.1 6.8-.3 2-.1 3.9.5 5.7" stroke="url(#stemGrad)" stroke-width="2.1" stroke-linecap="round"/>
+    <path d="M40.8 6.2c-3.2 1.8-5.4 5.1-5.8 8.8-.2 1.6 0 3.1.5 4.5" stroke="url(#stemGrad)" stroke-width="1.8" stroke-linecap="round"/>
+    <path d="M24.5 14.8c4.2-4.8 10.8-5.8 16-2.4 1.2.8 2.2 1.8 3 3-4.5-2.2-9.8-1.4-13.4 2.1-1.8 1.7-3 3.8-3.5 6.1" fill="url(#leafGrad)" stroke="#3f6428" stroke-width=".8"/>
+    <path d="M27.2 16.2c2.4-2.2 5.6-2.8 8.5-1.7" stroke="#a8d67f" stroke-width=".7" stroke-linecap="round" opacity=".65"/>
+    <path d="M26.4 18.1c2.1-1.4 4.6-1.7 6.9-.8" stroke="#a8d67f" stroke-width=".6" stroke-linecap="round" opacity=".45"/>
+    <circle cx="24.5" cy="39.5" r="14.2" fill="url(#cherryRedL)"/>
+    <circle cx="24.5" cy="39.5" r="14.2" fill="url(#cherryHighlightL)"/>
+    <circle cx="39.8" cy="41.2" r="13.4" fill="url(#cherryRedR)"/>
+    <circle cx="39.8" cy="41.2" r="13.4" fill="url(#cherryHighlightR)"/>
+    <ellipse cx="21.8" cy="50.8" rx="4.2" ry="2.2" fill="#4a0810" opacity=".22"/>
+    <ellipse cx="43.2" cy="51.6" rx="3.8" ry="2" fill="#4a0810" opacity=".2"/>
+    <path d="M31.8 30.2c1.4-1.1 3.2-1.5 4.9-1.1" stroke="#7a1020" stroke-width="1.1" stroke-linecap="round" opacity=".35"/>
+  </g>
+</svg>

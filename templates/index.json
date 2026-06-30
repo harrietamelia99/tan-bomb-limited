@@ -5,7 +5,7 @@
       "settings": {
         "eyebrow": "Tan Bomb presents",
         "product_name": "Cherry Whip",
-        "heading": "<em>now</em> live <span aria-hidden=\"true\">👀</span>",
+        "heading": "<em>now</em> live <span class=\"cherry-icon\" aria-hidden=\"true\"></span>",
         "subheading": "Cherry-infused tanning accelerator built for tanners and salons alike. Shop for yourself or stock your shelf. Salon-quality formula, packaging that sells.",
         "cta_label": "Shop Cherry Whip",
         "cta_url": "#shop",
@@ -30,7 +30,7 @@
       "type": "shop",
       "settings": {
         "eyebrow": "Shop Tan Bomb",
-        "heading": "For your bag & your <em>shelf</em> <span aria-hidden=\"true\">🍒</span>",
+        "heading": "For your bag & your <em>shelf</em> <span class=\"cherry-icon\" aria-hidden=\"true\"></span>",
         "subheading": "Salon-quality tanning accelerator, shipped straight to you. Whether you're buying for yourself or your business, add to bag and checkout securely online.",
         "show_descriptions": true,
         "products_limit": 6
@@ -103,7 +103,7 @@
     "product-details": {
       "type": "product-details",
       "settings": {
-        "heading": "Works indoors. Works outdoors. Works <em>on you</em>. <span aria-hidden=\"true\">🍒</span>",
+        "heading": "Works indoors. Works outdoors. Works <em>on you</em>. <span class=\"cherry-icon\" aria-hidden=\"true\"></span>",
         "body": "<p>All year round. All skin types. Sunbed or sunshine, Tan Bomb fits your routine, whether you're tanning for yourself or recommending it in salon. A luxurious accelerator formula that supports a deeper-looking tan while keeping skin feeling hydrated, smooth and nourished.</p>"
       }
     },
@@ -225,7 +225,7 @@
       "type": "instagram",
       "settings": {
         "eyebrow": "On Instagram",
-        "heading": "Tan so good we had to post it <span aria-hidden=\"true\">🍒</span>",
+        "heading": "Tan so good we had to post it <span class=\"cherry-icon\" aria-hidden=\"true\"></span>",
         "subheading": "Tan life, salon shelves, new drops and moments worth sharing.",
         "handle": "tanbombltd",
         "profile_url": "https://instagram.com/tanbombltd",
