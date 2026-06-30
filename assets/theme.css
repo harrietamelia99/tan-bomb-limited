@@ -4483,29 +4483,31 @@ body.cherry-popup-open {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center top;
+    object-position: 50% 42%;
     display: block;
-    filter: brightness(1.08) saturate(1.05) contrast(1.02);
+    filter: brightness(1.16) saturate(1.1) contrast(0.96);
   }
 
+  .section--hero--has-mobile-image .section--hero__media--mobile .section--hero__scrim,
   .section--hero--has-mobile-image .section--hero__scrim--mobile {
     display: block;
     position: absolute;
     inset: 0;
     z-index: 1;
     pointer-events: none;
-    background: linear-gradient(
+    background: none;
+    background-image: linear-gradient(
       to bottom,
       #ffffff 0%,
-      #ffffff 8%,
-      #faf8f5 16%,
-      rgba(250, 248, 245, 0.98) 26%,
-      rgba(245, 242, 238, 0.96) 38%,
-      rgba(245, 242, 238, 0.88) 48%,
-      rgba(245, 242, 238, 0.62) 56%,
-      rgba(245, 242, 238, 0.28) 64%,
-      rgba(245, 242, 238, 0.08) 72%,
-      transparent 80%
+      #ffffff 16%,
+      #faf8f5 26%,
+      #f5f2ee 46%,
+      #f5f2ee 56%,
+      rgba(245, 242, 238, 0.96) 60%,
+      rgba(245, 242, 238, 0.78) 64%,
+      rgba(245, 242, 238, 0.42) 70%,
+      rgba(245, 242, 238, 0.1) 76%,
+      transparent 84%
     );
   }
 
@@ -4520,7 +4522,14 @@ body.cherry-popup-open {
     max-width: 100%;
     min-height: 100svh;
     min-height: 100dvh;
-    background: transparent;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.94) 0%,
+      rgba(255, 255, 255, 0.72) 12%,
+      rgba(250, 248, 245, 0.42) 28%,
+      rgba(245, 242, 238, 0.18) 42%,
+      transparent 54%
+    );
     padding-block: calc(var(--safe-top) + var(--header-height) + 1.35rem) clamp(10rem, 36svh, 14.5rem);
     padding-inline: max(var(--space-sm), var(--safe-left)) max(var(--space-sm), var(--safe-right));
     margin-bottom: 0;
