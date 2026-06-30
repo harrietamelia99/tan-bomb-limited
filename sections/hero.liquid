@@ -6,23 +6,38 @@
   <link
     rel="preload"
     as="image"
-    href="{% if section.settings.desktop_image != blank %}{{ section.settings.desktop_image | image_url: width: 2560 }}{% else %}{{ 'hero-desktop-2560.jpg' | asset_url }}{% endif %}"
+    imagesrcset="
+      {%- if section.settings.desktop_image != blank -%}
+        {{ section.settings.desktop_image | image_url: width: 1920 }} 1920w,
+        {{ section.settings.desktop_image | image_url: width: 2560 }} 2560w,
+        {{ section.settings.desktop_image | image_url: width: 3840 }} 3840w,
+        {{ section.settings.desktop_image | image_url: width: 5504 }} 5504w
+      {%- else -%}
+        {{ 'hero-desktop.jpg' | asset_url }} 1920w,
+        {{ 'hero-desktop-2560.jpg' | asset_url }} 2560w,
+        {{ 'hero-desktop-3840.jpg' | asset_url }} 3840w,
+        {{ 'hero-desktop-5504.jpg' | asset_url }} 5504w
+      {%- endif -%}
+    "
+    imagesizes="100vw"
+    href="{% if section.settings.desktop_image != blank %}{{ section.settings.desktop_image | image_url: width: 3840 }}{% else %}{{ 'hero-desktop-3840.jpg' | asset_url }}{% endif %}"
     media="(min-width: 1024px)"
   >
 
   <div class="section--hero__media section--hero__media--desktop" aria-hidden="true">
     {%- if section.settings.desktop_image != blank -%}
       <img
-        src="{{ section.settings.desktop_image | image_url: width: 2048 }}"
+        src="{{ section.settings.desktop_image | image_url: width: 3840 }}"
         srcset="
-          {{ section.settings.desktop_image | image_url: width: 1536 }} 1536w,
-          {{ section.settings.desktop_image | image_url: width: 2048 }} 2048w,
-          {{ section.settings.desktop_image | image_url: width: 2560 }} 2560w
+          {{ section.settings.desktop_image | image_url: width: 1920 }} 1920w,
+          {{ section.settings.desktop_image | image_url: width: 2560 }} 2560w,
+          {{ section.settings.desktop_image | image_url: width: 3840 }} 3840w,
+          {{ section.settings.desktop_image | image_url: width: 5504 }} 5504w
         "
         sizes="100vw"
         alt="{{ section.settings.desktop_image.alt | default: section.settings.product_name | strip_html | default: 'Cherry Whip on a tropical beach at sunset' }}"
-        width="2048"
-        height="1280"
+        width="3840"
+        height="2143"
         loading="eager"
         fetchpriority="high"
         decoding="async"
@@ -30,15 +45,17 @@
       >
     {%- else -%}
       <img
-        src="{{ 'hero-desktop.jpg' | asset_url }}"
+        src="{{ 'hero-desktop-3840.jpg' | asset_url }}"
         srcset="
           {{ 'hero-desktop.jpg' | asset_url }} 1920w,
-          {{ 'hero-desktop-2560.jpg' | asset_url }} 2560w
+          {{ 'hero-desktop-2560.jpg' | asset_url }} 2560w,
+          {{ 'hero-desktop-3840.jpg' | asset_url }} 3840w,
+          {{ 'hero-desktop-5504.jpg' | asset_url }} 5504w
         "
         sizes="100vw"
         alt="Cherry Whip tanning accelerator on a tropical beach at sunset"
-        width="1920"
-        height="1070"
+        width="3840"
+        height="2143"
         loading="eager"
         fetchpriority="high"
         decoding="async"

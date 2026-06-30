@@ -13,6 +13,20 @@
 
   <link rel="stylesheet" href="../assets/theme.css">
 
+  <link
+    rel="preload"
+    as="image"
+    imagesrcset="
+      ../assets/hero-desktop.jpg 1920w,
+      ../assets/hero-desktop-2560.jpg 2560w,
+      ../assets/hero-desktop-3840.jpg 3840w,
+      ../assets/hero-desktop-5504.jpg 5504w
+    "
+    imagesizes="100vw"
+    href="../assets/hero-desktop-3840.jpg"
+    media="(min-width: 1024px)"
+  >
+
   <script>
     window.TanBomb = {
       moneyFormat: '£{{amount}}',
@@ -148,15 +162,17 @@
     <section id="hero" class="section section--hero section--hero--immersive section--hero--light section--hero--has-desktop-image fade-in texture-marble">
       <div class="section--hero__media section--hero__media--desktop" aria-hidden="true">
         <img
-          src="../assets/hero-desktop.jpg"
+          src="../assets/hero-desktop-3840.jpg"
           srcset="
             ../assets/hero-desktop.jpg 1920w,
-            ../assets/hero-desktop-2560.jpg 2560w
+            ../assets/hero-desktop-2560.jpg 2560w,
+            ../assets/hero-desktop-3840.jpg 3840w,
+            ../assets/hero-desktop-5504.jpg 5504w
           "
           sizes="100vw"
           alt="Cherry Whip tanning accelerator on a tropical beach at sunset"
-          width="1920"
-          height="1070"
+          width="3840"
+          height="2143"
           loading="eager"
           fetchpriority="high"
           decoding="async"
