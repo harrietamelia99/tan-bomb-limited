@@ -4358,10 +4358,44 @@ body.cherry-popup-open {
    ========================================================================== */
 
 @media (max-width: 1023px) {
+  .section--hero--has-mobile-image.section--hero--immersive {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    min-height: 0;
+    padding-top: var(--header-offset);
+    background-color: #f5f2ee;
+  }
+
+  .section--hero--has-mobile-image.texture-marble {
+    background-color: #f5f2ee;
+    background-image: none;
+  }
+
+  .section--hero--has-mobile-image .section--hero__content--overlay {
+    order: 1;
+    position: relative;
+    z-index: 2;
+    flex: 0 0 auto;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    max-width: 100%;
+    background-color: #f5f2ee;
+    padding-block: var(--space-xs) var(--space-md);
+    padding-inline: max(var(--space-sm), var(--safe-left)) max(var(--space-sm), var(--safe-right));
+  }
+
   .section--hero__media--mobile {
+    order: 2;
     display: block;
-    position: absolute;
-    inset: 0;
+    position: relative;
+    flex: 0 0 auto;
+    width: 100%;
+    height: min(54svh, 30rem);
+    min-height: 15rem;
     z-index: 0;
     overflow: hidden;
   }
@@ -4370,18 +4404,8 @@ body.cherry-popup-open {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center top;
+    object-position: center 72%;
     display: block;
-  }
-
-  .section--hero--has-mobile-image.section--hero--immersive {
-    justify-content: flex-start;
-    min-height: 100svh;
-  }
-
-  .section--hero--has-mobile-image.texture-marble {
-    background-color: #f5f2ee;
-    background-image: none;
   }
 
   .section--hero--has-mobile-image .section--hero__scrim--mobile {
@@ -4392,20 +4416,14 @@ body.cherry-popup-open {
     background:
       linear-gradient(
         to bottom,
-        rgba(245, 242, 238, 0.72) 0%,
-        rgba(245, 242, 238, 0.42) 22%,
-        rgba(245, 242, 238, 0.12) 40%,
-        transparent 52%
+        rgba(245, 242, 238, 1) 0%,
+        rgba(245, 242, 238, 0.96) 10%,
+        rgba(245, 242, 238, 0.88) 20%,
+        rgba(245, 242, 238, 0.68) 32%,
+        rgba(245, 242, 238, 0.38) 44%,
+        rgba(245, 242, 238, 0.12) 56%,
+        transparent 68%
       );
-  }
-
-  .section--hero--has-mobile-image .section--hero__content--overlay {
-    justify-content: flex-start;
-    align-items: center;
-    text-align: center;
-    width: 100%;
-    max-width: 100%;
-    padding-block: calc(var(--header-offset) + var(--space-xs)) var(--space-md);
   }
 
   .section--hero--has-mobile-image .section--hero__heading,
@@ -4836,7 +4854,7 @@ body.cherry-popup-open {
   }
 
   .section--hero--has-mobile-image.section--hero--immersive {
-    min-height: 100svh;
+    min-height: 0;
   }
 
   .section--hero__media--immersive > .section--hero__image--immersive,
@@ -4965,8 +4983,13 @@ body.cherry-popup-open {
     min-height: auto;
   }
 
-  .section--hero--has-mobile-image.section--hero--immersive {
-    min-height: 100svh;
+  .section--hero--has-mobile-image .section--hero__media--mobile {
+    height: min(42svh, 14rem);
+    min-height: 11rem;
+  }
+
+  .section--hero--has-mobile-image .section--hero__content--overlay {
+    padding-block: var(--space-xs) var(--space-sm);
   }
 
   .section--hero__content--overlay {
