@@ -35,7 +35,6 @@
       --color-dark:      {{ settings.color_dark }};
       --color-bg:        {{ settings.color_bg }};
       --color-text:      {{ settings.color_text }};
-      --cherry-icon:     url('{{ 'cherry-icon.svg' | asset_url }}');
     }
   </style>
 
@@ -43,9 +42,6 @@
     window.TanBomb = {
       moneyFormat: {{ shop.money_format | json }},
       currency: {{ cart.currency.iso_code | json }},
-      assets: {
-        cherryIcon: {{ 'cherry-icon.svg' | asset_url | json }}
-      },
       routes: {
         root: {{ routes.root_url | json }},
         cart: {{ routes.cart_url | json }},

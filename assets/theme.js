@@ -355,12 +355,8 @@
     options = options || {};
     var cherry = document.createElement('span');
     cherry.className = 'cherry-rain__item';
-    var icon = document.createElement('img');
-    icon.src = (config.assets && config.assets.cherryIcon) ? config.assets.cherryIcon : 'assets/cherry-icon.svg';
-    icon.alt = '';
-    icon.setAttribute('aria-hidden', 'true');
-    icon.setAttribute('decoding', 'async');
-    cherry.appendChild(icon);
+    cherry.textContent = '🍒';
+    cherry.setAttribute('aria-hidden', 'true');
     cherry.style.left = (Math.random() * 100) + '%';
     cherry.style.animationDelay = (options.delay != null ? options.delay : Math.random() * 0.9) + 's';
     cherry.style.animationDuration = (options.duration != null ? options.duration : (1.1 + Math.random() * 1.5)) + 's';
