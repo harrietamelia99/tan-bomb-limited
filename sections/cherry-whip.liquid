@@ -21,14 +21,7 @@
                   class="cherry-whip__visual-image"
                 >
               {%- else -%}
-                <img
-                  src="{{ 'cherry-whip-salon.jpg' | asset_url }}"
-                  alt="Cherry Whip tanning accelerator held in a tanning salon"
-                  width="768"
-                  height="1024"
-                  loading="lazy"
-                  class="cherry-whip__visual-image"
-                >
+                {% render 'image-placeholder-client', aspect: 'portrait-34' %}
               {%- endif -%}
             </div>
           </div>

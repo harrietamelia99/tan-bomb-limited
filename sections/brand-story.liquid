@@ -38,14 +38,7 @@
           class="section--brand-story__image"
         >
       {%- else -%}
-        <img
-          src="{{ 'brand-story.png' | asset_url }}"
-          alt="Hand holding Cherry Whip tanning accelerator sachet in a salon"
-          width="768"
-          height="1024"
-          loading="lazy"
-          class="section--brand-story__image section--brand-story__image--default"
-        >
+        {% render 'image-placeholder-client', aspect: 'portrait-34' %}
       {%- endif -%}
     </div>
   </div>

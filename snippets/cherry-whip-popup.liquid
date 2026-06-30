@@ -15,14 +15,7 @@
 
     <article class="product-card product-card--featured cherry-popup__card">
       <div class="product-card__media">
-        <img
-          src="{{ 'cherry-whip-product.png' | asset_url }}"
-          alt="Cherry Whip tanning accelerator on salon shelf"
-          width="699"
-          height="928"
-          loading="eager"
-          class="product-card__image product-card__image--product"
-        >
+        {% render 'image-placeholder-client', aspect: 'square', class: 'product-card__image product-card__image--product' %}
       </div>
 
       <div class="product-card__body">

@@ -1,6 +1,6 @@
 <section
   id="hero"
-  class="section section--hero section--hero--immersive section--hero--light section--hero--has-desktop-image fade-in texture-marble"
+  class="section section--hero section--hero--immersive section--hero--light section--hero--has-desktop-image section--hero--has-mobile-image fade-in texture-marble"
   style="--section-bg: {{ section.settings.bg_color | default: '#f5f2ee' }};"
 >
   <link
@@ -23,6 +23,67 @@
     href="{% if section.settings.desktop_image != blank %}{{ section.settings.desktop_image | image_url: width: 3840 }}{% else %}{{ 'hero-desktop-3840.jpg' | asset_url }}{% endif %}"
     media="(min-width: 1024px)"
   >
+  <link
+    rel="preload"
+    as="image"
+    imagesrcset="
+      {%- if section.settings.mobile_image != blank -%}
+        {{ section.settings.mobile_image | image_url: width: 1080 }} 1080w,
+        {{ section.settings.mobile_image | image_url: width: 1536 }} 1536w,
+        {{ section.settings.mobile_image | image_url: width: 2048 }} 2048w,
+        {{ section.settings.mobile_image | image_url: width: 3072 }} 3072w
+      {%- else -%}
+        {{ 'hero-mobile.jpg' | asset_url }} 1080w,
+        {{ 'hero-mobile-1536.jpg' | asset_url }} 1536w,
+        {{ 'hero-mobile-2048.jpg' | asset_url }} 2048w,
+        {{ 'hero-mobile-3072.jpg' | asset_url }} 3072w
+      {%- endif -%}
+    "
+    imagesizes="100vw"
+    href="{% if section.settings.mobile_image != blank %}{{ section.settings.mobile_image | image_url: width: 1536 }}{% else %}{{ 'hero-mobile-1536.jpg' | asset_url }}{% endif %}"
+    media="(max-width: 1023px)"
+  >
+
+  <div class="section--hero__media section--hero__media--mobile" aria-hidden="true">
+    {%- if section.settings.mobile_image != blank -%}
+      <img
+        src="{{ section.settings.mobile_image | image_url: width: 1536 }}"
+        srcset="
+          {{ section.settings.mobile_image | image_url: width: 1080 }} 1080w,
+          {{ section.settings.mobile_image | image_url: width: 1536 }} 1536w,
+          {{ section.settings.mobile_image | image_url: width: 2048 }} 2048w,
+          {{ section.settings.mobile_image | image_url: width: 3072 }} 3072w
+        "
+        sizes="100vw"
+        alt="{{ section.settings.mobile_image.alt | default: section.settings.product_name | strip_html | default: 'Cherry Whip on a tropical beach at sunset' }}"
+        width="1536"
+        height="2752"
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+        class="section--hero__image section--hero__image--mobile"
+      >
+    {%- else -%}
+      <img
+        src="{{ 'hero-mobile-1536.jpg' | asset_url }}"
+        srcset="
+          {{ 'hero-mobile.jpg' | asset_url }} 1080w,
+          {{ 'hero-mobile-1536.jpg' | asset_url }} 1536w,
+          {{ 'hero-mobile-2048.jpg' | asset_url }} 2048w,
+          {{ 'hero-mobile-3072.jpg' | asset_url }} 3072w
+        "
+        sizes="100vw"
+        alt="Cherry Whip tanning accelerator on a tropical beach at sunset"
+        width="1536"
+        height="2752"
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+        class="section--hero__image section--hero__image--mobile"
+      >
+    {%- endif -%}
+    <div class="section--hero__scrim section--hero__scrim--mobile"></div>
+  </div>
 
   <div class="section--hero__media section--hero__media--desktop" aria-hidden="true">
     {%- if section.settings.desktop_image != blank -%}
@@ -166,6 +227,11 @@
       "type": "image_picker",
       "id": "desktop_image",
       "label": "Desktop hero image (1024px and up)"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile hero image (below 1024px)"
     },
     {
       "type": "color",

@@ -1,0 +1,16 @@
+{%- comment -%}
+  Temporary client image placeholder.
+  Accepts:
+  - aspect: portrait-34 | square (default portrait-34)
+  - class: extra classes
+{%- endcomment -%}
+{%- liquid
+  assign placeholder_aspect = aspect | default: 'portrait-34'
+  assign placeholder_class = 'image-placeholder image-placeholder--client image-placeholder--' | append: placeholder_aspect
+  if class != blank
+    assign placeholder_class = placeholder_class | append: ' ' | append: class
+  endif
+-%}
+<div class="{{ placeholder_class }}" role="img" aria-label="Client to provide final images before launch">
+  <p class="image-placeholder__label">Client to provide final images before launch</p>
+</div>

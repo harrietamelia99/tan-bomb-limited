@@ -17,6 +17,20 @@
     rel="preload"
     as="image"
     imagesrcset="
+      ../assets/hero-mobile.jpg 1080w,
+      ../assets/hero-mobile-1536.jpg 1536w,
+      ../assets/hero-mobile-2048.jpg 2048w,
+      ../assets/hero-mobile-3072.jpg 3072w
+    "
+    imagesizes="100vw"
+    href="../assets/hero-mobile-1536.jpg"
+    media="(max-width: 1023px)"
+  >
+
+  <link
+    rel="preload"
+    as="image"
+    imagesrcset="
       ../assets/hero-desktop.jpg 1920w,
       ../assets/hero-desktop-2560.jpg 2560w,
       ../assets/hero-desktop-3840.jpg 3840w,
@@ -85,7 +99,9 @@
       </button>
       <article class="product-card product-card--featured cherry-popup__card">
         <div class="product-card__media">
-          <img src="../assets/cherry-whip-product.png" alt="Cherry Whip tanning accelerator on salon shelf" width="699" height="928" loading="eager" class="product-card__image product-card__image--product">
+          <div class="image-placeholder image-placeholder--client image-placeholder--square product-card__image product-card__image--product" role="img" aria-label="Client to provide final images before launch">
+            <p class="image-placeholder__label">Client to provide final images before launch</p>
+          </div>
         </div>
         <div class="product-card__body">
           <p class="cherry-popup__eyebrow">Tan Bomb presents</p>
@@ -159,7 +175,27 @@
 
   <main id="main-content">
 
-    <section id="hero" class="section section--hero section--hero--immersive section--hero--light section--hero--has-desktop-image fade-in texture-marble">
+    <section id="hero" class="section section--hero section--hero--immersive section--hero--light section--hero--has-desktop-image section--hero--has-mobile-image fade-in texture-marble">
+      <div class="section--hero__media section--hero__media--mobile" aria-hidden="true">
+        <img
+          src="../assets/hero-mobile-1536.jpg"
+          srcset="
+            ../assets/hero-mobile.jpg 1080w,
+            ../assets/hero-mobile-1536.jpg 1536w,
+            ../assets/hero-mobile-2048.jpg 2048w,
+            ../assets/hero-mobile-3072.jpg 3072w
+          "
+          sizes="100vw"
+          alt="Cherry Whip tanning accelerator on a tropical beach at sunset"
+          width="1536"
+          height="2752"
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+          class="section--hero__image section--hero__image--mobile"
+        >
+        <div class="section--hero__scrim section--hero__scrim--mobile"></div>
+      </div>
       <div class="section--hero__media section--hero__media--desktop" aria-hidden="true">
         <img
           src="../assets/hero-desktop-3840.jpg"
@@ -201,14 +237,9 @@
           <div class="cherry-whip__showcase">
             <div class="cherry-whip__visual">
               <div class="cherry-whip__image-frame">
-                <img
-                  src="../assets/cherry-whip-salon.jpg"
-                  alt="Cherry Whip tanning accelerator held in a tanning salon"
-                  width="768"
-                  height="1024"
-                  loading="lazy"
-                  class="cherry-whip__visual-image"
-                >
+                <div class="image-placeholder image-placeholder--client image-placeholder--portrait-34" role="img" aria-label="Client to provide final images before launch">
+                  <p class="image-placeholder__label">Client to provide final images before launch</p>
+                </div>
               </div>
             </div>
             <div class="cherry-whip__content">
@@ -239,14 +270,9 @@
         <div class="shop-grid shop-grid--single">
           <article class="product-card product-card--featured" data-product-card>
             <div class="product-card__media">
-              <img
-                src="../assets/cherry-whip-product.png"
-                alt="Cherry Whip tanning accelerator on salon shelf"
-                width="699"
-                height="928"
-                loading="lazy"
-                class="product-card__image product-card__image--product"
-              >
+              <div class="image-placeholder image-placeholder--client image-placeholder--square product-card__image product-card__image--product" role="img" aria-label="Client to provide final images before launch">
+                <p class="image-placeholder__label">Client to provide final images before launch</p>
+              </div>
             </div>
             <div class="product-card__body">
               <h3 class="product-card__title">Cherry Whip</h3>
@@ -327,14 +353,9 @@
           </div>
         </div>
         <div class="section--brand-story__media">
-          <img
-            src="../assets/brand-story.png"
-            alt="Hand holding Cherry Whip tanning accelerator sachet in a salon"
-            width="768"
-            height="1024"
-            loading="lazy"
-            class="section--brand-story__image section--brand-story__image--default"
-          >
+          <div class="image-placeholder image-placeholder--client image-placeholder--portrait-34" role="img" aria-label="Client to provide final images before launch">
+            <p class="image-placeholder__label">Client to provide final images before launch</p>
+          </div>
         </div>
       </div>
     </section>

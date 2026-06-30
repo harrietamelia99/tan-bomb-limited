@@ -1758,6 +1758,61 @@ main .section + .section::after,
   opacity: 0.75;
 }
 
+.image-placeholder--client {
+  padding: var(--space-md);
+}
+
+.image-placeholder--client .image-placeholder__label {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-style: italic;
+  font-weight: var(--weight-regular);
+  line-height: 1.5;
+  letter-spacing: normal;
+  max-width: 14rem;
+  text-wrap: balance;
+}
+
+.image-placeholder--portrait-34 {
+  aspect-ratio: 3 / 4;
+  width: 100%;
+  min-height: 0;
+}
+
+.image-placeholder--square {
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  min-height: 0;
+}
+
+.cherry-whip__image-frame .image-placeholder--client {
+  border: none;
+  border-radius: 0;
+  background: rgba(41, 38, 36, 0.05);
+  color: rgba(41, 38, 36, 0.5);
+}
+
+.product-card__media .image-placeholder--client {
+  grid-area: 1 / 1;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  aspect-ratio: auto;
+  border: none;
+  border-radius: 0;
+  background: rgba(41, 38, 36, 0.04);
+  color: rgba(41, 38, 36, 0.5);
+}
+
+.section--brand-story__media .image-placeholder--client {
+  min-height: 280px;
+  border-radius: var(--radius-lg);
+  background: rgba(41, 38, 36, 0.04);
+  border-color: rgba(41, 38, 36, 0.12);
+  color: rgba(41, 38, 36, 0.5);
+  box-shadow: var(--shadow-sm);
+}
+
 .section--hero__media--immersive .image-placeholder__label,
 .section--hero__media--immersive .image-placeholder__dims {
   opacity: 0;
@@ -1860,6 +1915,14 @@ main .section + .section::after,
 }
 
 .section--hero__media--desktop .section--hero__scrim--desktop {
+  display: none;
+}
+
+.section--hero__media--mobile {
+  display: none;
+}
+
+.section--hero__media--mobile .section--hero__scrim--mobile {
   display: none;
 }
 
@@ -4291,6 +4354,88 @@ body.cherry-popup-open {
 }
 
 /* ==========================================================================
+   Mobile hero image - below 1024px
+   ========================================================================== */
+
+@media (max-width: 1023px) {
+  .section--hero__media--mobile {
+    display: block;
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .section--hero__image--mobile {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+  }
+
+  .section--hero--has-mobile-image.section--hero--immersive {
+    justify-content: flex-start;
+    min-height: 100svh;
+  }
+
+  .section--hero--has-mobile-image.texture-marble {
+    background-color: #f5f2ee;
+    background-image: none;
+  }
+
+  .section--hero--has-mobile-image .section--hero__scrim--mobile {
+    display: block;
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(
+        to bottom,
+        rgba(245, 242, 238, 0.72) 0%,
+        rgba(245, 242, 238, 0.42) 22%,
+        rgba(245, 242, 238, 0.12) 40%,
+        transparent 52%
+      );
+  }
+
+  .section--hero--has-mobile-image .section--hero__content--overlay {
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    max-width: 100%;
+    padding-block: calc(var(--header-offset) + var(--space-xs)) var(--space-md);
+  }
+
+  .section--hero--has-mobile-image .section--hero__heading,
+  .section--hero--has-mobile-image .section--hero__eyebrow,
+  .section--hero--has-mobile-image .section--hero__subheading {
+    margin-inline: auto;
+    text-align: center;
+    max-width: min(92vw, 22rem);
+  }
+
+  .section--hero--has-mobile-image .section--hero__product-name {
+    margin-inline: auto;
+  }
+
+  .section--hero--has-mobile-image .section--hero__subheading {
+    margin-bottom: var(--space-md);
+    line-height: 1.55;
+  }
+
+  .section--hero--has-mobile-image .section--hero__actions {
+    width: 100%;
+    max-width: min(92vw, 19rem);
+  }
+
+  .section--hero--has-mobile-image .section--hero__divider {
+    margin-inline: auto;
+  }
+}
+
+/* ==========================================================================
    Desktop - 1024px+
    ========================================================================== */
 
@@ -4690,6 +4835,10 @@ body.cherry-popup-open {
     min-height: max(78svh, 32rem);
   }
 
+  .section--hero--has-mobile-image.section--hero--immersive {
+    min-height: 100svh;
+  }
+
   .section--hero__media--immersive > .section--hero__image--immersive,
   .section--hero__media--immersive > picture,
   .section--hero__media--immersive > picture img {
@@ -4814,6 +4963,10 @@ body.cherry-popup-open {
 @media (max-height: 600px) and (max-width: 900px) {
   .section--hero--immersive {
     min-height: auto;
+  }
+
+  .section--hero--has-mobile-image.section--hero--immersive {
+    min-height: 100svh;
   }
 
   .section--hero__content--overlay {
