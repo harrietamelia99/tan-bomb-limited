@@ -4483,15 +4483,15 @@ body.cherry-popup-open {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center 22%;
+    object-position: center bottom;
     display: block;
-    filter: brightness(1.34) saturate(1.16) contrast(0.9);
+    filter: brightness(1.12) saturate(1.14) contrast(0.94);
   }
 
-  .section--hero--has-mobile-image .section--hero__media--mobile .section--hero__scrim,
-  .section--hero--has-mobile-image .section--hero__scrim--mobile {
+  .section--hero--has-mobile-image.section--hero--immersive .section--hero__media--mobile .section--hero__scrim,
+  .section--hero--has-mobile-image.section--hero--immersive .section--hero__scrim--mobile {
     display: none;
-    background: none;
+    background: transparent;
     background-image: none;
   }
 
@@ -4511,7 +4511,7 @@ body.cherry-popup-open {
       #faf8f5 46%,
       #f5f2ee 100%
     );
-    padding-block: calc(var(--safe-top) + var(--header-height) + 1.35rem) var(--space-lg);
+    padding-block: calc(var(--safe-top) + var(--header-height) + 1.85rem) var(--space-lg);
     padding-inline: max(var(--space-sm), var(--safe-left)) max(var(--space-sm), var(--safe-right));
     margin-bottom: -2.25rem;
   }
@@ -4522,12 +4522,13 @@ body.cherry-popup-open {
     left: 0;
     right: 0;
     bottom: 0;
-    height: 2.75rem;
+    height: 4.5rem;
     pointer-events: none;
     background: linear-gradient(
       to bottom,
       #f5f2ee 0%,
-      rgba(245, 242, 238, 0.65) 42%,
+      rgba(245, 242, 238, 0.82) 35%,
+      rgba(245, 242, 238, 0.35) 68%,
       transparent 100%
     );
   }
