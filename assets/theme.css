@@ -1612,25 +1612,15 @@ main .section + .section::after,
 
 .texture-satin {
   position: relative;
-  background-color: var(--color-secondary);
-  background-image:
-    linear-gradient(125deg, rgba(255, 255, 255, 0.08) 0%, transparent 35%, transparent 65%, rgba(0, 0, 0, 0.15) 100%),
-    linear-gradient(45deg, #5a1419 0%, var(--color-secondary) 25%, var(--color-primary) 50%, var(--color-secondary) 75%, #5a1419 100%);
-  background-size: 100% 100%, 200% 200%;
-}
-
-.texture-satin::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    -55deg,
-    transparent,
-    transparent 3px,
-    rgba(255, 255, 255, 0.03) 3px,
-    rgba(255, 255, 255, 0.03) 6px
+  background-color: var(--color-primary);
+  background-image: linear-gradient(
+    160deg,
+    #6b1520 0%,
+    var(--color-secondary) 32%,
+    var(--color-primary) 55%,
+    #8f1c2a 78%,
+    var(--color-secondary) 100%
   );
-  pointer-events: none;
 }
 
 .texture-satin > * {
@@ -2376,9 +2366,28 @@ body:not(.template-index) #main-content {
   color: var(--color-text);
 }
 
+.section--brand-story .section__heading {
+  text-wrap: initial;
+}
+
+@media (min-width: 768px) {
+  .section--brand-story .section__heading {
+    white-space: nowrap;
+    font-size: clamp(1.25rem, 1rem + 1.1vw, 2.25rem);
+  }
+}
+
+@media (min-width: 1024px) {
+  .section--brand-story .section__heading {
+    font-size: var(--text-4xl);
+  }
+}
+
 .section--brand-story__media {
   aspect-ratio: 4 / 5;
-  max-height: min(68vh, 30rem);
+  max-height: min(78vh, 38rem);
+  width: 100%;
+  margin-inline: auto;
   border-radius: var(--radius-lg);
   overflow: hidden;
 }
@@ -4037,7 +4046,7 @@ body.cherry-popup-open {
   }
 
   .section--brand-story__inner {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 0.94fr) minmax(0, 1.06fr);
     gap: var(--space-xl);
     align-items: center;
   }
@@ -4051,7 +4060,7 @@ body.cherry-popup-open {
   }
 
   .section--brand-story__media {
-    max-height: min(52vh, 24rem);
+    max-height: min(64vh, 36rem);
   }
 
   .section--hero__actions {
@@ -4388,11 +4397,12 @@ body.cherry-popup-open {
   }
 
   .section--brand-story__inner {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
     gap: var(--space-xxl);
   }
 
   .section--brand-story__media {
-    max-height: min(58vh, 28rem);
+    max-height: min(72vh, 40rem);
   }
 
   .site-footer__payments .payment-icons__list {
