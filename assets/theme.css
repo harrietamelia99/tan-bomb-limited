@@ -291,18 +291,18 @@ button {
 .cherry-icon::before {
   content: '🍒';
   display: inline-block;
-  font-size: 0.78em;
+  font-size: 0.68em;
   line-height: 1;
 }
 
 .section--hero__tagline .cherry-icon,
 .cherry-popup__tagline .cherry-icon {
-  vertical-align: -0.1em;
+  vertical-align: -0.08em;
 }
 
 .section--hero__tagline .cherry-icon::before,
 .cherry-popup__tagline .cherry-icon::before {
-  font-size: 0.88em;
+  font-size: 0.76em;
 }
 
 .skip-link {
