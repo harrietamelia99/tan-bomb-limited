@@ -1,8 +1,48 @@
 <section
   id="hero"
-  class="section section--hero section--hero--immersive section--hero--light fade-in texture-marble"
+  class="section section--hero section--hero--immersive section--hero--light section--hero--has-desktop-image fade-in texture-marble"
   style="--section-bg: {{ section.settings.bg_color | default: '#f5f2ee' }};"
 >
+  <link
+    rel="preload"
+    as="image"
+    href="{% if section.settings.desktop_image != blank %}{{ section.settings.desktop_image | image_url: width: 2048 }}{% else %}{{ 'hero-desktop.jpg' | asset_url }}{% endif %}"
+    media="(min-width: 1024px)"
+  >
+
+  <div class="section--hero__media section--hero__media--desktop" aria-hidden="true">
+    {%- if section.settings.desktop_image != blank -%}
+      <img
+        src="{{ section.settings.desktop_image | image_url: width: 2048 }}"
+        srcset="
+          {{ section.settings.desktop_image | image_url: width: 1536 }} 1536w,
+          {{ section.settings.desktop_image | image_url: width: 2048 }} 2048w,
+          {{ section.settings.desktop_image | image_url: width: 2560 }} 2560w
+        "
+        sizes="100vw"
+        alt="{{ section.settings.desktop_image.alt | default: section.settings.product_name | strip_html | default: 'Cherry Whip on a tropical beach at sunset' }}"
+        width="2048"
+        height="1280"
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+        class="section--hero__image section--hero__image--desktop"
+      >
+    {%- else -%}
+      <img
+        src="{{ 'hero-desktop.jpg' | asset_url }}"
+        alt="Cherry Whip tanning accelerator on a tropical beach at sunset"
+        width="1024"
+        height="640"
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+        class="section--hero__image section--hero__image--desktop"
+      >
+    {%- endif -%}
+    <div class="section--hero__scrim section--hero__scrim--desktop"></div>
+  </div>
+
   <div class="container section--hero__content section--hero__content--overlay">
     {%- if section.settings.eyebrow != blank -%}
       <p class="section--hero__eyebrow">{{ section.settings.eyebrow }}</p>
@@ -99,6 +139,11 @@
       "id": "secondary_cta_url",
       "label": "Secondary CTA URL",
       "default": "#cherry-whip"
+    },
+    {
+      "type": "image_picker",
+      "id": "desktop_image",
+      "label": "Desktop hero image (1024px and up)"
     },
     {
       "type": "color",

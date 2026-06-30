@@ -142,7 +142,20 @@
 
   <main id="main-content">
 
-    <section id="hero" class="section section--hero section--hero--immersive section--hero--light fade-in texture-marble">
+    <section id="hero" class="section section--hero section--hero--immersive section--hero--light section--hero--has-desktop-image fade-in texture-marble">
+      <div class="section--hero__media section--hero__media--desktop" aria-hidden="true">
+        <img
+          src="../assets/hero-desktop.jpg"
+          alt="Cherry Whip tanning accelerator on a tropical beach at sunset"
+          width="1024"
+          height="640"
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+          class="section--hero__image section--hero__image--desktop"
+        >
+        <div class="section--hero__scrim section--hero__scrim--desktop"></div>
+      </div>
       <div class="container section--hero__content section--hero__content--overlay">
         <p class="section--hero__eyebrow">Tan Bomb presents</p>
         <h1 class="section--hero__heading">
