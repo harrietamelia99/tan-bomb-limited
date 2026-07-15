@@ -21,7 +21,14 @@
                   class="cherry-whip__visual-image"
                 >
               {%- else -%}
-                {% render 'image-placeholder-client', aspect: 'portrait-34' %}
+                <img
+                  src="{{ 'lifestyle-arm-cream.jpg' | asset_url }}"
+                  alt="Applying Cherry Whip tanning cream on glowing skin at the beach"
+                  width="1200"
+                  height="1600"
+                  loading="lazy"
+                  class="cherry-whip__visual-image"
+                >
               {%- endif -%}
             </div>
           </div>

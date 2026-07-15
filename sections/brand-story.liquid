@@ -38,7 +38,14 @@
           class="section--brand-story__image"
         >
       {%- else -%}
-        {% render 'image-placeholder-client', aspect: 'portrait-34' %}
+        <img
+          src="{{ 'lifestyle-beach-setup.jpg' | asset_url }}"
+          alt="Beach lounge setup with lotion and cherries at golden hour"
+          width="1200"
+          height="1600"
+          loading="lazy"
+          class="section--brand-story__image"
+        >
       {%- endif -%}
     </div>
   </div>

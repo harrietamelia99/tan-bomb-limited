@@ -9,7 +9,14 @@
 {%- if product == blank -%}
   <article class="product-card product-card--placeholder{% if featured %} product-card--featured{% endif %}">
     <div class="product-card__media">
-      {% render 'image-placeholder-client', aspect: 'square' %}
+      <img
+        src="{{ 'lifestyle-cream-still.jpg' | asset_url }}"
+        alt="Cherry Whip cream with fresh cherries on beach sand"
+        width="1200"
+        height="1200"
+        loading="lazy"
+        class="product-card__image product-card__image--product"
+      >
     </div>
     <div class="product-card__body">
       <h3 class="product-card__title">Cherry Whip</h3>
@@ -44,7 +51,14 @@
           class="product-card__image"
         >
       {%- else -%}
-        {% render 'image-placeholder-client', aspect: 'square', class: 'product-card__image product-card__image--product' %}
+        <img
+          src="{{ 'lifestyle-cream-still.jpg' | asset_url }}"
+          alt="Cherry Whip cream with fresh cherries on beach sand"
+          width="1200"
+          height="1200"
+          loading="lazy"
+          class="product-card__image product-card__image--product"
+        >
       {%- endif -%}
     </a>
 

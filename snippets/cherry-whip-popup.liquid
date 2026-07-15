@@ -15,7 +15,14 @@
 
     <article class="product-card product-card--featured cherry-popup__card">
       <div class="product-card__media">
-        {% render 'image-placeholder-client', aspect: 'square', class: 'product-card__image product-card__image--product' %}
+        <img
+          src="{{ 'lifestyle-shoulders-lotion.jpg' | asset_url }}"
+          alt="Applying Cherry Whip lotion to sun-kissed shoulders by the ocean"
+          width="1200"
+          height="1200"
+          loading="lazy"
+          class="product-card__image product-card__image--product"
+        >
       </div>
 
       <div class="product-card__body">
