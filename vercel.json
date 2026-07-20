@@ -3,6 +3,14 @@
     {
       "source": "/",
       "destination": "/preview/index.html"
+    },
+    {
+      "source": "/privacy",
+      "destination": "/preview/privacy.html"
+    },
+    {
+      "source": "/privacy/",
+      "destination": "/preview/privacy.html"
     }
   ]
 }

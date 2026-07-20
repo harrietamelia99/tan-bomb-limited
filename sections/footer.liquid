@@ -33,6 +33,7 @@
         <li><a href="{{ link_root }}#stockists"{% if use_scroll %} data-scroll-link{% endif %}>Stockists</a></li>
         <li><a href="{{ link_root }}#instagram"{% if use_scroll %} data-scroll-link{% endif %}>Instagram</a></li>
         <li><a href="{{ link_root }}#contact"{% if use_scroll %} data-scroll-link{% endif %}>Contact</a></li>
+        <li><a href="/privacy">Privacy</a></li>
       </ul>
     </nav>
 
@@ -50,6 +51,7 @@
       <div class="site-footer__meta">
         <p class="site-footer__legal">
           &copy; {{ 'now' | date: '%Y' }} Tan Bomb Ltd. All rights reserved.
+          · <a href="/privacy">Privacy Policy</a>
         </p>
 
         {%- if section.settings.show_studio_credit -%}
