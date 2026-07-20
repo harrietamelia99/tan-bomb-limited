@@ -118,6 +118,7 @@
     },
     "stockists": {
       "type": "stockists",
+      "disabled": true,
       "settings": {
         "heading": "Want Tan Bomb in <em>your</em> salon?",
         "subheading": "We work with tanning salons and distributors across the UK. Wholesale pricing, retail-ready packaging, and a product your customers will actually ask for.",
@@ -251,7 +252,7 @@
         "show_contact_details": true,
         "email": "info@tan-bomb.com",
         "instagram_url": "https://instagram.com/tanbombltd",
-        "tiktok_url": "https://www.tiktok.com/@tanbombltd"
+        "tiktok_url": "https://www.tiktok.com/@TAN.BOMB"
       }
     },
     "footer": {
@@ -259,7 +260,7 @@
       "settings": {
         "tagline": "Tan Bomb. For tanners and salons. <span aria-hidden=\"true\">🖤</span>",
         "instagram_url": "https://instagram.com/tanbombltd",
-        "tiktok_url": "https://www.tiktok.com/@tanbombltd"
+        "tiktok_url": "https://www.tiktok.com/@TAN.BOMB"
       }
     }
   },
