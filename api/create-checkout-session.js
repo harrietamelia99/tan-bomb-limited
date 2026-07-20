@@ -76,6 +76,18 @@ module.exports = async function handler(req, res) {
       shipping_address_collection: {
         allowed_countries: ['GB', 'IE']
       },
+      shipping_options: [
+        {
+          shipping_rate_data: {
+            type: 'fixed_amount',
+            fixed_amount: {
+              amount: 0,
+              currency: 'gbp'
+            },
+            display_name: 'Free shipping'
+          }
+        }
+      ],
       phone_number_collection: {
         enabled: true
       },
@@ -83,7 +95,7 @@ module.exports = async function handler(req, res) {
         enabled: true,
         invoice_data: {
           description: 'Tan Bomb — Cherry Whip order',
-          footer: 'Thanks for ordering from Tan Bomb. We’ll be in touch about shipping. Questions? info@tan-bomb.com',
+          footer: 'Thanks for ordering from Tan Bomb. Free UK & Ireland shipping. Questions? info@tan-bomb.com',
           metadata: {
             product: 'cherry-whip'
           }
