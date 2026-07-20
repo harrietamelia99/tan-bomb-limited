@@ -15,16 +15,31 @@ function getOrigin(req) {
   return process.env.SITE_URL || 'https://tan-bomb-limited.vercel.app';
 }
 
+function resolveStripeSecretKey() {
+  const mode = String(process.env.STRIPE_MODE || 'test').toLowerCase();
+  const testKey = process.env.STRIPE_SECRET_KEY_TEST;
+  const liveKey = process.env.STRIPE_SECRET_KEY_LIVE || process.env.STRIPE_SECRET_KEY;
+
+  if (mode === 'live') {
+    return { mode: 'live', secretKey: liveKey || null };
+  }
+
+  return { mode: 'test', secretKey: testKey || process.env.STRIPE_SECRET_KEY || null };
+}
+
 module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const secretKey = process.env.STRIPE_SECRET_KEY;
+  const { mode, secretKey } = resolveStripeSecretKey();
   if (!secretKey) {
     return res.status(500).json({
-      error: 'Stripe is not configured. Add STRIPE_SECRET_KEY in Vercel environment variables.'
+      error:
+        mode === 'live'
+          ? 'Stripe live key missing. Add STRIPE_SECRET_KEY_LIVE (or STRIPE_SECRET_KEY) in Vercel.'
+          : 'Stripe test key missing. Add STRIPE_SECRET_KEY_TEST in Vercel.'
     });
   }
 
@@ -66,11 +81,12 @@ module.exports = async function handler(req, res) {
       success_url: `${origin}/preview/success.html?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/#shop`,
       metadata: {
-        product: 'cherry-whip'
+        product: 'cherry-whip',
+        stripe_mode: mode
       }
     });
 
-    return res.status(200).json({ url: session.url, id: session.id });
+    return res.status(200).json({ url: session.url, id: session.id, mode: mode });
   } catch (err) {
     console.error('Stripe checkout error:', err.message);
     return res.status(500).json({ error: err.message || 'Unable to create checkout session' });
