@@ -6,7 +6,7 @@
 {%- liquid
   assign payment_types = shop.enabled_payment_types
   if payment_types == blank or payment_types.size == 0
-    assign payment_types = 'visa,master,american_express,apple_pay,google_pay,paypal,shopify_pay' | split: ','
+    assign payment_types = 'visa,master,american_express,apple_pay,google_pay' | split: ','
     assign use_fallback = true
   else
     assign use_fallback = false
