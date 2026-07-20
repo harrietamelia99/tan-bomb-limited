@@ -745,7 +745,38 @@
     var checkoutBtn = cartDrawer.querySelector('[data-cart-checkout]');
     if (checkoutBtn) {
       checkoutBtn.addEventListener('click', function () {
-        window.location.href = '/checkout';
+        var btn = checkoutBtn;
+        var qty = 1;
+        var countEl = document.querySelector('[data-cart-count]');
+        if (countEl && countEl.textContent) {
+          qty = Math.max(1, parseInt(countEl.textContent, 10) || 1);
+        }
+
+        btn.disabled = true;
+        var originalLabel = btn.textContent;
+        btn.textContent = 'Redirecting…';
+
+        fetch('/api/create-checkout-session', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ quantity: qty })
+        })
+          .then(function (res) {
+            return res.json().then(function (data) {
+              return { ok: res.ok, data: data };
+            });
+          })
+          .then(function (result) {
+            if (!result.ok || !result.data.url) {
+              throw new Error(result.data.error || 'Checkout failed');
+            }
+            window.location.href = result.data.url;
+          })
+          .catch(function (err) {
+            alert(err.message || 'Unable to start checkout. Please try again.');
+            btn.disabled = false;
+            btn.textContent = originalLabel;
+          });
       });
     }
 

@@ -2,4 +2,7 @@
 .cursor/
 *.log
 .vercel
-.env*
+.env
+.env.local
+.env.*.local
+!.env.example
