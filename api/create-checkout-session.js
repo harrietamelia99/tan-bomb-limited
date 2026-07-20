@@ -16,15 +16,15 @@ function getOrigin(req) {
 }
 
 function resolveStripeSecretKey() {
-  const mode = String(process.env.STRIPE_MODE || 'test').toLowerCase();
+  const mode = String(process.env.STRIPE_MODE || 'live').toLowerCase();
   const testKey = process.env.STRIPE_SECRET_KEY_TEST;
   const liveKey = process.env.STRIPE_SECRET_KEY_LIVE || process.env.STRIPE_SECRET_KEY;
 
-  if (mode === 'live') {
-    return { mode: 'live', secretKey: liveKey || null };
+  if (mode === 'test') {
+    return { mode: 'test', secretKey: testKey || process.env.STRIPE_SECRET_KEY || null };
   }
 
-  return { mode: 'test', secretKey: testKey || process.env.STRIPE_SECRET_KEY || null };
+  return { mode: 'live', secretKey: liveKey || null };
 }
 
 module.exports = async function handler(req, res) {
