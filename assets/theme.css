@@ -2925,7 +2925,12 @@ body:not(.template-index) #main-content {
 }
 
 .stockist-locator__map-panel {
+  display: none !important; /* temporarily hidden */
   min-height: 16rem;
+}
+
+.stockist-locator__layout {
+  grid-template-columns: 1fr;
 }
 
 .stockist-locator__map {
@@ -4509,7 +4514,7 @@ body.cherry-popup-open {
   }
 
   .stockist-locator__layout {
-    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    grid-template-columns: 1fr;
     align-items: stretch;
   }
 
