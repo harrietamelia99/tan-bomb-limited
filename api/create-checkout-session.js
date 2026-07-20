@@ -58,6 +58,7 @@ module.exports = async function handler(req, res) {
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',
       payment_method_types: ['card'],
+      customer_creation: 'always',
       line_items: [
         {
           quantity: quantity,
@@ -77,6 +78,16 @@ module.exports = async function handler(req, res) {
       },
       phone_number_collection: {
         enabled: true
+      },
+      invoice_creation: {
+        enabled: true,
+        invoice_data: {
+          description: 'Tan Bomb — Cherry Whip order',
+          footer: 'Thanks for ordering from Tan Bomb. We’ll be in touch about shipping. Questions? info@tan-bomb.com',
+          metadata: {
+            product: 'cherry-whip'
+          }
+        }
       },
       success_url: `${origin}/preview/success.html?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/#shop`,
