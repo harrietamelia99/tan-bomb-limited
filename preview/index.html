@@ -547,14 +547,19 @@
               <h3 class="contact-form-card__title">Send an enquiry</h3>
               <p class="contact-form-card__text">Tell us what you need and we'll come back within 1–2 business days.</p>
             </div>
-            <form class="contact-form" id="ContactForm">
+            <form class="contact-form" id="ContactForm" novalidate>
               <div class="contact-form__grid">
-                <div class="form-field"><label for="ContactForm-name">Name <span aria-hidden="true">*</span></label><input type="text" id="ContactForm-name" required autocomplete="name"></div>
-                <div class="form-field"><label for="ContactForm-email">Email <span aria-hidden="true">*</span></label><input type="email" id="ContactForm-email" required autocomplete="email"></div>
-                <div class="form-field"><label for="ContactForm-phone">Phone</label><input type="tel" id="ContactForm-phone" autocomplete="tel"></div>
-                <div class="form-field"><label for="ContactForm-type">I am a…</label><select id="ContactForm-type"><option>Customer</option><option>Salon owner</option><option>Distributor</option><option>Other</option></select></div>
-                <div class="form-field form-field--full"><label for="ContactForm-body">Message <span aria-hidden="true">*</span></label><textarea id="ContactForm-body" rows="6" required></textarea></div>
+                <div class="form-field"><label for="ContactForm-name">Name <span aria-hidden="true">*</span></label><input type="text" id="ContactForm-name" name="name" required autocomplete="name" maxlength="120"></div>
+                <div class="form-field"><label for="ContactForm-email">Email <span aria-hidden="true">*</span></label><input type="email" id="ContactForm-email" name="email" required autocomplete="email" maxlength="200"></div>
+                <div class="form-field"><label for="ContactForm-phone">Phone</label><input type="tel" id="ContactForm-phone" name="phone" autocomplete="tel" maxlength="40"></div>
+                <div class="form-field"><label for="ContactForm-type">I am a…</label><select id="ContactForm-type" name="type"><option>Customer</option><option>Salon owner</option><option>Distributor</option><option>Other</option></select></div>
+                <div class="form-field form-field--full"><label for="ContactForm-body">Message <span aria-hidden="true">*</span></label><textarea id="ContactForm-body" name="message" rows="6" required maxlength="5000"></textarea></div>
+                <div class="form-field form-field--honeypot" aria-hidden="true">
+                  <label for="ContactForm-company">Company</label>
+                  <input type="text" id="ContactForm-company" name="company" tabindex="-1" autocomplete="off">
+                </div>
               </div>
+              <p class="contact-form__status" data-contact-status hidden aria-live="polite"></p>
               <button type="submit" class="btn btn--primary contact-form__submit">Send enquiry</button>
             </form>
           </div>
@@ -763,7 +768,62 @@
 
       document.getElementById('ContactForm').addEventListener('submit', function (e) {
         e.preventDefault();
-        alert('Preview mode, the contact form will work once the theme is connected to Shopify.');
+        var form = e.target;
+        var btn = form.querySelector('[type="submit"]');
+        var statusEl = form.querySelector('[data-contact-status]');
+        var data = new FormData(form);
+        var payload = {
+          name: String(data.get('name') || '').trim(),
+          email: String(data.get('email') || '').trim(),
+          phone: String(data.get('phone') || '').trim(),
+          type: String(data.get('type') || 'Customer').trim(),
+          message: String(data.get('message') || '').trim(),
+          company: String(data.get('company') || '').trim()
+        };
+
+        if (statusEl) {
+          statusEl.hidden = true;
+          statusEl.textContent = '';
+          statusEl.classList.remove('is-error', 'is-success');
+        }
+
+        btn.disabled = true;
+        btn.textContent = 'Sending…';
+
+        fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        })
+          .then(function (res) {
+            return res.json().then(function (json) {
+              return { ok: res.ok, data: json };
+            });
+          })
+          .then(function (result) {
+            if (!result.ok) {
+              throw new Error(result.data.error || 'Unable to send enquiry.');
+            }
+            form.reset();
+            if (statusEl) {
+              statusEl.hidden = false;
+              statusEl.classList.add('is-success');
+              statusEl.textContent = "Thank you — we've received your enquiry and will reply within 1–2 business days.";
+            }
+          })
+          .catch(function (err) {
+            if (statusEl) {
+              statusEl.hidden = false;
+              statusEl.classList.add('is-error');
+              statusEl.textContent = err.message || 'Unable to send enquiry. Please email info@tan-bomb.com.';
+            } else {
+              alert(err.message || 'Unable to send enquiry.');
+            }
+          })
+          .finally(function () {
+            btn.disabled = false;
+            btn.textContent = 'Send enquiry';
+          });
       });
     })();
   </script>

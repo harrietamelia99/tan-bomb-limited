@@ -3170,6 +3170,28 @@ body:not(.template-index) #main-content {
   align-self: flex-start;
 }
 
+.form-field--honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.contact-form__status {
+  margin: 0 0 var(--space-sm);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+}
+
+.contact-form__status.is-success {
+  color: #2f6b3a;
+}
+
+.contact-form__status.is-error {
+  color: #9b2c2c;
+}
+
 .contact-details-card {
   display: flex;
   flex-direction: column;
