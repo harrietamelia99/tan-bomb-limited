@@ -6,8 +6,8 @@
         "eyebrow": "Tan Bomb presents",
         "product_name": "Cherry Whip",
         "heading": "<em>now</em> live <span class=\"cherry-icon\" aria-hidden=\"true\"></span>",
-        "subheading": "Cherry-infused tanning accelerator built for tanners and salons alike. Shop for yourself or stock your shelf. Salon-quality formula, packaging that sells.",
-        "cta_label": "Shop Cherry Whip",
+        "subheading": "Cherry-infused tanning accelerator built for tanners and salons alike. Currently sold out — get in touch to hear when it's back in stock.",
+        "cta_label": "Sold out",
         "cta_url": "#shop",
         "secondary_cta_label": "See more",
         "secondary_cta_url": "#cherry-whip",
@@ -22,7 +22,7 @@
         "body": "<p>Use it on the sunbed. Use it outdoors. Use it at home or recommend it to clients. Formulated with L-Tyrosine, Hyaluronic Acid, Aloe Vera, Vitamin E and Marine Algae Extract, because great skin and a great tan should go together.</p>",
         "show_image": true,
         "show_ingredients": true,
-        "cta_label": "Shop Cherry Whip",
+        "cta_label": "Sold out",
         "cta_url": "#shop"
       }
     },
@@ -31,7 +31,7 @@
       "settings": {
         "eyebrow": "Shop Tan Bomb",
         "heading": "For your bag & your <em>shelf</em> <span class=\"cherry-icon\" aria-hidden=\"true\"></span>",
-        "subheading": "Salon-quality tanning accelerator, shipped straight to you. Whether you're buying for yourself or your business, add to bag and checkout securely online.",
+        "subheading": "Cherry Whip is currently sold out. Get in touch if you'd like to be notified when it's back — salon and wholesale enquiries welcome.",
         "show_descriptions": true,
         "products_limit": 6
       },

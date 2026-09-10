@@ -64,7 +64,7 @@
               class="btn btn--primary"
               {% if cta_href contains '#' %}data-scroll-link{% endif %}
             >
-              {{ section.settings.cta_label | default: 'Shop Cherry Whip' }}
+              {{ section.settings.cta_label | default: 'Sold out' }}
             </a>
           </div>
 
@@ -120,7 +120,7 @@
       "type": "text",
       "id": "cta_label",
       "label": "CTA label",
-      "default": "Shop Cherry Whip"
+      "default": "Sold out"
     },
     {
       "type": "text",
