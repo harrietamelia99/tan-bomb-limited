@@ -5,12 +5,44 @@
       "destination": "/preview/index.html"
     },
     {
+      "source": "/shop",
+      "destination": "/shop/index.html"
+    },
+    {
+      "source": "/shop/",
+      "destination": "/shop/index.html"
+    },
+    {
       "source": "/privacy",
       "destination": "/preview/privacy.html"
     },
     {
       "source": "/privacy/",
       "destination": "/preview/privacy.html"
+    },
+    {
+      "source": "/products/cherry-whip",
+      "destination": "/products/cherry-whip/index.html"
+    },
+    {
+      "source": "/products/cherry-whip/",
+      "destination": "/products/cherry-whip/index.html"
+    },
+    {
+      "source": "/products/vanilla-creme",
+      "destination": "/products/vanilla-creme/index.html"
+    },
+    {
+      "source": "/products/vanilla-creme/",
+      "destination": "/products/vanilla-creme/index.html"
+    },
+    {
+      "source": "/products/christmas-special",
+      "destination": "/products/christmas-special/index.html"
+    },
+    {
+      "source": "/products/christmas-special/",
+      "destination": "/products/christmas-special/index.html"
     }
   ]
 }

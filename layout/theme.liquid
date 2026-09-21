@@ -6,22 +6,30 @@
   <meta name="theme-color" content="{{ settings.color_dark }}">
 
   <title>
-    {%- if page_title != blank -%}
-      {{ page_title }} | {{ shop.name }}
+    {%- if template.name == 'index' -%}
+      Tan Bomb | Official Site – Luxury Tanning Accelerators
+    {%- elsif page_title != blank -%}
+      {{ page_title }} | Tan Bomb
     {%- else -%}
-      {{ shop.name }} | Luxury tanning for tanners and salons.
+      Tan Bomb | Luxury tanning for tanners and salons
     {%- endif -%}
   </title>
 
-  {%- if page_description -%}
-    <meta name="description" content="{{ page_description | escape }}">
-  {%- endif -%}
-
-  <link rel="canonical" href="{{ canonical_url }}">
+  {%- liquid
+    assign seo_og_type = 'website'
+    if template.name == 'product'
+      assign seo_og_type = 'product'
+    endif
+  -%}
+  {%- render 'seo-head',
+    seo_title: page_title,
+    seo_description: page_description,
+    seo_type: seo_og_type
+  -%}
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Arapey:ital@0;1&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Arapey:ital@0;1&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
 
   <link rel="icon" href="{{ 'favicon.ico' | asset_url }}" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="{{ 'favicon-32.png' | asset_url }}">
@@ -31,6 +39,7 @@
   {{ content_for_header }}
 
   {{ 'theme.css' | asset_url | stylesheet_tag }}
+  {{ 'brand.css' | asset_url | stylesheet_tag }}
 
   <style>
     :root {
@@ -43,6 +52,7 @@
     }
   </style>
 
+  <script src="{{ 'products.js' | asset_url }}" defer></script>
   <script>
     window.TanBomb = {
       moneyFormat: {{ shop.money_format | json }},
@@ -58,7 +68,7 @@
     };
   </script>
 </head>
-<body class="template-{{ template.name }}" data-home-url="{{ routes.root_url }}" data-is-index="{% if template.name == 'index' %}true{% else %}false{% endif %}">
+<body class="template-{{ template.name }} has-marquee" data-home-url="{{ routes.root_url }}" data-is-index="{% if template.name == 'index' %}true{% else %}false{% endif %}">
   {%- liquid
     if template.name == 'index'
       assign use_scroll = true
@@ -67,89 +77,121 @@
       assign use_scroll = false
       assign link_root = routes.root_url
     endif
+    if pages.shop != blank
+      assign shop_url = pages.shop.url
+    else
+      assign shop_url = '/shop'
+    endif
   -%}
   <a class="skip-link" href="#main-content">Skip to content</a>
 
   {%- if template.name == 'index' -%}
     {% render 'splash-screen' %}
-    {% render 'cherry-whip-popup' %}
+    {% render 'vip-popup' %}
   {%- endif -%}
 
-  <header class="site-header" id="site-header">
-    <div class="site-header__scrim" aria-hidden="true"></div>
-    <div class="site-header__inner container">
-      <button
-        class="site-header__toggle"
-        type="button"
-        aria-label="Open menu"
-        aria-expanded="false"
-        aria-controls="site-nav"
-        id="nav-toggle"
-      >
-        <span class="site-header__toggle-bars" aria-hidden="true">
-          <span class="site-header__toggle-bar"></span>
-          <span class="site-header__toggle-bar"></span>
-          <span class="site-header__toggle-bar"></span>
-        </span>
-        <span class="site-header__toggle-label">Menu</span>
-      </button>
-
-      <a class="site-header__logo" href="{{ link_root }}#hero"{% if use_scroll %} data-scroll-link{% endif %}>
-        {% render 'logo', context: 'header' %}
-      </a>
-
-      <div class="site-header__actions">
-        <button
-          type="button"
-          class="cart-toggle"
-          id="cart-toggle"
-          aria-label="Open bag"
-          aria-controls="cart-drawer"
-          data-cart-open
-        >
-          <span class="cart-toggle__icon" aria-hidden="true">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M6 6h15l-1.5 9h-12L6 6Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-              <path d="M6 6 5 3H2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              <circle cx="9" cy="20" r="1.5" fill="currentColor"/>
-              <circle cx="18" cy="20" r="1.5" fill="currentColor"/>
-            </svg>
-          </span>
-          <span class="cart-toggle__label">Bag</span>
-          <span class="cart-toggle__count" data-cart-count {% if cart.item_count == 0 %}hidden{% endif %}>{{ cart.item_count }}</span>
-        </button>
-        <a href="{{ link_root }}#shop" class="btn btn--primary site-header__shop"{% if use_scroll %} data-scroll-link{% endif %}>Shop</a>
+  <div class="site-chrome">
+                        <div class="announcement-marquee announcement-marquee--gold" aria-label="Announcements">
+      <div class="announcement-marquee__track">
+        <div class="announcement-marquee__group">
+          <span><svg class="announcement-bar__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 7.5h11.5V15H3V7.5z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M14.5 10.5H18l2.5 2.8V15h-6V10.5z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="7" cy="16.5" r="1.6" stroke="currentColor" stroke-width="1.5"/><circle cx="17.5" cy="16.5" r="1.6" stroke="currentColor" stroke-width="1.5"/><path d="M1.5 9.5h1.8M1.5 12h1.8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg> Next day delivery available</span>
+          <span><svg class="announcement-bar__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 9.5 12 5l8 4.5v2.2l-8 3.3-8-3.3V9.5z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M4 14.2v2.3c0 .8 3.6 2 8 2s8-1.2 8-2v-2.3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> Free UK &amp; Ireland shipping</span>
+          <span><svg class="announcement-bar__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3.5c4.2 0 7.5 2.6 7.5 6.2 0 4.6-5.4 9.3-7.5 10.8-2.1-1.5-7.5-6.2-7.5-10.8C4.5 6.1 7.8 3.5 12 3.5z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="9.5" r="2.2" stroke="currentColor" stroke-width="1.5"/></svg> Made in the UK</span>
+          <span><svg class="announcement-bar__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2.5" y="6.5" width="19" height="12" rx="1.8" stroke="currentColor" stroke-width="1.6"/><path d="M2.5 10h19" stroke="currentColor" stroke-width="1.6"/><path d="M6.5 14.5h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> Visa · Mastercard · Amex · Apple Pay · Google Pay</span>
+          <span><svg class="announcement-bar__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3.5c3.8 4.2 6.5 7.6 6.5 10.6A6.5 6.5 0 0 1 5.5 14.1C5.5 11.1 8.2 7.7 12 3.5z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9.8 14.2c.6 1.4 1.7 2.1 3.2 2.1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg> Salon-created formula</span>
+          <span><svg class="announcement-bar__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2.5" y="6.5" width="15" height="11" rx="1.6" stroke="currentColor" stroke-width="1.6"/><path d="M2.5 10h15" stroke="currentColor" stroke-width="1.6"/><path d="M17.2 13.2c1.4-.4 2.8-.2 3.8.6v4.2c-1.2 1.1-2.6 1.7-3.8 1.7-1.2 0-2.6-.6-3.8-1.7v-4.2c1-.8 2.4-1 3.8-.6z" stroke="currentColor" stroke-width="1.45" stroke-linejoin="round"/><path d="M17.2 15.2v2.1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg> Secure checkout</span>
+        </div>
+        <div class="announcement-marquee__group" aria-hidden="true">
+          <span><svg class="announcement-bar__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 7.5h11.5V15H3V7.5z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M14.5 10.5H18l2.5 2.8V15h-6V10.5z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="7" cy="16.5" r="1.6" stroke="currentColor" stroke-width="1.5"/><circle cx="17.5" cy="16.5" r="1.6" stroke="currentColor" stroke-width="1.5"/><path d="M1.5 9.5h1.8M1.5 12h1.8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg> Next day delivery available</span>
+          <span><svg class="announcement-bar__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 9.5 12 5l8 4.5v2.2l-8 3.3-8-3.3V9.5z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M4 14.2v2.3c0 .8 3.6 2 8 2s8-1.2 8-2v-2.3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> Free UK &amp; Ireland shipping</span>
+          <span><svg class="announcement-bar__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3.5c4.2 0 7.5 2.6 7.5 6.2 0 4.6-5.4 9.3-7.5 10.8-2.1-1.5-7.5-6.2-7.5-10.8C4.5 6.1 7.8 3.5 12 3.5z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="9.5" r="2.2" stroke="currentColor" stroke-width="1.5"/></svg> Made in the UK</span>
+          <span><svg class="announcement-bar__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2.5" y="6.5" width="19" height="12" rx="1.8" stroke="currentColor" stroke-width="1.6"/><path d="M2.5 10h19" stroke="currentColor" stroke-width="1.6"/><path d="M6.5 14.5h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> Visa · Mastercard · Amex · Apple Pay · Google Pay</span>
+          <span><svg class="announcement-bar__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3.5c3.8 4.2 6.5 7.6 6.5 10.6A6.5 6.5 0 0 1 5.5 14.1C5.5 11.1 8.2 7.7 12 3.5z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9.8 14.2c.6 1.4 1.7 2.1 3.2 2.1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg> Salon-created formula</span>
+          <span><svg class="announcement-bar__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2.5" y="6.5" width="15" height="11" rx="1.6" stroke="currentColor" stroke-width="1.6"/><path d="M2.5 10h15" stroke="currentColor" stroke-width="1.6"/><path d="M17.2 13.2c1.4-.4 2.8-.2 3.8.6v4.2c-1.2 1.1-2.6 1.7-3.8 1.7-1.2 0-2.6-.6-3.8-1.7v-4.2c1-.8 2.4-1 3.8-.6z" stroke="currentColor" stroke-width="1.45" stroke-linejoin="round"/><path d="M17.2 15.2v2.1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg> Secure checkout</span>
+        </div>
       </div>
     </div>
 
-    <nav class="site-nav" id="site-nav" aria-label="Main navigation" aria-hidden="true">
-      <div class="site-nav__overlay" data-nav-close tabindex="-1" aria-hidden="true"></div>
-      <div
-        class="site-nav__panel"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="site-nav-heading"
-      >
-        <header class="site-nav__header">
-          <p id="site-nav-heading" class="site-nav__title">Menu</p>
-          <button type="button" class="site-nav__close" data-nav-close aria-label="Close menu">
-            <span aria-hidden="true">&times;</span>
+    <header class="site-header site-header--brand" id="site-header">
+      <div class="site-header__inner container">
+        <button
+          class="site-header__toggle"
+          type="button"
+          aria-label="Open menu"
+          aria-expanded="false"
+          aria-controls="site-nav"
+          id="nav-toggle"
+        >
+          <span class="site-header__toggle-bars" aria-hidden="true">
+            <span class="site-header__toggle-bar"></span>
+            <span class="site-header__toggle-bar"></span>
+            <span class="site-header__toggle-bar"></span>
+          </span>
+          <span class="site-header__toggle-label">Menu</span>
+        </button>
+
+        <a class="site-header__logo" href="{{ link_root }}#hero"{% if use_scroll %} data-scroll-link{% endif %}>
+          {% render 'logo', context: 'header' %}
+        </a>
+
+        <nav class="site-header__nav-desktop site-header__nav-desktop--center" aria-label="Primary">
+          <a href="{{ shop_url }}">Shop</a>
+          <a href="{{ link_root }}#our-story"{% if use_scroll %} data-scroll-link{% endif %}>Our Story</a>
+          <a href="{{ link_root }}#salons"{% if use_scroll %} data-scroll-link{% endif %}>Salons</a>
+          <a href="{{ link_root }}#contact"{% if use_scroll %} data-scroll-link{% endif %}>Contact</a>
+        </nav>
+        <div class="site-header__utils">
+          <a href="{{ shop_url }}" class="site-header__util" aria-label="Search products">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="1.6"/><path d="m16 16 4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </a>
+          <a href="{{ link_root }}#contact"{% if use_scroll %} data-scroll-link{% endif %} class="site-header__util" aria-label="Account / contact">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="8" r="3.25" stroke="currentColor" stroke-width="1.6"/><path d="M5.5 19.5c1.8-3.2 4-4.8 6.5-4.8s4.7 1.6 6.5 4.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </a>
+          <button
+            type="button"
+            class="site-header__util cart-toggle"
+            id="cart-toggle"
+            aria-label="Open bag"
+            aria-controls="cart-drawer"
+            data-cart-open
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M6 6h15l-1.5 9h-12L6 6Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+              <path d="M6 6 5 3H2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+              <circle cx="9" cy="20" r="1.35" fill="currentColor"/>
+              <circle cx="18" cy="20" r="1.35" fill="currentColor"/>
+            </svg>
+            <span class="cart-toggle__count" data-cart-count {% if cart.item_count == 0 %}hidden{% endif %}>{{ cart.item_count }}</span>
           </button>
-        </header>
-        <ul class="site-nav__list">
-          <li><a href="{{ link_root }}#hero" class="site-nav__link"{% if use_scroll %} data-scroll-link{% endif %}>Home</a></li>
-          <li><a href="{{ link_root }}#shop" class="site-nav__link"{% if use_scroll %} data-scroll-link{% endif %}>Shop</a></li>
-          <li><a href="{{ link_root }}#cherry-whip" class="site-nav__link"{% if use_scroll %} data-scroll-link{% endif %}>Cherry Whip</a></li>
-          <li><a href="{{ link_root }}#brand-story" class="site-nav__link"{% if use_scroll %} data-scroll-link{% endif %}>About</a></li>
-          <li><a href="{{ link_root }}#benefits" class="site-nav__link"{% if use_scroll %} data-scroll-link{% endif %}>Benefits</a></li>
-          <li hidden><a href="{{ link_root }}#stockists" class="site-nav__link"{% if use_scroll %} data-scroll-link{% endif %}>Stockists</a></li>
-          <li><a href="{{ link_root }}#instagram" class="site-nav__link"{% if use_scroll %} data-scroll-link{% endif %}>Instagram</a></li>
-          <li><a href="{{ link_root }}#contact" class="site-nav__link"{% if use_scroll %} data-scroll-link{% endif %}>Contact</a></li>
-        </ul>
-        <a href="{{ link_root }}#shop" class="btn btn--primary site-nav__cta"{% if use_scroll %} data-scroll-link{% endif %}>Shop now</a>
+        </div>
       </div>
-    </nav>
-  </header>
+    </header>
+  </div>
+  <nav class="site-nav" id="site-nav" aria-label="Main navigation" aria-hidden="true">
+        <div class="site-nav__overlay" data-nav-close tabindex="-1" aria-hidden="true"></div>
+        <div class="site-nav__panel" role="dialog" aria-modal="true" aria-labelledby="site-nav-heading">
+          <div class="site-nav__top">
+            <a id="site-nav-heading" class="site-nav__brand" href="{{ routes.root_url }}" aria-label="Tan Bomb home"><img src="{{ 'logo.png' | asset_url }}" alt="Tan Bomb" width="72" height="72" class="site-nav__brand-logo" loading="eager"></a>
+            <button type="button" class="site-nav__close" data-nav-close aria-label="Close menu">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+              </svg>
+            </button>
+          </div>
+          <ul class="site-nav__list">
+            <li><a href="{{ link_root }}#hero" class="site-nav__link"{% if use_scroll %} data-scroll-link{% endif %}>Home</a></li>
+            <li><a href="{{ shop_url }}" class="site-nav__link">Shop</a></li>
+            <li><a href="{{ link_root }}#our-story" class="site-nav__link"{% if use_scroll %} data-scroll-link{% endif %}>Our Story</a></li>
+            <li><a href="{{ link_root }}#salons" class="site-nav__link"{% if use_scroll %} data-scroll-link{% endif %}>Salons</a></li>
+            <li><a href="{{ link_root }}#reels" class="site-nav__link"{% if use_scroll %} data-scroll-link{% endif %}>Reels</a></li>
+            <li><a href="{{ link_root }}#contact" class="site-nav__link"{% if use_scroll %} data-scroll-link{% endif %}>Contact</a></li>
+          </ul>
+          <div class="site-nav__foot">
+            <a href="{{ shop_url }}" class="site-nav__cta">Shop the range</a>
+            <p class="site-nav__tagline">UK-made luxury accelerators</p>
+          </div>
+        </div>
+      </nav>
 
   <main id="main-content">
     {{ content_for_layout }}

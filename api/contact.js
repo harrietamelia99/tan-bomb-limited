@@ -43,7 +43,7 @@ module.exports = async function handler(req, res) {
     return res.status(400).json({ error: 'Invalid request body' });
   }
 
-  // Honeypot — bots fill this; humans leave it empty
+  // Honeypot - bots fill this; humans leave it empty
   if (body.company) {
     return res.status(200).json({ ok: true });
   }
@@ -73,7 +73,7 @@ module.exports = async function handler(req, res) {
   const resend = new Resend(apiKey);
   const safeName = escapeHtml(name);
   const safeEmail = escapeHtml(email);
-  const safePhone = escapeHtml(phone || '—');
+  const safePhone = escapeHtml(phone || '-');
   const safeType = escapeHtml(type);
   const safeMessage = escapeHtml(message).replace(/\n/g, '<br>');
 
@@ -97,7 +97,7 @@ module.exports = async function handler(req, res) {
         '',
         `Name: ${name}`,
         `Email: ${email}`,
-        `Phone: ${phone || '—'}`,
+        `Phone: ${phone || '-'}`,
         `I am a…: ${type}`,
         '',
         'Message:',

@@ -1,16 +1,19 @@
 /* ==========================================================================
-   Tan Bomb Ltd - Theme Styles
+   Tan Bomb - Theme Styles
    ========================================================================== */
 
 /* --- Custom properties --------------------------------------------------- */
 
 :root {
+  /* Brand shell - black / beige / gold (product reds stay on product pages) */
   --color-white:     #FFFFFF;
-  --color-primary:   #AD2234;
-  --color-secondary: #721925;
-  --color-dark:      #292624;
-  --color-bg:        #FFFFFF;
-  --color-text:      #292624;
+  --color-primary:   #0a0a0a;
+  --color-secondary: #292624;
+  --color-dark:      #0a0a0a;
+  --color-bg:        #f7f4ef;
+  --color-text:      #1c1a18;
+  --color-beige:     #f7f4ef;
+  --color-beige-deep:#ebe4da;
 
   --color-gold-light: #F2E0A8;
   --color-gold:       #D4B04A;
@@ -71,19 +74,19 @@
   );
 
   --font-heading: 'Arapey', Georgia, serif;
-  --font-body:    'Helvetica Neue', Helvetica, Arial, sans-serif;
-  --letter-spacing-body: -0.03em;
+  --font-body:    'DM Sans', Helvetica, Arial, sans-serif;
+  --letter-spacing-body: -0.01em;
   --letter-spacing-heading: -0.085em;
-  --letter-spacing-button: 0.1em;
-  --letter-spacing-button-hover: 0.12em;
-  --weight-button: var(--weight-medium);
+  --letter-spacing-button: 0.04em;
+  --letter-spacing-button-hover: 0.055em;
+  --weight-button: var(--weight-regular);
   --btn-gradient-angle: 135deg;
   --btn-primary-gradient: linear-gradient(
     var(--btn-gradient-angle),
-    #ff6b7d 0%,
-    #e83a50 22%,
-    var(--color-primary) 55%,
-    #6b1520 100%
+    #2a2a2a 0%,
+    #141414 40%,
+    #0a0a0a 70%,
+    #1a1a1a 100%
   );
   --btn-outline-gradient: linear-gradient(
     var(--btn-gradient-angle),
@@ -405,9 +408,9 @@ button {
   background-size: 180% 180%;
   background-position: 12% 12%;
   box-shadow:
-    0 4px 20px rgba(173, 34, 52, 0.42),
-    inset 0 1px 0 rgba(255, 255, 255, 0.32),
-    0 0 0 1px rgba(212, 176, 74, 0.32);
+    0 4px 20px rgba(10, 10, 10, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 0 0 1px rgba(212, 176, 74, 0.4);
 }
 
 .btn--primary::before {
@@ -427,9 +430,9 @@ button {
 .btn--primary:hover {
   background-position: 88% 88%;
   box-shadow:
-    0 6px 28px rgba(173, 34, 52, 0.52),
-    inset 0 1px 0 rgba(255, 255, 255, 0.38),
-    0 0 16px rgba(212, 176, 74, 0.32);
+    0 6px 28px rgba(10, 10, 10, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 0 16px rgba(212, 176, 74, 0.28);
 }
 
 .btn--primary:hover::before {
@@ -1723,7 +1726,7 @@ main .section + .section::after,
 /* --- Textures ------------------------------------------------------------ */
 
 .texture-marble {
-  background-color: #f5f2ee;
+  background-color: var(--color-beige, #f7f4ef);
   background-image:
     radial-gradient(ellipse 80% 50% at 15% 20%, rgba(255, 255, 255, 0.9) 0%, transparent 55%),
     radial-gradient(ellipse 60% 40% at 85% 75%, rgba(180, 165, 150, 0.12) 0%, transparent 50%),
@@ -2700,8 +2703,8 @@ body:not(.template-index) #main-content {
 
 @media (min-width: 768px) {
   .section--brand-story .section__heading {
-    white-space: nowrap;
-    font-size: clamp(1.25rem, 1rem + 1.1vw, 2.25rem);
+    white-space: normal;
+    font-size: clamp(1.85rem, 1rem + 1.6vw, 2.75rem);
   }
 }
 

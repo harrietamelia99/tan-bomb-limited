@@ -1,15 +1,5 @@
 const Stripe = require('stripe');
-
-/** Set to false when Cherry Whip is back in stock. */
-const PRODUCT_SOLD_OUT = true;
-
-const PRODUCT = {
-  name: 'Cherry Whip',
-  description: 'Cherry-infused tanning accelerator. 200 ml.',
-  unitAmount: 3000, // £30.00 in pence
-  currency: 'gbp',
-  image: 'https://tan-bomb-limited.vercel.app/assets/instagram-2.png'
-};
+const { getProduct } = require('./lib/products');
 
 function getOrigin(req) {
   const proto = req.headers['x-forwarded-proto'] || 'https';
@@ -36,10 +26,45 @@ module.exports = async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  if (PRODUCT_SOLD_OUT) {
-    return res.status(409).json({
-      error: 'Cherry Whip is currently sold out. Please check back soon or contact us for restock updates.'
-    });
+  let quantity = 1;
+  let productId = 'cherry-whip';
+  let items = null;
+
+  try {
+    const body = typeof req.body === 'string' ? JSON.parse(req.body || '{}') : req.body || {};
+    quantity = Math.max(1, Math.min(20, parseInt(body.quantity, 10) || 1));
+    productId = String(body.productId || body.product || 'cherry-whip').trim();
+    if (Array.isArray(body.items) && body.items.length) {
+      items = body.items;
+    }
+  } catch (err) {
+    return res.status(400).json({ error: 'Invalid request body' });
+  }
+
+  const lineSpecs = items
+    ? items.map(function (item) {
+        return {
+          productId: String(item.productId || item.id || '').trim(),
+          quantity: Math.max(1, Math.min(20, parseInt(item.quantity, 10) || 1))
+        };
+      })
+    : [{ productId: productId, quantity: quantity }];
+
+  for (let i = 0; i < lineSpecs.length; i += 1) {
+    const product = getProduct(lineSpecs[i].productId);
+    if (!product) {
+      return res.status(400).json({ error: 'Unknown product.' });
+    }
+    if (product.soldOut) {
+      return res.status(409).json({
+        error: product.name + ' is currently sold out. Please check back soon or contact us for restock updates.'
+      });
+    }
+    if (product.comingSoon || product.available === false) {
+      return res.status(409).json({
+        error: product.name + ' is not available for purchase yet.'
+      });
+    }
   }
 
   const { mode, secretKey } = resolveStripeSecretKey();
@@ -52,36 +77,30 @@ module.exports = async function handler(req, res) {
     });
   }
 
-  let quantity = 1;
-  try {
-    const body = typeof req.body === 'string' ? JSON.parse(req.body || '{}') : (req.body || {});
-    quantity = Math.max(1, Math.min(20, parseInt(body.quantity, 10) || 1));
-  } catch (err) {
-    return res.status(400).json({ error: 'Invalid request body' });
-  }
-
   const origin = getOrigin(req);
   const stripe = new Stripe(secretKey);
+  const primary = getProduct(lineSpecs[0].productId);
 
   try {
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',
       payment_method_types: ['card'],
       customer_creation: 'always',
-      line_items: [
-        {
-          quantity: quantity,
+      line_items: lineSpecs.map(function (spec) {
+        const product = getProduct(spec.productId);
+        return {
+          quantity: spec.quantity,
           price_data: {
-            currency: PRODUCT.currency,
-            unit_amount: PRODUCT.unitAmount,
+            currency: product.currency,
+            unit_amount: product.unitAmount,
             product_data: {
-              name: PRODUCT.name,
-              description: PRODUCT.description,
-              images: [PRODUCT.image]
+              name: product.name,
+              description: product.description,
+              images: [product.image]
             }
           }
-        }
-      ],
+        };
+      }),
       shipping_address_collection: {
         allowed_countries: ['GB', 'IE']
       },
@@ -103,17 +122,18 @@ module.exports = async function handler(req, res) {
       invoice_creation: {
         enabled: true,
         invoice_data: {
-          description: 'Tan Bomb — Cherry Whip order',
-          footer: 'Thanks for ordering from Tan Bomb. Free UK & Ireland shipping. Questions? info@tan-bomb.com',
+          description: 'Tan Bomb - ' + primary.name + ' order',
+          footer:
+            'Thanks for ordering from Tan Bomb. Free UK & Ireland shipping. Questions? info@tan-bomb.com',
           metadata: {
-            product: 'cherry-whip'
+            product: primary.id
           }
         }
       },
       success_url: `${origin}/preview/success.html?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${origin}/#shop`,
+      cancel_url: `${origin}/shop`,
       metadata: {
-        product: 'cherry-whip',
+        product: primary.id,
         stripe_mode: mode
       }
     });

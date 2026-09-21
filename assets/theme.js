@@ -1,5 +1,5 @@
 /**
- * Tan Bomb Ltd - Theme JavaScript
+ * Tan Bomb - Theme JavaScript
  */
 
 (function () {
@@ -234,11 +234,7 @@
   }
 
   function shopNowLinkHtml() {
-    var isIndex = document.body.getAttribute('data-is-index') === 'true';
-    var homeUrl = document.body.getAttribute('data-home-url') || '';
-    var href = isIndex ? '#shop' : homeUrl + '#shop';
-    var scroll = isIndex ? ' data-scroll-link' : '';
-    return '<a href="' + href + '" class="btn btn--primary"' + scroll + ' data-cart-close>Shop now</a>';
+    return '<a href="/shop" class="btn btn--primary" data-cart-close>Shop now</a>';
   }
 
   function renderCartDrawer(cart) {
@@ -349,46 +345,85 @@
     }
   }
 
-  function spawnCherry(container, options) {
+  function getParticleConfig(productId) {
+    var catalog = window.TanBombProducts;
+    var product = catalog && productId ? catalog.get(productId) : null;
+    if (product) {
+      return {
+        emoji: product.particle || (catalog && catalog.defaultParticle) || '💥',
+        asset: product.particleAsset || null
+      };
+    }
+    return {
+      emoji: (catalog && catalog.defaultParticle) || '💥',
+      asset: (catalog && catalog.defaultParticleAsset) || null
+    };
+  }
+
+  function spawnParticle(container, options) {
     if (!container) return null;
 
     options = options || {};
-    var cherry = document.createElement('span');
-    cherry.className = 'cherry-rain__item';
-    cherry.textContent = '🍒';
-    cherry.setAttribute('aria-hidden', 'true');
-    cherry.style.left = (Math.random() * 100) + '%';
-    cherry.style.animationDelay = (options.delay != null ? options.delay : Math.random() * 0.9) + 's';
-    cherry.style.animationDuration = (options.duration != null ? options.duration : (1.1 + Math.random() * 1.5)) + 's';
-    cherry.style.setProperty('--cherry-size', (options.size != null ? options.size : (0.9 + Math.random() * 1.4)) + 'rem');
-    cherry.style.setProperty('--cherry-drift', ((Math.random() * 140) - 70) + 'px');
-    cherry.style.setProperty('--cherry-spin', ((Math.random() * 720) - 360) + 'deg');
-    cherry.style.setProperty('--cherry-speed', String(Math.random()));
-    container.appendChild(cherry);
+    var particle = document.createElement('span');
+    particle.className = 'theme-rain__item cherry-rain__item';
+    particle.setAttribute('aria-hidden', 'true');
+
+    if (options.asset) {
+      var img = document.createElement('img');
+      img.src = options.asset;
+      img.alt = '';
+      img.width = 32;
+      img.height = 32;
+      particle.appendChild(img);
+    } else {
+      particle.textContent = options.emoji || '💥';
+    }
+
+    particle.style.left = (Math.random() * 100) + '%';
+    particle.style.animationDelay = (options.delay != null ? options.delay : Math.random() * 0.9) + 's';
+    particle.style.animationDuration = (options.duration != null ? options.duration : (1.1 + Math.random() * 1.5)) + 's';
+    particle.style.setProperty('--cherry-size', (options.size != null ? options.size : (0.9 + Math.random() * 1.4)) + 'rem');
+    particle.style.setProperty('--cherry-drift', ((Math.random() * 140) - 70) + 'px');
+    particle.style.setProperty('--cherry-spin', ((Math.random() * 720) - 360) + 'deg');
+    particle.style.setProperty('--cherry-speed', String(Math.random()));
+    container.appendChild(particle);
 
     if (options.removeOnEnd !== false) {
-      cherry.addEventListener('animationend', function () {
-        cherry.remove();
+      particle.addEventListener('animationend', function () {
+        particle.remove();
       });
     }
 
-    return cherry;
+    return particle;
   }
 
-  function startCherryRainLoop(container) {
+  function spawnCherry(container, options) {
+    options = options || {};
+    if (!options.emoji && !options.asset) {
+      var cfg = getParticleConfig(options.productId || 'cherry-whip');
+      options.emoji = cfg.emoji;
+      options.asset = cfg.asset;
+    }
+    return spawnParticle(container, options);
+  }
+
+  function startParticleRainLoop(container, productId) {
     if (!container || (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) {
       return function () {};
     }
 
+    var cfg = getParticleConfig(productId);
     var spawnCount = window.matchMedia && window.matchMedia('(max-width: 767px)').matches ? 4 : 7;
 
     function spawnWave() {
       var i;
       for (i = 0; i < spawnCount; i += 1) {
-        spawnCherry(container, {
+        spawnParticle(container, {
           delay: Math.random() * 0.4,
           duration: 2 + Math.random() * 2.5,
-          size: 1 + Math.random() * 1.8
+          size: 1 + Math.random() * 1.8,
+          emoji: cfg.emoji,
+          asset: cfg.asset
         });
       }
     }
@@ -399,6 +434,10 @@
     return function () {
       window.clearInterval(timer);
     };
+  }
+
+  function startCherryRainLoop(container) {
+    return startParticleRainLoop(container, 'cherry-whip');
   }
 
   function whenSplashDone(callback) {
@@ -431,26 +470,36 @@
     }, 4200);
   }
 
-  function cherryRain() {
+  function themeRain(productId) {
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       return;
     }
 
+    var cfg = getParticleConfig(productId);
     var count = 32;
     var duration = 2400;
     var container = document.createElement('div');
-    container.className = 'cherry-rain';
+    container.className = 'theme-rain cherry-rain';
     container.setAttribute('aria-hidden', 'true');
     document.body.appendChild(container);
 
     var i;
     for (i = 0; i < count; i += 1) {
-      spawnCherry(container, { delay: Math.random() * 0.9 });
+      spawnParticle(container, {
+        delay: Math.random() * 0.9,
+        emoji: cfg.emoji,
+        asset: cfg.asset
+      });
     }
 
     window.setTimeout(function () {
       container.remove();
     }, duration + 600);
+  }
+
+  function cherryRain() {
+    var productId = document.body.getAttribute('data-product-theme') || 'cherry-whip';
+    themeRain(productId);
   }
 
   function initSplashScreen() {
@@ -495,7 +544,7 @@
       document.body.classList.add('splash-active');
 
       if (!reducedMotion && rainRoot) {
-        stopRainLoop = startCherryRainLoop(rainRoot);
+        stopRainLoop = startParticleRainLoop(rainRoot, null);
       }
 
       window.setTimeout(dismissSplash, displayTime);
@@ -515,18 +564,17 @@
     beginSplash();
   }
 
-  function initCherryWhipPopup() {
-    var popup = document.getElementById('cherry-whip-popup');
+  function initVipPopup() {
+    var popup = document.getElementById('vip-popup');
     if (!popup) return;
 
-    if (window.sessionStorage && window.sessionStorage.getItem('tanbombCherryPopupSeen') === '1') {
-      popup.remove();
+    if (window.sessionStorage && window.sessionStorage.getItem('tanbombVipPopupSeen') === '1') {
       return;
     }
 
-    var dialog = popup.querySelector('.cherry-popup__dialog');
-    var rainRoot = popup.querySelector('[data-cherry-popup-rain]');
-    var stopRainLoop = null;
+    var dialog = popup.querySelector('.vip-popup__dialog');
+    var form = popup.querySelector('[data-vip-form]');
+    var statusEl = popup.querySelector('[data-vip-status]');
     var lastFocusedEl = null;
     var isOpen = false;
 
@@ -536,59 +584,113 @@
       lastFocusedEl = document.activeElement;
       popup.removeAttribute('hidden');
       popup.setAttribute('aria-hidden', 'false');
-      document.body.classList.add('cherry-popup-open');
-      stopRainLoop = startCherryRainLoop(rainRoot);
-
+      document.body.classList.add('vip-popup-open');
       window.setTimeout(function () {
         if (dialog) dialog.focus();
       }, 50);
     }
 
-    function closePopup() {
+    function closePopup(persist) {
       if (!isOpen) return;
       isOpen = false;
-
-      if (stopRainLoop) {
-        stopRainLoop();
-        stopRainLoop = null;
-      }
-
       popup.classList.add('is-hiding');
       popup.setAttribute('aria-hidden', 'true');
 
-      if (window.sessionStorage) {
-        window.sessionStorage.setItem('tanbombCherryPopupSeen', '1');
+      if (persist !== false && window.sessionStorage) {
+        window.sessionStorage.setItem('tanbombVipPopupSeen', '1');
       }
 
       window.setTimeout(function () {
         popup.setAttribute('hidden', '');
         popup.classList.remove('is-hiding');
-        document.body.classList.remove('cherry-popup-open');
-
+        document.body.classList.remove('vip-popup-open');
         if (lastFocusedEl && typeof lastFocusedEl.focus === 'function') {
           lastFocusedEl.focus();
         }
-      }, 520);
+      }, 320);
     }
 
-    popup.querySelectorAll('[data-cherry-popup-close]').forEach(function (el) {
+    popup.querySelectorAll('[data-vip-popup-close]').forEach(function (el) {
       el.addEventListener('click', function (e) {
         e.preventDefault();
-        closePopup();
+        closePopup(true);
       });
     });
 
     document.addEventListener('keydown', function (e) {
       if (!isOpen || e.key !== 'Escape') return;
-      closePopup();
+      closePopup(true);
     });
 
+    if (form) {
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var btn = form.querySelector('[type="submit"]');
+        var data = new FormData(form);
+        var payload = {
+          email: String(data.get('email') || '').trim(),
+          name: String(data.get('name') || '').trim(),
+          company: String(data.get('company') || '').trim()
+        };
+
+        if (statusEl) {
+          statusEl.hidden = true;
+          statusEl.textContent = '';
+          statusEl.classList.remove('is-error', 'is-success');
+        }
+
+        btn.disabled = true;
+        btn.textContent = 'Joining…';
+
+        fetch('/api/vip-signup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        })
+          .then(function (res) {
+            return res.json().then(function (json) {
+              return { ok: res.ok, json: json };
+            });
+          })
+          .then(function (result) {
+            if (!result.ok) {
+              throw new Error((result.json && result.json.error) || 'Unable to join.');
+            }
+            if (statusEl) {
+              statusEl.hidden = false;
+              statusEl.classList.add('is-success');
+              statusEl.textContent = 'Welcome to the VIP club. Check your inbox soon.';
+            }
+            form.reset();
+            window.setTimeout(function () {
+              closePopup(true);
+            }, 1400);
+          })
+          .catch(function (err) {
+            if (statusEl) {
+              statusEl.hidden = false;
+              statusEl.classList.add('is-error');
+              statusEl.textContent = err.message || 'Something went wrong.';
+            }
+            btn.disabled = false;
+            btn.textContent = 'Join the VIP club';
+          });
+      });
+    }
+
     whenSplashDone(function () {
-      window.setTimeout(openPopup, 500);
+      window.setTimeout(openPopup, 1200);
     });
   }
 
+  /* Legacy name kept for any remaining calls - replaced by VIP */
+  function initCherryWhipPopup() {
+    var legacy = document.getElementById('cherry-whip-popup');
+    if (legacy) legacy.remove();
+  }
+
   config.cherryRain = cherryRain;
+  config.themeRain = themeRain;
   window.TanBomb = config;
 
   function handleAddToCart(form, button) {
@@ -615,7 +717,8 @@
       })
       .then(function (cart) {
         refreshCartUI(cart);
-        cherryRain();
+        var productId = form.getAttribute('data-product-id') || document.body.getAttribute('data-product-theme');
+        themeRain(productId);
         openCartDrawer();
         button.textContent = 'Added';
         window.setTimeout(function () {
@@ -1177,10 +1280,32 @@
 
   /* --- Init -------------------------------------------------------------- */
 
+  function initRevealUp() {
+    var nodes = document.querySelectorAll('.reveal-up');
+    if (!nodes.length) return;
+
+    if (!('IntersectionObserver' in window)) {
+      nodes.forEach(function (el) { el.classList.add('is-visible'); });
+      return;
+    }
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+
+    nodes.forEach(function (el) { observer.observe(el); });
+  }
+
   function init() {
     initSplashScreen();
     initCherryWhipPopup();
+    initVipPopup();
     initFadeIn();
+    initRevealUp();
     initSmoothScroll();
     initMobileNav();
     initHeaderScroll();

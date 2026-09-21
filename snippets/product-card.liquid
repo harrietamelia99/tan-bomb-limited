@@ -102,7 +102,7 @@
                 >
                   {{ variant.title }}
                   {%- unless variant.available %} (sold out){% endunless -%}
-                  — {{ variant.price | money }}
+                  - {{ variant.price | money }}
                 </option>
               {%- endfor -%}
             </select>

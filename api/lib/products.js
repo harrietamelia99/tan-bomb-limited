@@ -1,0 +1,41 @@
+/** Server-side product catalog for Stripe checkout. Keep in sync with assets/products.js */
+
+const PRODUCTS = {
+  'cherry-whip': {
+    id: 'cherry-whip',
+    name: 'Cherry Whip',
+    description: 'Cherry-infused tanning accelerator. 200 ml.',
+    unitAmount: 3000,
+    currency: 'gbp',
+    image: 'https://tan-bomb-limited.vercel.app/assets/cherry-whip-pack.png',
+    available: false,
+    soldOut: true
+  },
+  'vanilla-creme': {
+    id: 'vanilla-creme',
+    name: 'Vanilla Crème',
+    description: 'Vanilla-kissed tanning accelerator. 200 ml.',
+    unitAmount: 3000,
+    currency: 'gbp',
+    image: 'https://tan-bomb-limited.vercel.app/assets/vanilla-creme-pack.png',
+    available: true,
+    soldOut: false
+  },
+  'christmas-special': {
+    id: 'christmas-special',
+    name: 'Christmas Special',
+    description: 'Limited edition festive tanning accelerator. 200 ml.',
+    unitAmount: 3200,
+    currency: 'gbp',
+    image: 'https://tan-bomb-limited.vercel.app/assets/christmas-special-product.png',
+    available: false,
+    soldOut: false,
+    comingSoon: true
+  }
+};
+
+function getProduct(id) {
+  return PRODUCTS[id] || null;
+}
+
+module.exports = { PRODUCTS, getProduct };

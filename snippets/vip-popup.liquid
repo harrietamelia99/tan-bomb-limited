@@ -1,0 +1,22 @@
+<div id="vip-popup" class="vip-popup" hidden aria-hidden="true">
+  <div class="vip-popup__backdrop" data-vip-popup-close tabindex="-1" aria-hidden="true"></div>
+  <div class="vip-popup__dialog" role="dialog" aria-modal="true" aria-labelledby="vip-popup-heading" tabindex="-1">
+    <button type="button" class="vip-popup__close" data-vip-popup-close aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <p class="vip-popup__eyebrow">Tan Bomb VIP Club</p>
+    <h2 id="vip-popup-heading" class="vip-popup__heading">15% off your first order</h2>
+    <p class="vip-popup__text">Join for first access to launches, restocks and members-only offers from Tan Bomb.</p>
+    <form class="vip-popup__form" data-vip-form>
+      <input type="text" name="name" placeholder="First name" maxlength="120" autocomplete="given-name">
+      <input type="email" name="email" placeholder="Email address" required maxlength="200" autocomplete="email">
+      <div class="form-field form-field--honeypot" aria-hidden="true">
+        <label for="vip-company">Company</label>
+        <input type="text" id="vip-company" name="company" tabindex="-1" autocomplete="off">
+      </div>
+      <button type="submit" class="btn btn--primary btn--full">Join the VIP club</button>
+      <p class="vip-popup__status" data-vip-status hidden aria-live="polite"></p>
+    </form>
+    <p class="vip-popup__note">By joining you agree to hear from Tan Bomb. Unsubscribe anytime.</p>
+  </div>
+</div>

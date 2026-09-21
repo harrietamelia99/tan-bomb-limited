@@ -1,0 +1,38 @@
+<section id="our-story" class="section section--brand-meet fade-in">
+  <div class="container section--brand-meet__layout">
+    <div class="section--brand-meet__copy">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="section__heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      {%- if section.settings.body != blank -%}
+        <div class="rte">{{ section.settings.body }}</div>
+      {%- endif -%}
+      {%- if section.settings.cta_label != blank -%}
+        <a href="{{ section.settings.cta_url | default: '#contact' }}" class="btn btn--primary"{% if section.settings.cta_url contains '#' %} data-scroll-link{% endif %}>
+          {{ section.settings.cta_label }}
+        </a>
+      {%- endif -%}
+    </div>
+    <div class="section--brand-meet__media">
+      {%- if section.settings.image != blank -%}
+        <img src="{{ section.settings.image | image_url: width: 1200 }}" alt="{{ section.settings.image.alt | escape }}" width="1200" height="900" loading="lazy">
+      {%- else -%}
+        <img src="{{ 'cherry-whip-pack.png' | asset_url }}" alt="Cherry Whip tube and box on gold pedestal" width="1040" height="1100" loading="lazy">
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Brand meet",
+  "settings": [
+    { "type": "html", "id": "heading", "label": "Heading", "default": "Where tan meets <em>skincare</em>" },
+    { "type": "richtext", "id": "body", "label": "Body", "default": "<p>Tan Bomb was built by salon owners who believed tanners deserved more. Tan Bomb creates luxury accelerators for home and salon shelves.</p>" },
+    { "type": "text", "id": "cta_label", "label": "CTA label", "default": "Talk to us" },
+    { "type": "url", "id": "cta_url", "label": "CTA URL" },
+    { "type": "image_picker", "id": "image", "label": "Image" }
+  ],
+  "presets": [{ "name": "Brand meet" }]
+}
+{% endschema %}

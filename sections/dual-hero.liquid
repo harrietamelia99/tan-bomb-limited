@@ -1,0 +1,117 @@
+<section id="hero" class="section section--dual-hero">
+  <div class="dual-hero__bg" aria-hidden="true">
+    {%- if section.settings.background_image != blank -%}
+      <img src="{{ section.settings.background_image | image_url: width: 2400 }}" alt="" width="1920" height="1080" loading="eager" fetchpriority="high">
+    {%- else -%}
+      <picture>
+        <source media="(min-width: 900px)" srcset="{{ 'hero-dual-bg-desktop.png' | asset_url }}" width="2400" height="1350">
+        <img src="{{ 'hero-dual-bg-mobile.png' | asset_url }}" alt="" width="1080" height="1920" loading="eager" fetchpriority="high">
+      </picture>
+    {%- endif -%}
+  </div>
+
+  <div class="container dual-hero__content">
+    <div class="dual-hero__stage">
+      <article class="dual-hero__product dual-hero__product--cherry">
+        <div class="dual-hero__product-visual">
+          {%- if section.settings.cherry_image != blank -%}
+            <img src="{{ section.settings.cherry_image | image_url: width: 900 }}" alt="{{ section.settings.cherry_name | default: 'Cherry Whip' | escape }}" width="768" height="1024" loading="eager">
+          {%- else -%}
+            <img src="{{ 'hero-cherry-product.png' | asset_url }}" alt="{{ section.settings.cherry_name | default: 'Cherry Whip' | escape }}" width="768" height="1024" loading="eager">
+          {%- endif -%}
+        </div>
+      </article>
+
+      <div class="dual-hero__centre">
+        {%- if section.settings.heading != blank -%}
+          <h1 class="dual-hero__heading">{{ section.settings.heading }}</h1>
+        {%- else -%}
+          <h1 class="dual-hero__heading">
+            <span class="visually-hidden">Tan Bomb. </span>
+            <span class="dual-hero__heading-line">Two Scents.</span>
+            <span class="dual-hero__heading-line dual-hero__heading-line--gold">One Explosive</span>
+            <span class="dual-hero__heading-line">Tan.</span>
+          </h1>
+        {%- endif -%}
+        {%- if section.settings.subheading != blank -%}
+          <p class="dual-hero__subheading">{{ section.settings.subheading }}</p>
+        {%- endif -%}
+        <a href="/shop" class="btn btn--black dual-hero__shop-all">Shop All <span aria-hidden="true">›</span></a>
+        <div class="dual-hero__cta-row">
+          <div class="dual-hero__cta-card">
+            <h2 class="dual-hero__cta-name">{{ section.settings.cherry_name | default: 'Cherry Whip' }}</h2>
+            <a href="{{ section.settings.cherry_url | default: '/products/cherry-whip' }}" class="btn btn--cherry">Shop Now <span aria-hidden="true">›</span></a>
+          </div>
+          <div class="dual-hero__cta-card dual-hero__cta-card--shop-all">
+            <h2 class="dual-hero__cta-name">Both Scents</h2>
+            <a href="/shop" class="btn btn--black">Shop All <span aria-hidden="true">›</span></a>
+          </div>
+          <div class="dual-hero__cta-card dual-hero__cta-card--vanilla">
+            <h2 class="dual-hero__cta-name">{{ section.settings.vanilla_name | default: 'Vanilla Crème' }}</h2>
+            <a href="{{ section.settings.vanilla_url | default: '/products/vanilla-creme' }}" class="btn btn--gold">Shop Now <span aria-hidden="true">›</span></a>
+          </div>
+        </div>
+      </div>
+
+      <article class="dual-hero__product dual-hero__product--vanilla">
+        <div class="dual-hero__product-visual">
+          {%- if section.settings.vanilla_image != blank -%}
+            <img src="{{ section.settings.vanilla_image | image_url: width: 900 }}" alt="{{ section.settings.vanilla_name | default: 'Vanilla Crème' | escape }}" width="768" height="1024" loading="eager">
+          {%- else -%}
+            <img src="{{ 'hero-vanilla-product.png' | asset_url }}" alt="{{ section.settings.vanilla_name | default: 'Vanilla Crème' | escape }}" width="768" height="1024" loading="eager">
+          {%- endif -%}
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <div class="usp-strip usp-strip--hero" aria-label="Why Tan Bomb">
+    <div class="container">
+      <div class="usp-strip__grid usp-strip__grid--three">
+        <div class="usp-item">
+          <svg class="usp-item__icon" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+            <circle cx="24" cy="24" r="17.25" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M14 16.5 34 31.5M34 16.5 14 31.5" stroke="currentColor" stroke-width="1.15"/>
+            <path d="M24 11.5v25M11.5 24h25" stroke="currentColor" stroke-width="2.1" stroke-linecap="square"/>
+            <path d="M14 16.5 34 31.5M34 16.5 14 31.5" stroke="currentColor" stroke-width="0.55" opacity=".55"/>
+          </svg>
+          <p class="usp-item__label">Made in the UK</p>
+        </div>
+        <div class="usp-item">
+          <svg class="usp-item__icon" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+            <circle cx="24" cy="24" r="17.25" stroke="currentColor" stroke-width="1.5"/>
+            <rect x="15" y="15.5" width="18" height="4.2" rx="0.6" stroke="currentColor" stroke-width="1.4"/>
+            <rect x="15" y="21.9" width="18" height="4.2" rx="0.6" stroke="currentColor" stroke-width="1.4"/>
+            <rect x="15" y="28.3" width="18" height="4.2" rx="0.6" stroke="currentColor" stroke-width="1.4"/>
+          </svg>
+          <p class="usp-item__label">Salon Created</p>
+        </div>
+        <div class="usp-item">
+          <svg class="usp-item__icon" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+            <circle cx="24" cy="24" r="17.25" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M24.2 15 16.8 26.8h6.2L21 35.5l10.5-12.5h-6.2L27.5 15z" fill="currentColor"/>
+          </svg>
+          <p class="usp-item__label">Fast Results Formula</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Dual scent hero",
+  "settings": [
+    { "type": "image_picker", "id": "background_image", "label": "Hero background" },
+    { "type": "html", "id": "heading", "label": "Heading override (optional)" },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Official Tan Bomb range – meet Cherry Whip and Vanilla Crème." },
+    { "type": "image_picker", "id": "cherry_image", "label": "Cherry Whip image" },
+    { "type": "text", "id": "cherry_name", "label": "Cherry name", "default": "Cherry Whip" },
+    { "type": "url", "id": "cherry_url", "label": "Cherry URL" },
+    { "type": "image_picker", "id": "vanilla_image", "label": "Vanilla Crème image" },
+    { "type": "text", "id": "vanilla_name", "label": "Vanilla name", "default": "Vanilla Crème" },
+    { "type": "url", "id": "vanilla_url", "label": "Vanilla URL" }
+  ],
+  "presets": [{ "name": "Dual scent hero" }]
+}
+{% endschema %}

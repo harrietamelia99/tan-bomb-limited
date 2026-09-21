@@ -14,8 +14,11 @@
         {% render 'logo', context: 'footer', override: section.settings.logo %}
       </a>
 
+      <p class="site-footer__eyebrow">Tan Bomb</p>
       {%- if section.settings.tagline != blank -%}
         <p class="site-footer__tagline">{{ section.settings.tagline }}</p>
+      {%- else -%}
+        <p class="site-footer__tagline">Luxury accelerators for tanners and salons.</p>
       {%- endif -%}
 
       <div class="site-footer__social">
@@ -28,7 +31,7 @@
 
     <nav class="site-footer__nav" aria-label="Footer navigation">
       <ul class="site-footer__nav-list">
-        <li><a href="{{ link_root }}#shop"{% if use_scroll %} data-scroll-link{% endif %}>Shop</a></li>
+        <li><a href="{% if pages.shop != blank %}{{ pages.shop.url }}{% else %}/shop{% endif %}">Shop</a></li>
         <li><a href="{{ link_root }}#brand-story"{% if use_scroll %} data-scroll-link{% endif %}>About</a></li>
         <li hidden><a href="{{ link_root }}#stockists"{% if use_scroll %} data-scroll-link{% endif %}>Stockists</a></li>
         <li><a href="{{ link_root }}#instagram"{% if use_scroll %} data-scroll-link{% endif %}>Instagram</a></li>
@@ -39,6 +42,7 @@
 
     {%- if section.settings.show_payment_icons -%}
       <div class="site-footer__payments">
+        <p class="site-footer__payments-label">Secure checkout</p>
         {% render 'payment-icons' %}
       </div>
     {%- endif -%}
@@ -50,7 +54,7 @@
 
       <div class="site-footer__meta">
         <p class="site-footer__legal">
-          &copy; {{ 'now' | date: '%Y' }} Tan Bomb Ltd. All rights reserved.
+          &copy; {{ 'now' | date: '%Y' }} Tan Bomb. All rights reserved.
           · <a href="/privacy">Privacy Policy</a>
         </p>
 
@@ -79,7 +83,7 @@
       "type": "html",
       "id": "tagline",
       "label": "Tagline",
-      "default": "Tan Bomb. For tanners and salons. <span aria-hidden=\"true\">🖤</span>"
+      "default": "Luxury accelerators for tanners and salons."
     },
     {
       "type": "text",

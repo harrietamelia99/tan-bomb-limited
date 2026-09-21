@@ -5,7 +5,7 @@
     {%- if cart.item_count == 0 -%}
       <div class="cart-empty">
         <p class="cart-empty__text lead">Your bag is empty right now.</p>
-        <a href="{{ routes.root_url }}#shop" class="btn btn--primary">Shop now</a>
+        <a href="/shop" class="btn btn--primary">Shop now</a>
       </div>
     {%- else -%}
       <form action="{{ routes.cart_url }}" method="post" id="cart-form" class="cart-form" data-cart-form>

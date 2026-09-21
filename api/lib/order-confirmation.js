@@ -60,7 +60,7 @@ function buildCustomerEmail({ orderRef, quantity, totalLabel, shippingLabel, add
     : '';
 
   return {
-    subject: `Order confirmed — Tan Bomb (${orderRef})`,
+    subject: `Order confirmed - Tan Bomb (${orderRef})`,
     html: `
       <div style="font-family: Georgia, 'Times New Roman', serif; max-width: 560px; margin: 0 auto; color: #292624;">
         <p style="letter-spacing: 0.12em; text-transform: uppercase; font-size: 12px; color: #8a8178;">Tan Bomb</p>
@@ -84,7 +84,7 @@ function buildCustomerEmail({ orderRef, quantity, totalLabel, shippingLabel, add
       </div>
     `,
     text: [
-      'Tan Bomb — Order confirmed',
+      'Tan Bomb - Order confirmed',
       '',
       "You're all set.",
       `Order: ${orderRef}`,
@@ -194,7 +194,7 @@ async function sendOrderConfirmationForSession(sessionId) {
         from: FROM_EMAIL,
         to: [NOTIFY_EMAIL],
         replyTo: customerEmail,
-        subject: `[Order] ${orderRef} — Cherry Whip × ${quantity}`,
+        subject: `[Order] ${orderRef} - Cherry Whip × ${quantity}`,
         text: [
           'New paid order',
           '',

@@ -57,7 +57,7 @@
             </p>
           {%- endif -%}
 
-          {%- assign cta_href = section.settings.cta_url | default: '#shop' -%}
+          {%- assign cta_href = section.settings.cta_url | default: '/shop' -%}
           <div class="cherry-whip__actions">
             <a
               href="{{ cta_href }}"
@@ -126,7 +126,7 @@
       "type": "text",
       "id": "cta_url",
       "label": "CTA URL",
-      "default": "#shop"
+      "default": "/shop"
     }
   ],
   "presets": [

@@ -1,0 +1,64 @@
+<section id="reels" class="section section--reels fade-in">
+  <div class="container">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="section__heading text-center">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+    {%- if section.settings.subheading != blank -%}
+      <p class="section--reels__subheading">{{ section.settings.subheading }}</p>
+    {%- endif -%}
+    <div class="reels-grid">
+      {%- for block in section.blocks -%}
+        <a class="reel-card" href="{{ block.settings.link | default: section.settings.profile_url }}" target="_blank" rel="noopener noreferrer" {{ block.shopify_attributes }}>
+          {%- if block.settings.image != blank -%}
+            <img src="{{ block.settings.image | image_url: width: 600 }}" alt="{{ block.settings.label | escape }}" width="540" height="960" loading="lazy">
+          {%- else -%}
+            <img src="{{ 'lifestyle-arm-cream.jpg' | asset_url }}" alt="{{ block.settings.label | escape }}" width="540" height="960" loading="lazy">
+          {%- endif -%}
+          <span class="reel-card__play" aria-hidden="true">▶</span>
+          {%- if block.settings.label != blank -%}
+            <span class="reel-card__label">{{ block.settings.label }}</span>
+          {%- endif -%}
+        </a>
+      {%- endfor -%}
+    </div>
+    {%- if section.settings.follow_label != blank -%}
+      <div class="section--reels__actions">
+        <a href="{{ section.settings.profile_url }}" class="btn btn--outline-light" target="_blank" rel="noopener noreferrer">{{ section.settings.follow_label }}</a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Reels grid",
+  "settings": [
+    { "type": "html", "id": "heading", "label": "Heading", "default": "On the <em>feed</em>" },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Lifestyle reels and drops from @tanbombltd - swap these slots as new clips land." },
+    { "type": "url", "id": "profile_url", "label": "Profile URL" },
+    { "type": "text", "id": "follow_label", "label": "Follow button", "default": "Follow @tanbombltd" }
+  ],
+  "blocks": [
+    {
+      "type": "reel",
+      "name": "Reel",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image / poster" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Lifestyle" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Reels grid",
+      "blocks": [
+        { "type": "reel", "settings": { "label": "Lifestyle" } },
+        { "type": "reel", "settings": { "label": "Application" } },
+        { "type": "reel", "settings": { "label": "Cherry Whip" } },
+        { "type": "reel", "settings": { "label": "Vanilla Crème" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

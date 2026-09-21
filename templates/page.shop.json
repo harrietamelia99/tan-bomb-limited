@@ -1,0 +1,35 @@
+{
+  "sections": {
+    "shop": {
+      "type": "shop",
+      "settings": {
+        "eyebrow": "Tan Bomb",
+        "heading": "Shop <em>Tan Bomb</em>",
+        "subheading": "Official Tan Bomb store – every scent under one name, same explosive tan, your choice of vibe.",
+        "show_descriptions": true,
+        "products_limit": 12
+      },
+      "blocks": {
+        "product-1": {
+          "type": "product",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "product-1"
+      ]
+    },
+    "footer": {
+      "type": "footer",
+      "settings": {
+        "tagline": "Tan Bomb. For tanners and salons.",
+        "instagram_url": "https://instagram.com/tanbombltd",
+        "tiktok_url": "https://www.tiktok.com/@TAN.BOMB"
+      }
+    }
+  },
+  "order": [
+    "shop",
+    "footer"
+  ]
+}

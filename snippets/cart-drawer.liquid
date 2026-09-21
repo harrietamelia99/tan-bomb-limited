@@ -30,9 +30,9 @@
         <div class="cart-drawer__empty" data-cart-empty>
           <p>Your bag is empty.</p>
           {%- if template.name == 'index' -%}
-            <a href="#shop" class="btn btn--primary" data-scroll-link data-cart-close>Shop now</a>
+            <a href="/shop" class="btn btn--primary" data-scroll-link data-cart-close>Shop now</a>
           {%- else -%}
-            <a href="{{ routes.root_url }}#shop" class="btn btn--primary" data-cart-close>Shop now</a>
+            <a href="/shop" class="btn btn--primary" data-cart-close>Shop now</a>
           {%- endif -%}
         </div>
       {%- else -%}

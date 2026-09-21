@@ -1,9 +1,10 @@
 <section
-  id="brand-story"
-  class="section section--brand-story fade-in texture-marble{% if section.settings.image_position == 'left' %} section--brand-story--image-left{% endif %}"
+  id="salons"
+  class="section section--brand-story fade-in{% if section.settings.image_position == 'left' %} section--brand-story--image-left{% endif %}"
 >
   <div class="container section--brand-story__inner">
     <div class="section--brand-story__content">
+      <p class="section--brand-story__eyebrow">Wholesale &amp; stockists</p>
       {%- if section.settings.heading != blank -%}
         <h2 class="section__heading">{{ section.settings.heading }}</h2>
       {%- endif -%}
@@ -19,6 +20,8 @@
           {{ section.settings.body }}
         </div>
       {%- endif -%}
+
+      <a href="{{ routes.root_url }}#contact" class="btn btn--primary section--brand-story__cta">Enquire about wholesale</a>
     </div>
 
     <div class="section--brand-story__media">
@@ -31,7 +34,7 @@
             {{ section.settings.image | image_url: width: 800 }} 800w
           "
           sizes="(max-width: 767px) 90vw, 40vw"
-          alt="{{ section.settings.image.alt | default: 'Hand holding Cherry Whip tanning accelerator sachet in a salon' }}"
+          alt="{{ section.settings.image.alt | default: 'Tan Bomb for salons and shelves' }}"
           width="800"
           height="1000"
           loading="lazy"
@@ -39,10 +42,10 @@
         >
       {%- else -%}
         <img
-          src="{{ 'lifestyle-beach-setup.jpg' | asset_url }}"
-          alt="Beach lounge setup with lotion and cherries at golden hour"
-          width="1200"
-          height="1600"
+          src="{{ 'vanilla-creme-pack.png' | asset_url }}"
+          alt="Vanilla Crème tube and box on gold pedestal"
+          width="1040"
+          height="1100"
           loading="lazy"
           class="section--brand-story__image"
         >
@@ -88,7 +91,7 @@
         { "value": "right", "label": "Right" },
         { "value": "left", "label": "Left" }
       ],
-      "default": "right"
+      "default": "left"
     }
   ],
   "presets": [

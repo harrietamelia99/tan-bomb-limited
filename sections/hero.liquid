@@ -67,7 +67,7 @@
     {%- endif -%}
 
     <div class="section--hero__actions">
-      {%- assign cta_href = section.settings.cta_url | default: '#shop' -%}
+      {%- assign cta_href = section.settings.cta_url | default: '/shop' -%}
       <a
         href="{{ cta_href }}"
         class="btn btn--primary"
@@ -197,7 +197,7 @@
       "type": "textarea",
       "id": "subheading",
       "label": "Subheading",
-      "default": "Cherry-infused tanning accelerator built for tanners and salons alike. Currently sold out — get in touch to hear when it's back in stock."
+      "default": "Cherry-infused tanning accelerator built for tanners and salons alike. Currently sold out. Get in touch to hear when it's back in stock."
     },
     {
       "type": "text",
@@ -209,7 +209,7 @@
       "type": "text",
       "id": "cta_url",
       "label": "Primary CTA URL",
-      "default": "#shop"
+      "default": "/shop"
     },
     {
       "type": "text",
