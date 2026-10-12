@@ -2392,9 +2392,7 @@ body.template-product .pdp-more .shop-card .btn {
   border-radius: 0;
   overflow: hidden;
   background: #1a1814;
-  box-shadow:
-    0 0 0 1px rgba(212, 176, 74, 0.22),
-    0 18px 40px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
 }
 
 .section--brand-story__media::after {
