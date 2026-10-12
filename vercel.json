@@ -37,12 +37,12 @@
       "destination": "/products/vanilla-creme/index.html"
     },
     {
-      "source": "/products/christmas-special",
-      "destination": "/products/christmas-special/index.html"
+      "source": "/products/limited-edition",
+      "destination": "/products/limited-edition/index.html"
     },
     {
-      "source": "/products/christmas-special/",
-      "destination": "/products/christmas-special/index.html"
+      "source": "/products/limited-edition/",
+      "destination": "/products/limited-edition/index.html"
     }
   ]
 }

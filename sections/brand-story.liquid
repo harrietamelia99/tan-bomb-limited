@@ -1,10 +1,12 @@
 <section
-  id="salons"
+  id="wholesale"
   class="section section--brand-story fade-in{% if section.settings.image_position == 'left' %} section--brand-story--image-left{% endif %}"
 >
   <div class="container section--brand-story__inner">
     <div class="section--brand-story__content">
-      <p class="section--brand-story__eyebrow">Wholesale &amp; stockists</p>
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="section--brand-story__eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
       {%- if section.settings.heading != blank -%}
         <h2 class="section__heading">{{ section.settings.heading }}</h2>
       {%- endif -%}
@@ -21,7 +23,7 @@
         </div>
       {%- endif -%}
 
-      <a href="{{ routes.root_url }}#contact" class="btn btn--primary section--brand-story__cta">Enquire about wholesale</a>
+      <a href="{{ routes.root_url }}?enquiry=Wholesaler#contact" class="btn btn--primary section--brand-story__cta" data-enquiry-type="Wholesaler">Enquire about wholesale</a>
     </div>
 
     <div class="section--brand-story__media">
@@ -34,7 +36,7 @@
             {{ section.settings.image | image_url: width: 800 }} 800w
           "
           sizes="(max-width: 767px) 90vw, 40vw"
-          alt="{{ section.settings.image.alt | default: 'Tan Bomb for salons and shelves' }}"
+          alt="{{ section.settings.image.alt | default: 'Tan Bomb wholesale' }}"
           width="800"
           height="1000"
           loading="lazy"
@@ -42,10 +44,10 @@
         >
       {%- else -%}
         <img
-          src="{{ 'vanilla-creme-pack.png' | asset_url }}"
-          alt="Vanilla Crème tube and box on gold pedestal"
-          width="1040"
-          height="1100"
+          src="{{ 'cherry-whip-product.png' | asset_url }}"
+          alt="Tan Bomb Cherry Whip tube and box on a retail shelf"
+          width="699"
+          height="928"
           loading="lazy"
           class="section--brand-story__image"
         >
@@ -61,10 +63,16 @@
   "class": "section-brand-story",
   "settings": [
     {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Wholesale"
+    },
+    {
       "type": "html",
       "id": "heading",
       "label": "Heading",
-      "default": "Inspired by years in the <em>tanning industry</em>"
+      "default": "Stock <em>Tan Bomb</em>"
     },
     {
       "type": "text",
@@ -76,7 +84,7 @@
       "type": "richtext",
       "id": "body",
       "label": "Body",
-      "default": "<p>We created Tan Bomb because we believed the tanning industry deserved more.</p><p>More than another bottle on the shelf, more than another accelerator, we wanted to create a product that looked exceptional, felt indulgent, and delivered the premium experience our clients expected.</p><p>As tanning business owners ourselves, we've spent years helping thousands of customers achieve their perfect tan. That experience inspired us to create a product that reflects the quality, luxury, and performance we believe every tanning accelerator should offer. So we created it!</p><p>Tan Bomb is a luxury tanning accelerator designed for those who expect more, from their skincare and from their tan. Beautifully formulated, elegantly packaged, and proudly made in the UK, it's a product we're proud to use ourselves, display in our salons, and recommend with complete confidence.</p>"
+      "default": "<p>Our wholesale offering is exclusively for wholesalers purchasing in bulk, with trade pricing and retail-ready packaging across the Tan Bomb range.</p><p>From Cherry Whip and Vanilla Crème to the next limited drop - one recognisable brand, multiple scents.</p><p>Shopping for yourself? Our full range is also available to buy directly through our <a href=\"/shop\">online shop</a>.</p>"
     },
     {
       "type": "image_picker",

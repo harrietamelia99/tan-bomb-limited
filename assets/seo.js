@@ -103,7 +103,7 @@
         '@type': 'Product',
         name: p.name + ' | ' + BRAND,
         description: p.seoDescription || p.description,
-        image: absoluteUrl(p.image),
+        image: absoluteUrl(!p.comingSoon && p.image ? p.image : '/assets/logo.png'),
         brand: { '@type': 'Brand', name: BRAND },
         sku: p.id,
         url: absoluteUrl(p.url),

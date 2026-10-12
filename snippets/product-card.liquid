@@ -25,7 +25,7 @@
         <p class="product-card__description">Cherry Whip is currently sold out. Get in touch to hear when it's back in stock.</p>
       {%- endif -%}
       <p class="product-card__sold-out-note">Currently sold out</p>
-      <button type="button" class="btn btn--primary btn--full" disabled>Sold out</button>
+      <button type="button" class="btn btn--primary btn--full btn--unavailable" disabled aria-disabled="true">Sold out</button>
     </div>
   </article>
 {%- else -%}
@@ -34,9 +34,17 @@
   {%- if featured -%}
     {%- assign description_limit = 320 -%}
   {%- endif -%}
+  {%- liquid
+    assign coming_soon = false
+    if product.handle == 'vanilla-creme' and settings.vanilla_creme_coming_soon
+      assign coming_soon = true
+    endif
+  -%}
   <article class="product-card{% if featured %} product-card--featured{% endif %}" data-product-card>
     <a href="{{ product.url }}" class="product-card__media">
-      {%- if product.featured_image != blank -%}
+      {%- if coming_soon -%}
+        {% render 'coming-soon-tile', name: product.title %}
+      {%- elsif product.featured_image != blank -%}
         <img
           src="{{ product.featured_image | image_url: width: 1200 }}"
           srcset="
@@ -82,6 +90,9 @@
         </div>
       {%- endif -%}
 
+      {%- if coming_soon -%}
+        <button type="button" class="btn btn--primary{% unless featured %} btn--full{% endunless %} btn--unavailable" disabled aria-disabled="true">Coming Soon</button>
+      {%- else -%}
       {%- form 'product', product, class: 'product-card__form', data-product-form: '' -%}
         {%- if product.has_only_default_variant -%}
           <input type="hidden" name="id" value="{{ current_variant.id }}">
@@ -128,9 +139,9 @@
 
         <button
           type="submit"
-          class="btn btn--primary{% unless featured %} btn--full{% endunless %}"
+          class="btn btn--primary{% unless featured %} btn--full{% endunless %}{% unless current_variant.available %} btn--unavailable{% endunless %}"
           data-add-to-cart
-          {% unless current_variant.available %}disabled{% endunless %}
+          {% unless current_variant.available %}disabled aria-disabled="true"{% endunless %}
         >
           {%- if current_variant.available -%}
             Add to cart
@@ -139,6 +150,7 @@
           {%- endif -%}
         </button>
       {%- endform -%}
+      {%- endif -%}
     </div>
   </article>
 {%- endif -%}

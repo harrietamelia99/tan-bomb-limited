@@ -7,6 +7,40 @@
     return path;
   };
 
+  var COMING_SOON_LABEL = 'Coming Soon';
+
+  // Homepage hero. Set heroShowVanilla to true to bring back the dual-scent hero.
+  var HERO = {
+    heroShowVanilla: false,
+    withVanilla: {
+      desktop: '/assets/hero-dual-bg-desktop.png?v=5',
+      mobile: '/assets/hero-dual-bg-mobile.png?v=5',
+      subheading: 'Official Tan Bomb range – meet Cherry Whip and Vanilla Crème.'
+    },
+    cherryOnly: {
+      desktop: '/assets/hero-cherry-bg-desktop.png',
+      mobile: '/assets/hero-cherry-bg-mobile.png',
+      subheading: 'Official Tan Bomb range - meet Cherry Whip. New scents coming soon.'
+    }
+  };
+
+  // Public copy for the upcoming limited drop - edit here only.
+  var LIMITED_EDITION_COPY = {
+    name: 'Limited Edition',
+    tagline: 'Limited Edition - Coming Soon',
+    description:
+      'A limited edition drop from Tan Bomb is on its way. The same explosive tan, a brand-new scent. Join the VIP club for first access.',
+    imageAlt: 'Tan Bomb Limited Edition - coming soon',
+    benefits: [
+      'Limited edition scent',
+      'Same explosive Tan Bomb colour',
+      'Collectible packaging',
+      'VIP first-access release'
+    ],
+    seoDescription:
+      'Tan Bomb Limited Edition - coming soon. A new limited drop from the official Tan Bomb range of luxury tanning accelerators.'
+  };
+
   var SHARED_INGREDIENTS = [
     'L-Tyrosine',
     'Hyaluronic Acid',
@@ -67,6 +101,8 @@
       size: '200 ml',
       priceFrom: 3000,
       currency: 'gbp',
+      // Set to false to launch: restores the product image, NEW badge and add to bag.
+      comingSoon: true,
       available: true,
       soldOut: false,
       badge: 'NEW',
@@ -98,13 +134,12 @@
       seoDescription:
         'Tan Bomb Vanilla Crème – vanilla-kissed luxury tanning accelerator from the official Tan Bomb range. Free UK delivery.'
     },
-    'christmas-special': {
-      id: 'christmas-special',
-      name: 'Christmas Special',
-      shortName: 'Christmas Special',
-      tagline: 'Limited edition festive accelerator',
-      description:
-        'A limited-edition festive drop from Tan Bomb. Seasonal scent, the same explosive tan. Available while stocks last. Join the VIP club for first access.',
+    'limited-edition': {
+      id: 'limited-edition',
+      name: LIMITED_EDITION_COPY.name,
+      shortName: LIMITED_EDITION_COPY.name,
+      tagline: LIMITED_EDITION_COPY.tagline,
+      description: LIMITED_EDITION_COPY.description,
       size: '200 ml',
       priceFrom: 3200,
       currency: 'gbp',
@@ -114,20 +149,15 @@
       badge: 'Limited edition',
       rating: 5.0,
       reviewCount: 0,
-      url: '/products/christmas-special',
-      image: ASSET('/assets/christmas-special-product.png'),
-      imageAlt: 'Tan Bomb Christmas Special festive tanning accelerator',
-      lifestyle: ASSET('/assets/christmas-special-product.png'),
-      lifestyleAlt: 'Tan Bomb Christmas Special with silk and holly',
-      benefits: [
-        'Limited festive scent drop',
-        'Same explosive Tan Bomb colour',
-        'Collectible seasonal packaging',
-        'VIP first-access releases'
-      ],
+      url: '/products/limited-edition',
+      image: null,
+      imageAlt: LIMITED_EDITION_COPY.imageAlt,
+      lifestyle: null,
+      lifestyleAlt: '',
+      benefits: LIMITED_EDITION_COPY.benefits,
       ingredients: SHARED_INGREDIENTS.slice(),
-      particle: '🎄',
-      particleAsset: ASSET('/assets/particle-christmas.svg'),
+      particle: '💥',
+      particleAsset: ASSET('/assets/particle-logo.svg'),
       theme: {
         primary: '#2d5a40',
         secondary: '#0f2419',
@@ -137,13 +167,81 @@
         gradient:
           'linear-gradient(165deg, #2d5a40 0%, #1a3a2a 35%, #0f2419 55%, #1a3a2a 75%, #3d6b4f 100%)'
       },
-      seoDescription:
-        'Tan Bomb Christmas Special – limited edition festive tanning accelerator from the official Tan Bomb collection.'
+      seoDescription: LIMITED_EDITION_COPY.seoDescription
     }
   };
 
+  Object.keys(PRODUCTS).forEach(function (id) {
+    var p = PRODUCTS[id];
+    if (p.comingSoon) {
+      p.available = false;
+      p.badge = COMING_SOON_LABEL;
+    }
+  });
+
   var HOMEPAGE_FEATURED = ['cherry-whip', 'vanilla-creme'];
-  var GRID_ORDER = ['vanilla-creme', 'cherry-whip', 'christmas-special'];
+  var GRID_ORDER = ['vanilla-creme', 'cherry-whip', 'limited-edition'];
+
+  function escapeAttr(value) {
+    return String(value == null ? '' : value).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+  }
+
+  /**
+   * Product media markup. Coming-soon products get the branded placeholder tile
+   * instead of their photo. `attrs` is appended to the root element.
+   */
+  function mediaHtml(p, opts) {
+    opts = opts || {};
+    var attrs = opts.attrs ? ' ' + opts.attrs : '';
+    if (p.comingSoon || !p.image) {
+      return (
+        '<div class="coming-soon-tile"' + attrs + ' role="img" aria-label="' + escapeAttr(p.name + ' - ' + COMING_SOON_LABEL) + '">' +
+        '<img class="coming-soon-tile__logo" src="/assets/logo.png" alt="" width="160" height="160" loading="lazy">' +
+        '<span class="coming-soon-tile__label">' + COMING_SOON_LABEL + '</span>' +
+        '</div>'
+      );
+    }
+    return (
+      '<img' + attrs + ' src="' + escapeAttr(p.image) + '" alt="' + escapeAttr(p.imageAlt) + '" width="' + (opts.width || 800) +
+      '" height="' + (opts.height || 1000) + '" loading="' + (opts.loading || 'lazy') + '">'
+    );
+  }
+
+  function ctaLabel(p, fallback) {
+    if (p.soldOut) return 'Sold out';
+    if (p.comingSoon) return COMING_SOON_LABEL;
+    return fallback;
+  }
+
+  /** Card button. Unavailable products get a muted, non-actionable look; the card link still works. */
+  function ctaHtml(p, fallback) {
+    var unavailable = p.soldOut || p.comingSoon;
+    return (
+      '<div class="shop-card__cta"><span class="btn btn--primary btn--full' +
+      (unavailable ? ' btn--unavailable" aria-disabled="true"' : '"') +
+      '>' + ctaLabel(p, fallback) + '</span></div>'
+    );
+  }
+
+  /** Reviews stay in the data but are hidden until a coming-soon product launches. */
+  function showReviews(p) {
+    return !p.comingSoon && p.reviewCount > 0;
+  }
+
+  function stars(rating) {
+    var full = Math.round(rating || 0);
+    var out = '';
+    for (var i = 0; i < 5; i += 1) out += i < full ? '★' : '☆';
+    return out;
+  }
+
+  function ratingHtml(p) {
+    if (!showReviews(p)) return '<p class="shop-card__rating"><span>Be the first to review</span></p>';
+    return (
+      '<p class="shop-card__rating"><span class="shop-card__stars" aria-hidden="true">' + stars(p.rating) +
+      '</span><span>' + p.rating.toFixed(1) + ' (' + p.reviewCount + ')</span></p>'
+    );
+  }
 
   function formatMoney(cents) {
     return '£' + (Number(cents || 0) / 100).toFixed(2);
@@ -164,6 +262,13 @@
     get: getProduct,
     list: listProducts,
     formatMoney: formatMoney,
+    mediaHtml: mediaHtml,
+    ctaLabel: ctaLabel,
+    ctaHtml: ctaHtml,
+    ratingHtml: ratingHtml,
+    showReviews: showReviews,
+    HERO: HERO,
+    COMING_SOON_LABEL: COMING_SOON_LABEL,
     defaultParticle: '💥',
     defaultParticleAsset: ASSET('/assets/particle-logo.svg')
   };

@@ -7,3 +7,6 @@ node_modules/
 .env.local
 .env.*.local
 !.env.example
+
+# Client feedback screenshots (local reference only)
+client-feedback/

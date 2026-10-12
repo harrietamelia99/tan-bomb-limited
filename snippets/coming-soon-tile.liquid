@@ -1,0 +1,9 @@
+{%- comment -%}
+  Branded stand-in for products that aren't launched yet.
+  Accepts:
+  - name: product name for the accessible label
+{%- endcomment -%}
+<div class="coming-soon-tile" role="img" aria-label="{{ name | escape }} - Coming Soon">
+  <img class="coming-soon-tile__logo" src="{{ 'logo.png' | asset_url }}" alt="" width="160" height="160" loading="lazy">
+  <span class="coming-soon-tile__label">Coming Soon</span>
+</div>

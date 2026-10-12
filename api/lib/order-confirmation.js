@@ -159,7 +159,7 @@ async function sendOrderConfirmationForSession(sessionId) {
       ? session.shipping_cost.amount_total
       : 0;
   const shippingLabel =
-    shippingAmount === 0 ? 'Free (UK & Ireland)' : formatMoney(shippingAmount, session.currency);
+    shippingAmount === 0 ? 'Free (UK)' : formatMoney(shippingAmount, session.currency);
 
   const addressText = formatAddress(session.shipping_details);
   const email = buildCustomerEmail({

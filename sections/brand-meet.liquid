@@ -1,5 +1,12 @@
 <section id="our-story" class="section section--brand-meet fade-in">
   <div class="container section--brand-meet__layout">
+    <div class="section--brand-meet__media">
+      {%- if section.settings.image != blank -%}
+        <img src="{{ section.settings.image | image_url: width: 1200 }}" alt="{{ section.settings.image.alt | escape }}" width="1200" height="900" loading="lazy">
+      {%- else -%}
+        <img src="{{ 'cherry-whip-pack.png' | asset_url }}" alt="Cherry Whip tube and box on gold pedestal" width="1040" height="1100" loading="lazy">
+      {%- endif -%}
+    </div>
     <div class="section--brand-meet__copy">
       {%- if section.settings.heading != blank -%}
         <h2 class="section__heading">{{ section.settings.heading }}</h2>
@@ -13,13 +20,6 @@
         </a>
       {%- endif -%}
     </div>
-    <div class="section--brand-meet__media">
-      {%- if section.settings.image != blank -%}
-        <img src="{{ section.settings.image | image_url: width: 1200 }}" alt="{{ section.settings.image.alt | escape }}" width="1200" height="900" loading="lazy">
-      {%- else -%}
-        <img src="{{ 'cherry-whip-pack.png' | asset_url }}" alt="Cherry Whip tube and box on gold pedestal" width="1040" height="1100" loading="lazy">
-      {%- endif -%}
-    </div>
   </div>
 </section>
 
@@ -28,7 +28,7 @@
   "name": "Brand meet",
   "settings": [
     { "type": "html", "id": "heading", "label": "Heading", "default": "Where tan meets <em>skincare</em>" },
-    { "type": "richtext", "id": "body", "label": "Body", "default": "<p>Tan Bomb was built by salon owners who believed tanners deserved more. Tan Bomb creates luxury accelerators for home and salon shelves.</p>" },
+    { "type": "richtext", "id": "body", "label": "Body", "default": "<p>As salon owners, we wanted more from the products on our shelves. So we created Tan Bomb, luxury tanning accelerators designed to help you achieve a tan faster, with formulas we're proud of, packaging we love, and scents you'll look forward to using.</p><p>From your shelf at home to the salon, we want every bottle to feel like a little luxury.</p><p>New scents. The same care in every bottle.</p>" },
     { "type": "text", "id": "cta_label", "label": "CTA label", "default": "Talk to us" },
     { "type": "url", "id": "cta_url", "label": "CTA URL" },
     { "type": "image_picker", "id": "image", "label": "Image" }

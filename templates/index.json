@@ -3,7 +3,8 @@
     "dual-hero": {
       "type": "dual-hero",
       "settings": {
-        "subheading": "Official Tan Bomb range – meet Cherry Whip and Vanilla Crème."
+        "subheading": "Official Tan Bomb range – meet Cherry Whip and Vanilla Crème.",
+        "subheading_cherry_only": "Official Tan Bomb range - meet Cherry Whip. New scents coming soon."
       }
     },
     "shop": {
@@ -32,8 +33,9 @@
     "brand-story": {
       "type": "brand-story",
       "settings": {
-        "heading": "For <em>salons</em> &amp; shelves",
-        "body": "<p>Tan Bomb work with tanning salons and distributors across the UK. Wholesale pricing, retail-ready packaging, and a range your clients will ask for by name.</p><p>Whether you stock Cherry Whip, Vanilla Crème, or the next limited drop - one brand, multiple scents, no redesign every launch.</p>",
+        "eyebrow": "Wholesale",
+        "heading": "Stock <em>Tan Bomb</em>",
+        "body": "<p>Our wholesale offering is exclusively for wholesalers purchasing in bulk, with trade pricing and retail-ready packaging across the Tan Bomb range.</p><p>From Cherry Whip and Vanilla Crème to the next limited drop - one recognisable brand, multiple scents.</p><p>Shopping for yourself? Our full range is also available to buy directly through our <a href=\"/shop\">online shop</a>.</p>",
         "pull_quote": "For your skin. For your shelf.",
         "image_position": "left"
       }

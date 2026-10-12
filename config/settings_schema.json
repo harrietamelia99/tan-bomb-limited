@@ -63,5 +63,24 @@
         "default": "#292624"
       }
     ]
+  },
+  {
+    "name": "Products",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "vanilla_creme_coming_soon",
+        "label": "Vanilla Crème: coming soon",
+        "info": "Hides the product image and add to cart. Untick to launch.",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "hero_show_vanilla",
+        "label": "Homepage hero: show Vanilla Crème",
+        "info": "Off shows the Cherry Whip-only hero and its subheading. Tick to bring back the dual-scent hero.",
+        "default": false
+      }
+    ]
   }
 ]

@@ -102,7 +102,7 @@ module.exports = async function handler(req, res) {
         };
       }),
       shipping_address_collection: {
-        allowed_countries: ['GB', 'IE']
+        allowed_countries: ['GB']
       },
       shipping_options: [
         {
@@ -124,7 +124,7 @@ module.exports = async function handler(req, res) {
         invoice_data: {
           description: 'Tan Bomb - ' + primary.name + ' order',
           footer:
-            'Thanks for ordering from Tan Bomb. Free UK & Ireland shipping. Questions? info@tan-bomb.com',
+            'Thanks for ordering from Tan Bomb. Free UK shipping. Questions? info@tan-bomb.com',
           metadata: {
             product: primary.id
           }

@@ -29,8 +29,8 @@ REWRITES = {
     "/products/cherry-whip/": "/products/cherry-whip/index.html",
     "/products/vanilla-creme": "/products/vanilla-creme/index.html",
     "/products/vanilla-creme/": "/products/vanilla-creme/index.html",
-    "/products/christmas-special": "/products/christmas-special/index.html",
-    "/products/christmas-special/": "/products/christmas-special/index.html",
+    "/products/limited-edition": "/products/limited-edition/index.html",
+    "/products/limited-edition/": "/products/limited-edition/index.html",
 }
 
 

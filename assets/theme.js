@@ -1300,7 +1300,42 @@
     nodes.forEach(function (el) { observer.observe(el); });
   }
 
+  /* Preselect the contact "I am a…" option from ?enquiry=... or a [data-enquiry-type] link */
+  function initEnquiryPreselect() {
+    var select = document.getElementById('ContactForm-type');
+    if (!select) return;
+
+    function preselect(value) {
+      if (!value) return;
+      for (var i = 0; i < select.options.length; i += 1) {
+        var option = select.options[i];
+        if ((option.value || option.text) === value) {
+          select.selectedIndex = i;
+          return;
+        }
+      }
+    }
+
+    try {
+      preselect(new URLSearchParams(window.location.search).get('enquiry'));
+    } catch (err) {}
+
+    document.addEventListener('click', function (e) {
+      var trigger = e.target.closest && e.target.closest('[data-enquiry-type]');
+      if (trigger) preselect(trigger.getAttribute('data-enquiry-type'));
+    });
+  }
+
+  /* Sold out / coming soon card buttons sit inside the card link; they shouldn't act as a CTA */
+  function initUnavailableButtons() {
+    document.addEventListener('click', function (e) {
+      if (e.target.closest && e.target.closest('.btn--unavailable')) e.preventDefault();
+    });
+  }
+
   function init() {
+    initEnquiryPreselect();
+    initUnavailableButtons();
     initSplashScreen();
     initCherryWhipPopup();
     initVipPopup();

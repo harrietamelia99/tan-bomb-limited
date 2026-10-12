@@ -8,15 +8,30 @@
     {%- endif -%}
     <div class="reels-grid">
       {%- for block in section.blocks -%}
+        {%- liquid
+          assign reel_label = block.settings.label
+          assign reel_image = block.settings.image
+          assign reel_alt = block.settings.label
+          assign reel_fallback = 'lifestyle-arm-cream.jpg'
+          if settings.vanilla_creme_coming_soon
+            assign label_lower = block.settings.label | downcase
+            if label_lower contains 'vanilla'
+              assign reel_label = 'Coming Soon'
+              assign reel_image = blank
+              assign reel_alt = 'Coming soon reel preview'
+              assign reel_fallback = 'lifestyle-cream-still.jpg'
+            endif
+          endif
+        -%}
         <a class="reel-card" href="{{ block.settings.link | default: section.settings.profile_url }}" target="_blank" rel="noopener noreferrer" {{ block.shopify_attributes }}>
-          {%- if block.settings.image != blank -%}
-            <img src="{{ block.settings.image | image_url: width: 600 }}" alt="{{ block.settings.label | escape }}" width="540" height="960" loading="lazy">
+          {%- if reel_image != blank -%}
+            <img src="{{ reel_image | image_url: width: 600 }}" alt="{{ reel_alt | escape }}" width="540" height="960" loading="lazy">
           {%- else -%}
-            <img src="{{ 'lifestyle-arm-cream.jpg' | asset_url }}" alt="{{ block.settings.label | escape }}" width="540" height="960" loading="lazy">
+            <img src="{{ reel_fallback | asset_url }}" alt="{{ reel_alt | escape }}" width="540" height="960" loading="lazy">
           {%- endif -%}
           <span class="reel-card__play" aria-hidden="true">▶</span>
-          {%- if block.settings.label != blank -%}
-            <span class="reel-card__label">{{ block.settings.label }}</span>
+          {%- if reel_label != blank -%}
+            <span class="reel-card__label">{{ reel_label }}</span>
           {%- endif -%}
         </a>
       {%- endfor -%}

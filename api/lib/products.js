@@ -19,15 +19,16 @@ const PRODUCTS = {
     currency: 'gbp',
     image: 'https://tan-bomb-limited.vercel.app/assets/vanilla-creme-pack.png',
     available: true,
-    soldOut: false
+    soldOut: false,
+    comingSoon: true
   },
-  'christmas-special': {
-    id: 'christmas-special',
-    name: 'Christmas Special',
-    description: 'Limited edition festive tanning accelerator. 200 ml.',
+  'limited-edition': {
+    id: 'limited-edition',
+    name: 'Limited Edition',
+    description: 'Limited edition tanning accelerator. 200 ml.',
     unitAmount: 3200,
     currency: 'gbp',
-    image: 'https://tan-bomb-limited.vercel.app/assets/christmas-special-product.png',
+    image: 'https://tan-bomb-limited.vercel.app/assets/logo.png',
     available: false,
     soldOut: false,
     comingSoon: true

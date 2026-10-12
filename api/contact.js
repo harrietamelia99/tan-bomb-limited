@@ -2,7 +2,7 @@ const { Resend } = require('resend');
 
 const TO_EMAIL = process.env.CONTACT_TO_EMAIL || 'info@tan-bomb.com';
 const FROM_EMAIL = process.env.RESEND_FROM || 'Tan Bomb <info@tan-bomb.com>';
-const ALLOWED_TYPES = new Set(['Customer', 'Salon owner', 'Distributor', 'Other']);
+const ALLOWED_TYPES = new Set(['Customer', 'Wholesaler', 'Salon owner', 'Other']);
 
 function escapeHtml(value) {
   return String(value || '')

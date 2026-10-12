@@ -1,5 +1,5 @@
 /**
- * Shared product page bootstrapping for /products/*/index.html
+ * Shared product page bootstrapping for /products/<id>/index.html
  * Expects body[data-product-id] and window.TanBombProducts.
  * Pages are server-rendered; this enhances SEO, related products, and cart hooks.
  */
@@ -13,12 +13,6 @@
   }
 
   document.body.setAttribute('data-product-theme', product.id);
-
-  function assetUrl(path) {
-    if (!path) return '';
-    if (path.indexOf('http') === 0 || path.indexOf('/') === 0) return path;
-    return path;
-  }
 
   function set(sel, text) {
     var el = document.querySelector(sel);
@@ -63,28 +57,26 @@
       html += '<a class="shop-card reveal-up is-visible" href="' + p.url + '">';
       html += '<div class="shop-card__media">';
       if (p.badge) html += '<span class="shop-card__badge ' + badgeClass(p.badge) + '">' + p.badge + '</span>';
-      html += '<img src="' + assetUrl(p.image) + '" alt="' + p.imageAlt + '" width="800" height="1000" loading="lazy">';
+      html += catalog.mediaHtml(p);
       html += '</div><div class="shop-card__body">';
       html += '<h3 class="shop-card__title">' + p.name + '</h3>';
       html += '<p class="shop-card__tagline">' + (p.tagline || '') + '</p>';
       html += '<p class="shop-card__price">from ' + catalog.formatMoney(p.priceFrom) + '</p>';
-      html += '<div class="shop-card__cta"><span class="btn btn--primary btn--full">' + (p.soldOut ? 'Sold out' : p.comingSoon ? 'Coming soon' : 'View') + '</span></div>';
+      html += catalog.ctaHtml(p, 'View');
       html += '</div></a>';
     });
     root.innerHTML = html;
   }
 
   function fill() {
-    var img = document.querySelector('[data-product-image]');
-    if (img) {
-      img.src = assetUrl(product.image);
-      img.alt = product.imageAlt;
-    }
-
-    var lifestyle = document.querySelector('[data-product-lifestyle]');
-    if (lifestyle) {
-      lifestyle.src = assetUrl(product.lifestyle);
-      lifestyle.alt = product.lifestyleAlt;
+    var media = document.querySelector('[data-product-image]');
+    if (media) {
+      media.outerHTML = catalog.mediaHtml(product, {
+        attrs: 'data-product-image',
+        width: 1040,
+        height: 1100,
+        loading: 'eager'
+      });
     }
 
     set('[data-product-name]', product.name);
@@ -95,7 +87,7 @@
     fillList('[data-product-benefits]', product.benefits);
     fillList('[data-product-ingredients]', product.ingredients);
 
-    if (product.reviewCount > 0) {
+    if (catalog.showReviews(product)) {
       set('[data-product-rating]', stars(product.rating) + ' ' + product.rating.toFixed(1) + ' (' + product.reviewCount + ')');
     } else {
       set('[data-product-rating]', 'Be the first to review');
@@ -120,12 +112,12 @@
         if (note) note.textContent = 'Currently sold out. Join the VIP club for restock alerts.';
       } else if (product.comingSoon || !product.available) {
         btn.disabled = true;
-        btn.textContent = 'Coming soon';
-        if (note) note.textContent = 'Limited edition. Join the VIP club for first access.';
+        btn.textContent = catalog.COMING_SOON_LABEL;
+        if (note) note.textContent = 'Coming soon. Join the VIP club for first access.';
       } else {
         btn.disabled = false;
         btn.textContent = 'Add to bag';
-        if (note) note.textContent = 'Free UK & Ireland shipping. Secure checkout powered by Stripe.';
+        if (note) note.textContent = 'Free UK shipping. Secure checkout powered by Stripe.';
       }
 
       if (!btn.getAttribute('data-bound')) {
@@ -181,7 +173,7 @@
         title: pageTitle,
         description: pageDesc,
         path: product.url,
-        image: product.image,
+        image: product.comingSoon ? null : product.image,
         type: 'product',
         product: product
       });

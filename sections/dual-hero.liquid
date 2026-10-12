@@ -1,11 +1,25 @@
+{%- liquid
+  assign show_vanilla = settings.hero_show_vanilla
+  if show_vanilla
+    assign hero_bg_image = section.settings.background_image
+    assign hero_bg_desktop = 'hero-dual-bg-desktop.png'
+    assign hero_bg_mobile = 'hero-dual-bg-mobile.png'
+    assign hero_subheading = section.settings.subheading
+  else
+    assign hero_bg_image = section.settings.background_image_cherry_only
+    assign hero_bg_desktop = 'hero-cherry-bg-desktop.png'
+    assign hero_bg_mobile = 'hero-cherry-bg-mobile.png'
+    assign hero_subheading = section.settings.subheading_cherry_only
+  endif
+-%}
 <section id="hero" class="section section--dual-hero">
   <div class="dual-hero__bg" aria-hidden="true">
-    {%- if section.settings.background_image != blank -%}
-      <img src="{{ section.settings.background_image | image_url: width: 2400 }}" alt="" width="1920" height="1080" loading="eager" fetchpriority="high">
+    {%- if hero_bg_image != blank -%}
+      <img src="{{ hero_bg_image | image_url: width: 2400 }}" alt="" width="1920" height="1080" loading="eager" fetchpriority="high">
     {%- else -%}
       <picture>
-        <source media="(min-width: 900px)" srcset="{{ 'hero-dual-bg-desktop.png' | asset_url }}" width="2400" height="1350">
-        <img src="{{ 'hero-dual-bg-mobile.png' | asset_url }}" alt="" width="1080" height="1920" loading="eager" fetchpriority="high">
+        <source media="(min-width: 900px)" srcset="{{ hero_bg_desktop | asset_url }}" width="2400" height="1350">
+        <img src="{{ hero_bg_mobile | asset_url }}" alt="" width="1080" height="1920" loading="eager" fetchpriority="high">
       </picture>
     {%- endif -%}
   </div>
@@ -33,26 +47,13 @@
             <span class="dual-hero__heading-line">Tan.</span>
           </h1>
         {%- endif -%}
-        {%- if section.settings.subheading != blank -%}
-          <p class="dual-hero__subheading">{{ section.settings.subheading }}</p>
+        {%- if hero_subheading != blank -%}
+          <p class="dual-hero__subheading">{{ hero_subheading }}</p>
         {%- endif -%}
-        <a href="/shop" class="btn btn--black dual-hero__shop-all">Shop All <span aria-hidden="true">›</span></a>
-        <div class="dual-hero__cta-row">
-          <div class="dual-hero__cta-card">
-            <h2 class="dual-hero__cta-name">{{ section.settings.cherry_name | default: 'Cherry Whip' }}</h2>
-            <a href="{{ section.settings.cherry_url | default: '/products/cherry-whip' }}" class="btn btn--cherry">Shop Now <span aria-hidden="true">›</span></a>
-          </div>
-          <div class="dual-hero__cta-card dual-hero__cta-card--shop-all">
-            <h2 class="dual-hero__cta-name">Both Scents</h2>
-            <a href="/shop" class="btn btn--black">Shop All <span aria-hidden="true">›</span></a>
-          </div>
-          <div class="dual-hero__cta-card dual-hero__cta-card--vanilla">
-            <h2 class="dual-hero__cta-name">{{ section.settings.vanilla_name | default: 'Vanilla Crème' }}</h2>
-            <a href="{{ section.settings.vanilla_url | default: '/products/vanilla-creme' }}" class="btn btn--gold">Shop Now <span aria-hidden="true">›</span></a>
-          </div>
-        </div>
+        <a href="{{ section.settings.cta_url | default: '/shop' }}" class="btn btn--black dual-hero__cta">{{ section.settings.cta_label | default: 'Shop Now' }} <span aria-hidden="true">›</span></a>
       </div>
 
+      {%- if show_vanilla -%}
       <article class="dual-hero__product dual-hero__product--vanilla">
         <div class="dual-hero__product-visual">
           {%- if section.settings.vanilla_image != blank -%}
@@ -62,6 +63,7 @@
           {%- endif -%}
         </div>
       </article>
+      {%- endif -%}
     </div>
   </div>
 
@@ -102,15 +104,18 @@
 {
   "name": "Dual scent hero",
   "settings": [
-    { "type": "image_picker", "id": "background_image", "label": "Hero background" },
+    { "type": "paragraph", "content": "Which hero shows is controlled by Theme settings > Products > Homepage hero: show Vanilla Crème." },
+    { "type": "image_picker", "id": "background_image", "label": "Hero background (dual scent)" },
+    { "type": "image_picker", "id": "background_image_cherry_only", "label": "Hero background (Cherry Whip only)" },
     { "type": "html", "id": "heading", "label": "Heading override (optional)" },
-    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Official Tan Bomb range – meet Cherry Whip and Vanilla Crème." },
+    { "type": "text", "id": "subheading", "label": "Subheading (dual scent)", "default": "Official Tan Bomb range – meet Cherry Whip and Vanilla Crème." },
+    { "type": "text", "id": "subheading_cherry_only", "label": "Subheading (Cherry Whip only)", "default": "Official Tan Bomb range - meet Cherry Whip. New scents coming soon." },
+    { "type": "text", "id": "cta_label", "label": "Button label", "default": "Shop Now" },
+    { "type": "url", "id": "cta_url", "label": "Button link" },
     { "type": "image_picker", "id": "cherry_image", "label": "Cherry Whip image" },
     { "type": "text", "id": "cherry_name", "label": "Cherry name", "default": "Cherry Whip" },
-    { "type": "url", "id": "cherry_url", "label": "Cherry URL" },
     { "type": "image_picker", "id": "vanilla_image", "label": "Vanilla Crème image" },
-    { "type": "text", "id": "vanilla_name", "label": "Vanilla name", "default": "Vanilla Crème" },
-    { "type": "url", "id": "vanilla_url", "label": "Vanilla URL" }
+    { "type": "text", "id": "vanilla_name", "label": "Vanilla name", "default": "Vanilla Crème" }
   ],
   "presets": [{ "name": "Dual scent hero" }]
 }
