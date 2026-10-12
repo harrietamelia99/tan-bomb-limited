@@ -905,9 +905,9 @@ body:has(.site-chrome):not(.template-index) #main-content {
     background: linear-gradient(
       180deg,
       rgba(255, 253, 249, 0.94) 0%,
-      rgba(255, 251, 244, 0.78) 14%,
-      rgba(255, 249, 240, 0.42) 32%,
-      rgba(255, 248, 238, 0.14) 48%,
+      rgba(255, 251, 244, 0.82) 18%,
+      rgba(255, 249, 240, 0.6) 36%,
+      rgba(255, 248, 238, 0.24) 50%,
       rgba(255, 248, 238, 0) 62%
     );
   }
@@ -915,12 +915,12 @@ body:has(.site-chrome):not(.template-index) #main-content {
   .dual-hero__centre::before {
     top: -4.5rem;
     width: 100vw;
-    height: min(48vh, 26rem);
+    height: min(56vh, 30rem);
     background: linear-gradient(
       180deg,
       rgba(255, 253, 249, 0.72) 0%,
-      rgba(255, 251, 244, 0.5) 28%,
-      rgba(255, 249, 240, 0.18) 58%,
+      rgba(255, 251, 244, 0.58) 40%,
+      rgba(255, 249, 240, 0.38) 66%,
       rgba(255, 248, 238, 0) 100%
     );
   }
@@ -1625,6 +1625,22 @@ body.template-shop .site-footer {
 @media (min-width: 900px) {
   .section--brand-meet__media {
     justify-self: center;
+  }
+}
+
+@media (max-width: 899px) {
+  .section--brand-meet__media {
+    max-width: 32rem;
+    justify-self: center;
+    aspect-ratio: 1040 / 1100;
+    border-radius: 1.25rem;
+    box-shadow:
+      0 0 0 1px rgba(212, 176, 74, 0.35),
+      0 22px 44px -18px rgba(60, 30, 10, 0.45);
+  }
+
+  .section--brand-meet__media img {
+    object-position: center;
   }
 }
 
@@ -2494,12 +2510,27 @@ body.template-product .pdp-more .shop-card .btn {
 @media (max-width: 767px) {
   .section--brand-story__media {
     width: auto;
-    aspect-ratio: auto;
-    height: min(125vw, 68vh, 34rem);
+    aspect-ratio: 691 / 924;
+    height: auto;
     max-height: none;
     margin-left: calc(-1 * max(var(--space-sm), var(--safe-left)));
     margin-right: calc(-1 * max(var(--space-sm), var(--safe-right)));
     box-shadow: none;
+  }
+
+  .section--brand-story__media::after {
+    background: linear-gradient(
+      180deg,
+      rgba(20, 18, 16, 0.55) 0%,
+      transparent 14%,
+      transparent 62%,
+      rgba(12, 11, 10, 0.6) 84%,
+      #0c0b0a 100%
+    );
+  }
+
+  .section--brand-story__image {
+    object-position: center;
   }
 }
 
