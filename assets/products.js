@@ -13,13 +13,13 @@
   var HERO = {
     heroShowVanilla: false,
     withVanilla: {
-      desktop: '/assets/hero-dual-bg-desktop.png?v=5',
-      mobile: '/assets/hero-dual-bg-mobile.png?v=5',
+      desktop: '/assets/hero-dual-bg-desktop-v2.png',
+      mobile: '/assets/hero-dual-bg-mobile-v2.png',
       subheading: 'Official Tan Bomb range – meet Cherry Whip and Vanilla Crème.'
     },
     cherryOnly: {
-      desktop: '/assets/hero-dual-bg-desktop.png?v=5',
-      mobile: '/assets/hero-dual-bg-mobile.png?v=5',
+      desktop: '/assets/hero-dual-bg-desktop-v2.png',
+      mobile: '/assets/hero-dual-bg-mobile-v2.png',
       subheading: 'Official Tan Bomb range - meet Cherry Whip. New scents coming soon.'
     }
   };
