@@ -52,7 +52,7 @@
     var title = options.title || BRAND + ' | Official Site – Luxury Tanning Accelerators';
     var description = options.description || DEFAULT_DESC;
     var url = absoluteUrl(options.path || '/');
-    var image = absoluteUrl(options.image || '/assets/logo.png');
+    var image = absoluteUrl(options.image || '/assets/og-image.png');
     var type = options.type || 'website';
 
     document.title = title;

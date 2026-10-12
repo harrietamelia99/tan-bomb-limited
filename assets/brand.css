@@ -846,8 +846,26 @@ body:has(.site-chrome):not(.template-index) #main-content {
   .dual-hero__subheading {
     grid-column: auto;
     font-size: clamp(0.92rem, 1.5vw, 1.05rem);
+    line-height: 1.5;
     margin-inline: auto;
     text-align: center;
+    isolation: isolate;
+  }
+
+  .dual-hero__subheading::before {
+    content: '';
+    position: absolute;
+    inset: -0.9rem -3.5rem;
+    z-index: -1;
+    pointer-events: none;
+    background: radial-gradient(
+      ellipse 50% 50% at 50% 50%,
+      rgba(255, 253, 249, 0.97) 0%,
+      rgba(255, 252, 246, 0.92) 55%,
+      rgba(255, 250, 242, 0.6) 80%,
+      rgba(255, 250, 242, 0) 100%
+    );
+    filter: blur(6px);
   }
 
   .btn.dual-hero__cta {
@@ -917,6 +935,14 @@ body:has(.site-chrome):not(.template-index) #main-content {
 
   .dual-hero__cta {
     animation: dual-hero-fade 0.7s ease 0.18s both;
+  }
+
+  .btn.dual-hero__cta {
+    margin: auto auto clamp(1rem, 4.5vh, 2rem);
+    min-width: min(17rem, 78vw);
+    padding: 1.2rem 3rem;
+    font-size: 0.95rem;
+    letter-spacing: 0.1em;
   }
 
   .usp-strip--hero {

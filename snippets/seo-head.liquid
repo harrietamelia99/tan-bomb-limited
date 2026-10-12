@@ -17,7 +17,7 @@
   if seo_image != blank
     assign seo_img = seo_image
   else
-    assign seo_img = 'logo.png' | asset_url
+    assign seo_img = 'og-image.png' | asset_url | prepend: 'https:'
   endif
   assign seo_og_type = seo_type | default: 'website'
 -%}

@@ -48,7 +48,7 @@
           </h1>
         {%- endif -%}
         {%- if hero_subheading != blank -%}
-          <p class="dual-hero__subheading">{{ hero_subheading }}</p>
+          <p class="dual-hero__subheading">{{ hero_subheading | escape | replace: '. ', '.<br>' }}</p>
         {%- endif -%}
         <a href="{{ section.settings.cta_url | default: '/shop' }}" class="btn btn--black dual-hero__cta">{{ section.settings.cta_label | default: 'Shop Now' }} <span aria-hidden="true">›</span></a>
       </div>
