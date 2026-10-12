@@ -1580,6 +1580,9 @@ body.template-shop .site-footer {
 
 .section--brand-meet__media {
   position: relative;
+  width: 100%;
+  max-width: min(26rem, 80%);
+  justify-self: start;
   aspect-ratio: 4 / 5;
   overflow: hidden;
   background: #1a1410;
@@ -1591,6 +1594,12 @@ body.template-shop .site-footer {
   object-fit: cover;
   object-position: center 42%;
   display: block;
+}
+
+@media (min-width: 900px) {
+  .section--brand-meet__media {
+    justify-self: center;
+  }
 }
 
 .section--brand-meet__benefits {
