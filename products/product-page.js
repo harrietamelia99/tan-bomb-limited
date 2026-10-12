@@ -57,7 +57,7 @@
       html += '<a class="shop-card reveal-up is-visible" href="' + p.url + '">';
       html += '<div class="shop-card__media">';
       if (p.badge) html += '<span class="shop-card__badge ' + badgeClass(p.badge) + '">' + p.badge + '</span>';
-      html += catalog.mediaHtml(p);
+      html += catalog.mediaHtml(p, { card: true });
       html += '</div><div class="shop-card__body">';
       html += '<h3 class="shop-card__title">' + p.name + '</h3>';
       html += '<p class="shop-card__tagline">' + (p.tagline || '') + '</p>';

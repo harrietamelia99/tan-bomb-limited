@@ -42,7 +42,7 @@
   -%}
   <article class="product-card{% if featured %} product-card--featured{% endif %}" data-product-card>
     <a href="{{ product.url }}" class="product-card__media">
-      {%- if coming_soon -%}
+      {%- if coming_soon and product.featured_image == blank -%}
         {% render 'coming-soon-tile', name: product.title %}
       {%- elsif product.featured_image != blank -%}
         <img

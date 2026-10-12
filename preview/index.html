@@ -210,8 +210,8 @@
     <section id="hero" class="section section--dual-hero">
       <div class="dual-hero__bg" aria-hidden="true">
         <picture>
-          <source media="(min-width: 900px)" srcset="/assets/hero-cherry-bg-desktop.png" width="2400" height="1350" data-hero-bg-desktop>
-          <img src="/assets/hero-cherry-bg-mobile.png" alt="" width="1080" height="1920" loading="eager" fetchpriority="high" data-hero-bg-mobile>
+          <source media="(min-width: 900px)" srcset="/assets/hero-dual-bg-desktop.png?v=5" width="2400" height="1350" data-hero-bg-desktop>
+          <img src="/assets/hero-dual-bg-mobile.png?v=5" alt="" width="1080" height="1920" loading="eager" fetchpriority="high" data-hero-bg-mobile>
         </picture>
       </div>
 
@@ -547,7 +547,7 @@
           html += '<a class="shop-card reveal-up" href="' + p.url + '">';
           html += '<div class="shop-card__media">';
           if (p.badge) html += '<span class="shop-card__badge ' + badgeClass(p.badge) + '">' + p.badge + '</span>';
-          html += catalog.mediaHtml(p);
+          html += catalog.mediaHtml(p, { card: true });
           html += '</div><div class="shop-card__body">';
           html += '<h3 class="shop-card__title">' + p.name + '</h3>';
           html += catalog.ratingHtml(p);

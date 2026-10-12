@@ -9,7 +9,7 @@
 
   var COMING_SOON_LABEL = 'Coming Soon';
 
-  // Homepage hero. Set heroShowVanilla to true to bring back the dual-scent hero.
+  // Homepage hero. Both states use the two-product background; heroShowVanilla switches the subheading.
   var HERO = {
     heroShowVanilla: false,
     withVanilla: {
@@ -18,8 +18,8 @@
       subheading: 'Official Tan Bomb range – meet Cherry Whip and Vanilla Crème.'
     },
     cherryOnly: {
-      desktop: '/assets/hero-cherry-bg-desktop.png',
-      mobile: '/assets/hero-cherry-bg-mobile.png',
+      desktop: '/assets/hero-dual-bg-desktop.png?v=5',
+      mobile: '/assets/hero-dual-bg-mobile.png?v=5',
       subheading: 'Official Tan Bomb range - meet Cherry Whip. New scents coming soon.'
     }
   };
@@ -187,13 +187,13 @@
   }
 
   /**
-   * Product media markup. Coming-soon products get the branded placeholder tile
-   * instead of their photo. `attrs` is appended to the root element.
+   * Product media markup. Products without a photo get the branded placeholder tile,
+   * as do coming-soon products outside of cards (opts.card). `attrs` is appended to the root element.
    */
   function mediaHtml(p, opts) {
     opts = opts || {};
     var attrs = opts.attrs ? ' ' + opts.attrs : '';
-    if (p.comingSoon || !p.image) {
+    if (!p.image || (p.comingSoon && !opts.card)) {
       return (
         '<div class="coming-soon-tile"' + attrs + ' role="img" aria-label="' + escapeAttr(p.name + ' - ' + COMING_SOON_LABEL) + '">' +
         '<img class="coming-soon-tile__logo" src="/assets/logo.png" alt="" width="160" height="160" loading="lazy">' +

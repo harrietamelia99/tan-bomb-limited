@@ -2457,6 +2457,19 @@ body.template-product .pdp-more .shop-card .btn {
   }
 }
 
+/* Stacked layout: photo runs edge to edge */
+@media (max-width: 767px) {
+  .section--brand-story__media {
+    width: auto;
+    aspect-ratio: auto;
+    height: min(125vw, 68vh, 34rem);
+    max-height: none;
+    margin-left: calc(-1 * max(var(--space-sm), var(--safe-left)));
+    margin-right: calc(-1 * max(var(--space-sm), var(--safe-right)));
+    box-shadow: none;
+  }
+}
+
 /* --- Motion helpers ------------------------------------------------------ */
 
 .reveal-up {
