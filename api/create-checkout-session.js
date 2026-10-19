@@ -1,8 +1,5 @@
 const Stripe = require('stripe');
 
-/** Set to false when Cherry Whip is back in stock. */
-const PRODUCT_SOLD_OUT = true;
-
 const PRODUCT = {
   name: 'Cherry Whip',
   description: 'Cherry-infused tanning accelerator. 200 ml.',
@@ -34,12 +31,6 @@ module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
     return res.status(405).json({ error: 'Method not allowed' });
-  }
-
-  if (PRODUCT_SOLD_OUT) {
-    return res.status(409).json({
-      error: 'Cherry Whip is currently sold out. Please check back soon or contact us for restock updates.'
-    });
   }
 
   const { mode, secretKey } = resolveStripeSecretKey();
