@@ -91,9 +91,9 @@
           <p class="cherry-popup__eyebrow">Tan Bomb presents</p>
           <h2 id="cherry-popup-heading" class="product-card__title">Cherry Whip</h2>
           <p class="cherry-popup__tagline"><em>now</em> live <span class="cherry-icon" aria-hidden="true"></span></p>
-          <p class="product-card__description">Cherry Whip has sold out. Leave your details on the contact form and we'll let you know when it's back.</p>
+          <p class="product-card__description">Cherry-infused tanning accelerator is here. Shop for yourself or stock your salon.</p>
           <div class="cherry-popup__actions">
-            <a href="#shop" class="btn btn--primary cherry-popup__cta" data-scroll-link data-cherry-popup-close>Sold out</a>
+            <a href="#shop" class="btn btn--primary cherry-popup__cta" data-scroll-link data-cherry-popup-close>Shop Cherry Whip</a>
           </div>
         </div>
       </article>
@@ -167,9 +167,9 @@
           <span class="section--hero__tagline"><em>now</em> live <span class="cherry-icon" aria-hidden="true"></span></span>
         </h1>
         <hr class="gold-divider section--hero__divider" aria-hidden="true">
-        <p class="section--hero__subheading lead">Cherry-infused tanning accelerator built for tanners and salons alike. Currently sold out — get in touch to hear when it's back in stock.</p>
+        <p class="section--hero__subheading lead">Cherry-infused tanning accelerator built for tanners and salons alike. Shop for yourself or stock your shelf. Salon-quality formula, packaging that sells.</p>
         <div class="section--hero__actions">
-          <a href="#shop" class="btn btn--primary" data-scroll-link>Sold out</a>
+          <a href="#shop" class="btn btn--primary" data-scroll-link>Shop Cherry Whip</a>
           <a href="#cherry-whip" class="btn btn--outline" data-scroll-link>See more</a>
         </div>
       </div>
@@ -241,7 +241,7 @@
                 <span class="ingredients-list__item">L-Tyrosine</span><span class="ingredients-list__sep" aria-hidden="true">·</span><span class="ingredients-list__item">Hyaluronic Acid</span><span class="ingredients-list__sep" aria-hidden="true">·</span><span class="ingredients-list__item">Aloe Vera</span><span class="ingredients-list__sep" aria-hidden="true">·</span><span class="ingredients-list__item">Vitamin E</span><span class="ingredients-list__sep" aria-hidden="true">·</span><span class="ingredients-list__item">Marine Algae Extract</span>
               </p>
               <div class="cherry-whip__actions">
-                <a href="#shop" class="btn btn--primary" data-scroll-link>Sold out</a>
+                <a href="#shop" class="btn btn--primary" data-scroll-link>Shop Cherry Whip</a>
               </div>
               <p class="spf-disclaimer">Tan Bomb does not contain SPF. Always use suitable sun protection when tanning outdoors.</p>
             </div>
@@ -254,7 +254,7 @@
       <div class="container section--shop__inner">
         <p class="section--shop__eyebrow">Shop Tan Bomb</p>
         <h2 class="section__heading text-center">For your bag & your <em>shelf</em> <span class="cherry-icon" aria-hidden="true"></span></h2>
-        <p class="section--shop__subheading lead text-center">Cherry Whip is currently sold out. Get in touch if you'd like to be notified when it's back — salon and wholesale enquiries welcome.</p>
+        <p class="section--shop__subheading lead text-center">Salon-quality tanning accelerator, shipped straight to you. Whether you're buying for yourself or your business, add to bag and checkout securely online.</p>
         <hr class="gold-divider section--shop__divider" aria-hidden="true">
         <div class="shop-grid shop-grid--single">
           <article class="product-card product-card--featured" data-product-card>
@@ -272,8 +272,18 @@
               <h3 class="product-card__title">Cherry Whip</h3>
               <p class="product-card__price">£30.00</p>
               <p class="product-card__description">Cherry-infused tanning accelerator with L-Tyrosine, Hyaluronic Acid, Aloe Vera, Vitamin E and Marine Algae Extract. For sunbed and outdoor tanning, at home or in salon.</p>
-              <p class="product-card__sold-out-note">Currently sold out</p>
-              <button type="button" class="btn btn--primary" disabled>Sold out</button>
+              <form class="product-card__form" data-product-form data-preview-product>
+                <input type="hidden" name="id" value="preview-cherry-whip">
+                <div class="product-card__quantity">
+                  <label class="visually-hidden" for="preview-qty">Quantity</label>
+                  <div class="quantity-input">
+                    <button type="button" class="quantity-input__btn" data-qty-minus aria-label="Decrease quantity">−</button>
+                    <input type="number" id="preview-qty" name="quantity" class="quantity-input__field" value="1" min="1" inputmode="numeric">
+                    <button type="button" class="quantity-input__btn" data-qty-plus aria-label="Increase quantity">+</button>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn--primary" data-add-to-cart>Add to cart</button>
+              </form>
             </div>
           </article>
         </div>
@@ -708,8 +718,52 @@
         footer.removeAttribute('hidden');
       }
 
+      document.querySelector('[data-preview-product]').addEventListener('submit', function (e) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        var qty = parseInt(document.getElementById('preview-qty').value, 10) || 1;
+        var existing = previewCart.items.find(function (i) { return i.key === 'preview-cherry-whip'; });
+        if (existing) {
+          existing.quantity += qty;
+          existing.final_line_price = existing.quantity * 3000;
+        } else {
+          previewCart.items.push({ key: 'preview-cherry-whip', title: 'Cherry Whip', quantity: qty, final_line_price: qty * 3000 });
+        }
+        previewCart.item_count = previewCart.items.reduce(function (n, i) { return n + i.quantity; }, 0);
+        previewCart.total_price = previewCart.items.reduce(function (n, i) { return n + i.final_line_price; }, 0);
+        renderPreviewCart();
+        if (window.TanBomb && typeof window.TanBomb.cherryRain === 'function') {
+          window.TanBomb.cherryRain();
+        }
+        document.querySelector('[data-cart-open]').click();
+      });
+
       document.querySelector('[data-cart-checkout]').addEventListener('click', function () {
-        alert('Cherry Whip is currently sold out.');
+        var btn = this;
+        var qty = previewCart.item_count || 1;
+        if (!previewCart.item_count) {
+          alert('Your bag is empty.');
+          return;
+        }
+        btn.disabled = true;
+        btn.textContent = 'Redirecting…';
+        fetch('/api/create-checkout-session', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ quantity: qty })
+        })
+          .then(function (res) { return res.json().then(function (data) { return { ok: res.ok, data: data }; }); })
+          .then(function (result) {
+            if (!result.ok || !result.data.url) {
+              throw new Error(result.data.error || 'Checkout failed');
+            }
+            window.location.href = result.data.url;
+          })
+          .catch(function (err) {
+            alert(err.message || 'Unable to start checkout. Please try again.');
+            btn.disabled = false;
+            btn.textContent = 'Checkout';
+          });
       });
 
       document.getElementById('ContactForm').addEventListener('submit', function (e) {
