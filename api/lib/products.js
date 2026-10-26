@@ -7,7 +7,7 @@ const PRODUCTS = {
     description: 'Cherry-infused tanning accelerator. 200 ml.',
     unitAmount: 3000,
     currency: 'gbp',
-    image: 'https://tan-bomb-limited.vercel.app/assets/cherry-whip-pack-v3.jpg',
+    image: 'https://tan-bomb-limited.vercel.app/assets/cherry-whip-pack-v4.jpg',
     available: true,
     soldOut: false
   },
