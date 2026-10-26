@@ -236,6 +236,8 @@
   }
 
   function ratingHtml(p) {
+    // Reviews hidden site-wide for launch (client request).
+    return '';
     if (!showReviews(p)) return '<p class="shop-card__rating"><span>Be the first to review</span></p>';
     return (
       '<p class="shop-card__rating"><span class="shop-card__stars" aria-hidden="true">' + stars(p.rating) +
