@@ -3004,3 +3004,20 @@ body.template-product .site-footer__legal {
     transition: none;
   }
 }
+
+/* Desktop hero: keep the gold podiums in view above the USP strip */
+@media (min-width: 900px) {
+  .section--dual-hero {
+    height: max(calc(100svh - 6.5rem), calc(47.8vw + 5.4rem));
+    max-height: none;
+  }
+
+  .dual-hero__bg {
+    inset: 0 0 5rem 0;
+  }
+
+  .dual-hero__bg img,
+  .dual-hero__bg picture img {
+    object-position: 50% 100%;
+  }
+}
