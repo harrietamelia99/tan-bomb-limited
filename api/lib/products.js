@@ -8,8 +8,8 @@ const PRODUCTS = {
     unitAmount: 3000,
     currency: 'gbp',
     image: 'https://tan-bomb-limited.vercel.app/assets/cherry-whip-pack.png',
-    available: false,
-    soldOut: true
+    available: true,
+    soldOut: false
   },
   'vanilla-creme': {
     id: 'vanilla-creme',
@@ -20,7 +20,7 @@ const PRODUCTS = {
     image: 'https://tan-bomb-limited.vercel.app/assets/vanilla-creme-pack.png',
     available: true,
     soldOut: false,
-    comingSoon: true
+    comingSoon: false
   },
   'limited-edition': {
     id: 'limited-edition',

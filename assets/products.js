@@ -11,7 +11,7 @@
 
   // Homepage hero. Both states use the two-product background; heroShowVanilla switches the subheading.
   var HERO = {
-    heroShowVanilla: false,
+    heroShowVanilla: true,
     withVanilla: {
       desktop: '/assets/hero-dual-bg-desktop-v2.png',
       mobile: '/assets/hero-dual-bg-mobile-v2.png',
@@ -60,9 +60,9 @@
       size: '200 ml',
       priceFrom: 3000,
       currency: 'gbp',
-      available: false,
-      soldOut: true,
-      badge: 'Sold out',
+      available: true,
+      soldOut: false,
+      badge: null,
       rating: 4.9,
       reviewCount: 48,
       url: '/products/cherry-whip',
@@ -102,12 +102,12 @@
       priceFrom: 3000,
       currency: 'gbp',
       // Set to false to launch: restores the product image, NEW badge and add to bag.
-      comingSoon: true,
+      comingSoon: false,
       available: true,
       soldOut: false,
       badge: 'NEW',
-      rating: 5.0,
-      reviewCount: 12,
+      rating: 0,
+      reviewCount: 0,
       url: '/products/vanilla-creme',
       image: ASSET('/assets/vanilla-creme-pack.png'),
       imageAlt: 'Tan Bomb Vanilla Crème tanning accelerator tube and box',

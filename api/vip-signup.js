@@ -70,7 +70,6 @@ module.exports = async function handler(req, res) {
         <h2>New VIP Club signup</h2>
         <p><strong>Email:</strong> ${safeEmail}</p>
         <p><strong>Name:</strong> ${safeName}</p>
-        <p>Offer referenced: 15% off first order.</p>
       `
     });
 
