@@ -13,12 +13,12 @@
   var HERO = {
     heroShowVanilla: true,
     withVanilla: {
-      desktop: '/assets/hero-dual-bg-desktop-v4.png',
+      desktop: '/assets/hero-dual-bg-desktop-v5.png',
       mobile: '/assets/hero-dual-bg-mobile-v4.png',
       subheading: 'Official Tan Bomb range – meet Cherry Whip and Vanilla Crème.'
     },
     cherryOnly: {
-      desktop: '/assets/hero-dual-bg-desktop-v4.png',
+      desktop: '/assets/hero-dual-bg-desktop-v5.png',
       mobile: '/assets/hero-dual-bg-mobile-v4.png',
       subheading: 'Official Tan Bomb range - meet Cherry Whip. New scents coming soon.'
     }
