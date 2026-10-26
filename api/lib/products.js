@@ -17,7 +17,7 @@ const PRODUCTS = {
     description: 'Vanilla-kissed tanning accelerator. 200 ml.',
     unitAmount: 3000,
     currency: 'gbp',
-    image: 'https://tan-bomb-limited.vercel.app/assets/vanilla-creme-pack.png',
+    image: 'https://tan-bomb-limited.vercel.app/assets/vanilla-creme-pack-v2.jpg',
     available: true,
     soldOut: false,
     comingSoon: false

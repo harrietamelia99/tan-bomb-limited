@@ -13,13 +13,13 @@
   var HERO = {
     heroShowVanilla: true,
     withVanilla: {
-      desktop: '/assets/hero-dual-bg-desktop-v2.png',
-      mobile: '/assets/hero-dual-bg-mobile-v2.png',
+      desktop: '/assets/hero-dual-bg-desktop-v3.png',
+      mobile: '/assets/hero-dual-bg-mobile-v3.png',
       subheading: 'Official Tan Bomb range – meet Cherry Whip and Vanilla Crème.'
     },
     cherryOnly: {
-      desktop: '/assets/hero-dual-bg-desktop-v2.png',
-      mobile: '/assets/hero-dual-bg-mobile-v2.png',
+      desktop: '/assets/hero-dual-bg-desktop-v3.png',
+      mobile: '/assets/hero-dual-bg-mobile-v3.png',
       subheading: 'Official Tan Bomb range - meet Cherry Whip. New scents coming soon.'
     }
   };
@@ -109,7 +109,7 @@
       rating: 0,
       reviewCount: 0,
       url: '/products/vanilla-creme',
-      image: ASSET('/assets/vanilla-creme-pack.png'),
+      image: ASSET('/assets/vanilla-creme-pack-v2.jpg'),
       imageAlt: 'Tan Bomb Vanilla Crème tanning accelerator tube and box',
       lifestyle: ASSET('/assets/lifestyle-shoulders-lotion.jpg'),
       lifestyleAlt: 'Applying Tan Bomb Vanilla Crème lotion',
