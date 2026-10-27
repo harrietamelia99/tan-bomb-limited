@@ -44,5 +44,22 @@
       "source": "/products/limited-edition/",
       "destination": "/products/limited-edition/index.html"
     }
+  ],
+  "redirects": [
+    {
+      "source": "/preview",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/preview/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/preview/index.html",
+      "destination": "/",
+      "permanent": true
+    }
   ]
 }
