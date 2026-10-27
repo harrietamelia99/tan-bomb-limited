@@ -3035,3 +3035,9 @@ body.template-product .site-footer__legal {
   object-fit: contain;
   background: #fff;
 }
+
+/* On the feed: two centred videos */
+.reels-grid--duo {
+  grid-template-columns: repeat(2, minmax(0, 18rem));
+  justify-content: center;
+}
