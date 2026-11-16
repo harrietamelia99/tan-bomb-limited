@@ -848,6 +848,10 @@
     var checkoutBtn = cartDrawer.querySelector('[data-cart-checkout]');
     if (checkoutBtn) {
       checkoutBtn.addEventListener('click', function () {
+        // Pages with their own bag (shop, homepage, product pages) send the real
+        // items to Stripe themselves. Skip this legacy handler there, otherwise a
+        // second quantity-only request fires and checks out Cherry Whip instead.
+        if (window.TanBombPreviewCart) return;
         var btn = checkoutBtn;
         var qty = 1;
         var countEl = document.querySelector('[data-cart-count]');

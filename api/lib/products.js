@@ -22,16 +22,16 @@ const PRODUCTS = {
     soldOut: false,
     comingSoon: false
   },
-  'limited-edition': {
-    id: 'limited-edition',
-    name: 'Limited Edition',
-    description: 'Limited edition tanning accelerator. 200 ml.',
-    unitAmount: 3200,
+  'gingerbread-delight': {
+    id: 'gingerbread-delight',
+    name: 'Gingerbread Delight',
+    description: 'Limited edition gingerbread tanning accelerator. 200 ml.',
+    unitAmount: 3000,
     currency: 'gbp',
-    image: 'https://tan-bomb-limited.vercel.app/assets/logo.png',
-    available: false,
+    image: 'https://tan-bomb-limited.vercel.app/assets/gingerbread-delight.jpg',
+    available: true,
     soldOut: false,
-    comingSoon: true
+    comingSoon: false
   }
 };
 

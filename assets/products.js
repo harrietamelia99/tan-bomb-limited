@@ -24,23 +24,6 @@
     }
   };
 
-  // Public copy for the upcoming limited drop - edit here only.
-  var LIMITED_EDITION_COPY = {
-    name: 'Limited Edition',
-    tagline: 'Limited Edition - Coming Soon',
-    description:
-      'A limited edition drop from Tan Bomb is on its way. The same explosive tan, a brand-new scent. Join the VIP club for first access.',
-    imageAlt: 'Tan Bomb Limited Edition - coming soon',
-    benefits: [
-      'Limited edition scent',
-      'Same explosive Tan Bomb colour',
-      'Collectible packaging',
-      'VIP first-access release'
-    ],
-    seoDescription:
-      'Tan Bomb Limited Edition - coming soon. A new limited drop from the official Tan Bomb range of luxury tanning accelerators.'
-  };
-
   var SHARED_INGREDIENTS = [
     'L-Tyrosine',
     'Hyaluronic Acid',
@@ -134,40 +117,47 @@
       seoDescription:
         'Tan Bomb Vanilla Crème – vanilla-kissed luxury tanning accelerator from the official Tan Bomb range. Free UK delivery.'
     },
-    'limited-edition': {
-      id: 'limited-edition',
-      name: LIMITED_EDITION_COPY.name,
-      shortName: LIMITED_EDITION_COPY.name,
-      tagline: LIMITED_EDITION_COPY.tagline,
-      description: LIMITED_EDITION_COPY.description,
+    'gingerbread-delight': {
+      id: 'gingerbread-delight',
+      name: 'Gingerbread Delight',
+      shortName: 'Gingerbread Delight',
+      tagline: 'Limited edition festive tanning accelerator',
+      description:
+        'Our limited edition Christmas scent. A warm, spiced gingerbread tanning accelerator with L-Tyrosine, Hyaluronic Acid, Aloe Vera, Vitamin E and Marine Algae Extract. For sunbed and outdoor tanning, at home or in salon.',
       size: '200 ml',
-      priceFrom: 3200,
+      priceFrom: 3000,
       currency: 'gbp',
-      available: false,
+      comingSoon: false,
+      available: true,
       soldOut: false,
-      comingSoon: true,
       badge: 'Limited edition',
-      rating: 5.0,
+      rating: 0,
       reviewCount: 0,
-      url: '/products/limited-edition',
-      image: null,
-      imageAlt: LIMITED_EDITION_COPY.imageAlt,
-      lifestyle: null,
-      lifestyleAlt: '',
-      benefits: LIMITED_EDITION_COPY.benefits,
+      url: '/products/gingerbread-delight',
+      image: ASSET('/assets/gingerbread-delight.jpg'),
+      imageAlt: 'Tan Bomb Gingerbread Delight limited edition tanning accelerator on a snowy sleigh',
+      lifestyle: ASSET('/assets/gingerbread-delight.jpg'),
+      lifestyleAlt: 'Tan Bomb Gingerbread Delight in its festive candy-stripe box',
+      benefits: [
+        'Warm, spiced gingerbread scent',
+        'Same explosive Tan Bomb colour',
+        'Fast results formula',
+        'Limited edition festive packaging'
+      ],
       ingredients: SHARED_INGREDIENTS.slice(),
-      particle: '💥',
-      particleAsset: ASSET('/assets/particle-logo.svg'),
+      particle: '🍪',
+      particleAsset: ASSET('/assets/particle-gingerbread.svg'),
       theme: {
-        primary: '#2d5a40',
-        secondary: '#0f2419',
+        primary: '#C8202F',
+        secondary: '#8a1520',
         accent: '#D4B04A',
         bg: '#0c0b0a',
         text: '#f7f2e8',
         gradient:
-          'linear-gradient(165deg, #2d5a40 0%, #1a3a2a 35%, #0f2419 55%, #1a3a2a 75%, #3d6b4f 100%)'
+          'linear-gradient(165deg, #e8a066 0%, #c97a3c 30%, #C8202F 62%, #8a1520 100%)'
       },
-      seoDescription: LIMITED_EDITION_COPY.seoDescription
+      seoDescription:
+        'Tan Bomb Gingerbread Delight - limited edition festive tanning accelerator from the official Tan Bomb range. Free UK delivery.'
     }
   };
 
@@ -180,7 +170,7 @@
   });
 
   var HOMEPAGE_FEATURED = ['cherry-whip', 'vanilla-creme'];
-  var GRID_ORDER = ['vanilla-creme', 'cherry-whip', 'limited-edition'];
+  var GRID_ORDER = ['gingerbread-delight', 'vanilla-creme', 'cherry-whip'];
 
   function escapeAttr(value) {
     return String(value == null ? '' : value).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');

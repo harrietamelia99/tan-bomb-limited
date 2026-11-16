@@ -112,19 +112,20 @@ body {
   );
 }
 
-[data-product-theme="limited-edition"] {
-  --product-primary: #1a3a2a;
-  --product-secondary: #0f2419;
+[data-product-theme="gingerbread-delight"] {
+  --product-primary: #C8202F;
+  --product-secondary: #8a1520;
   --product-accent: #D4B04A;
-  --product-bg: #f4f1ea;
-  --product-gradient: linear-gradient(165deg, #2d5a40 0%, #1a3a2a 50%, #0f2419 100%);
-  --color-primary: #1a3a2a;
-  --color-secondary: #0f2419;
+  --product-bg: #fbf5ef;
+  --product-gradient: linear-gradient(165deg, #e8a066 0%, #c97a3c 30%, #C8202F 62%, #8a1520 100%);
+  --color-primary: #C8202F;
+  --color-secondary: #8a1520;
   --btn-primary-gradient: linear-gradient(
     var(--btn-gradient-angle),
-    #2d5a40 0%,
-    #1a3a2a 50%,
-    #0a1a12 100%
+    #ff6b6b 0%,
+    #e0313f 30%,
+    #C8202F 60%,
+    #7a1019 100%
   );
 }
 
@@ -1348,8 +1349,8 @@ body:has(.site-chrome):not(.template-index) #main-content {
 }
 
 .shop-card__badge--limited {
-  background: #1a3a2a;
-  color: var(--color-gold-light);
+  background: #C8202F;
+  color: #fff;
 }
 
 .shop-card__badge--soldout {
@@ -3040,4 +3041,34 @@ body.template-product .site-footer__legal {
 .reels-grid--duo {
   grid-template-columns: repeat(2, minmax(0, 18rem));
   justify-content: center;
+}
+
+/* Mobile: stop the hanging logo covering the hero heading.
+   1) More breathing room under the logo at rest.
+   2) Once scrolled, tuck a smaller logo inside the black bar so content
+      sliding up under the sticky header is never hidden behind it. */
+@media (max-width: 899px) {
+  .section--dual-hero {
+    padding-top: clamp(4.85rem, 14vw, 5.75rem);
+  }
+
+  .site-header--brand .site-header__logo,
+  .site-chrome .site-header--brand .site-header__logo {
+    transition: top 0.25s ease;
+  }
+
+  .site-header--brand .site-header__logo img,
+  .site-header--brand .site-logo__img--header {
+    transition: height 0.25s ease;
+  }
+
+  .site-header--brand.is-scrolled .site-header__logo,
+  .site-chrome .site-header--brand.is-scrolled .site-header__logo {
+    top: 50%;
+  }
+
+  .site-header--brand.is-scrolled .site-header__logo img,
+  .site-header--brand.is-scrolled .site-logo__img--header {
+    height: 54px;
+  }
 }

@@ -37,12 +37,12 @@
       "destination": "/products/vanilla-creme/index.html"
     },
     {
-      "source": "/products/limited-edition",
-      "destination": "/products/limited-edition/index.html"
+      "source": "/products/gingerbread-delight",
+      "destination": "/products/gingerbread-delight/index.html"
     },
     {
-      "source": "/products/limited-edition/",
-      "destination": "/products/limited-edition/index.html"
+      "source": "/products/gingerbread-delight/",
+      "destination": "/products/gingerbread-delight/index.html"
     }
   ],
   "redirects": [
@@ -60,6 +60,16 @@
       "source": "/preview/index.html",
       "destination": "/",
       "permanent": true
+    },
+    {
+      "source": "/products/limited-edition",
+      "destination": "/products/gingerbread-delight",
+      "permanent": false
+    },
+    {
+      "source": "/products/limited-edition/",
+      "destination": "/products/gingerbread-delight",
+      "permanent": false
     }
   ]
 }
