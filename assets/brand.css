@@ -3072,3 +3072,83 @@ body.template-product .site-footer__legal {
     height: 54px;
   }
 }
+
+/* ===== Festive hero (Christmas 2026) - remove in January along with #festive-hero ===== */
+.section--dual-hero[hidden] { display: none !important; }
+
+.section--festive-hero {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: #0a1430;
+  color: #fff;
+  height: calc(100svh - 6.5rem);
+  min-height: 560px;
+  padding: 0;
+}
+.festive-hero__bg {
+  position: absolute; inset: -40px; z-index: -3;
+  background: url('/assets/gingerbread-delight.jpg') center / cover;
+  filter: blur(22px) brightness(.45);
+}
+.festive-hero__photo {
+  position: absolute; z-index: -2; top: 0; right: 0; bottom: 0; width: 58%;
+  background: url('/assets/gingerbread-delight.jpg') center 40% / cover;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 22%);
+          mask-image: linear-gradient(90deg, transparent 0, #000 22%);
+}
+.section--festive-hero::before {
+  content: ''; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(90deg, rgba(8,14,32,.94) 0%, rgba(8,14,32,.72) 40%, rgba(8,14,32,0) 60%);
+}
+.festive-hero__snow {
+  position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: .5;
+  background-image:
+    radial-gradient(2px 2px at 20px 30px, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 120px 90px, #fff, transparent),
+    radial-gradient(2px 2px at 230px 160px, #fff, transparent),
+    radial-gradient(1px 1px at 310px 40px, #fff, transparent);
+  background-size: 340px 220px;
+}
+.festive-hero__content {
+  flex: 1 1 auto; display: flex; align-items: center; min-height: 0;
+}
+.festive-hero__copy { max-width: 34rem; }
+.festive-hero__eyebrow {
+  display: inline-block; margin: 0 0 1.4rem;
+  border: 1px solid #d9b45a; border-radius: 999px; padding: .45rem .9rem;
+  color: #f3df9e; font-size: .8rem; letter-spacing: .22em; text-transform: uppercase;
+}
+.festive-hero__heading {
+  margin: 0; font-family: 'Playfair Display', var(--font-heading);
+  font-size: clamp(3rem, 5.4vw, 5rem); line-height: .98; letter-spacing: -.02em; text-transform: uppercase;
+}
+.festive-hero__heading-line { display: block; }
+.festive-hero__heading-line--gold {
+  font-style: italic;
+  background: linear-gradient(180deg, #f6e3a1, #c9a24a 60%, #a8812e);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.festive-hero__subheading {
+  margin: 1.4rem 0 2rem; max-width: 29rem; font-size: 1.2rem; line-height: 1.5; color: #efe6d6;
+}
+.btn.festive-hero__cta { border: 1.5px solid #d9b45a; padding: 1.1rem 2.6rem; letter-spacing: .12em; }
+
+@media (max-width: 899px) {
+  .section--festive-hero { height: calc(100svh - 6.35rem); min-height: 620px; }
+  .festive-hero__bg { display: none; }
+  .festive-hero__photo {
+    top: 38%; width: 100%; background-position: center 22%;
+    -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 14%);
+            mask-image: linear-gradient(180deg, transparent 0, #000 14%);
+  }
+  .section--festive-hero::before { background: linear-gradient(180deg, rgba(8,14,32,0) 70%, rgba(8,14,32,.85) 100%); }
+  .festive-hero__content { align-items: flex-start; padding-top: 2.6rem; text-align: center; justify-content: center; }
+  .festive-hero__copy { margin: 0 auto; }
+  .festive-hero__eyebrow { font-size: .65rem; margin-bottom: .9rem; }
+  .festive-hero__heading { font-size: clamp(2.2rem, 10vw, 2.8rem); }
+  .festive-hero__subheading { font-size: .95rem; margin: .8rem auto 0; max-width: 20rem; }
+  .btn.festive-hero__cta { position: absolute; left: 1.4rem; right: 1.4rem; bottom: 7.5rem; text-align: center; justify-content: center; }
+}
