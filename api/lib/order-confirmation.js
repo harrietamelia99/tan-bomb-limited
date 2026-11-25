@@ -50,9 +50,28 @@ function formatAddress(shippingDetails) {
   return lines.join('\n');
 }
 
-function buildCustomerEmail({ orderRef, quantity, totalLabel, shippingLabel, addressText }) {
+/**
+ * Builds the item lines from the Stripe Checkout Session's own line items,
+ * so the emails always match the customer's Stripe invoice.
+ */
+function describeLineItems(lineItems) {
+  const items = (lineItems && lineItems.data) || [];
+  const lines = items.map(function (li) {
+    const name =
+      li.description ||
+      (li.price && li.price.product && typeof li.price.product === 'object' && li.price.product.name) ||
+      'Unknown item';
+    return { name: name, quantity: li.quantity || 1 };
+  });
+  return {
+    lines: lines,
+    text: lines.length ? lines.map(function (l) { return l.name + ' × ' + l.quantity; }).join(', ') : 'Unknown item'
+  };
+}
+
+function buildCustomerEmail({ orderRef, itemsText, totalLabel, shippingLabel, addressText }) {
   const safeRef = escapeHtml(orderRef);
-  const safeQty = escapeHtml(String(quantity));
+  const safeItems = escapeHtml(itemsText);
   const safeTotal = escapeHtml(totalLabel);
   const safeShipping = escapeHtml(shippingLabel);
   const addressHtml = addressText
@@ -64,13 +83,13 @@ function buildCustomerEmail({ orderRef, quantity, totalLabel, shippingLabel, add
     html: `
       <div style="font-family: Georgia, 'Times New Roman', serif; max-width: 560px; margin: 0 auto; color: #292624;">
         <p style="letter-spacing: 0.12em; text-transform: uppercase; font-size: 12px; color: #8a8178;">Tan Bomb</p>
-        <h1 style="font-size: 28px; color: #AD2234; margin: 0 0 12px;">You're all set 🍒</h1>
+        <h1 style="font-size: 28px; color: #AD2234; margin: 0 0 12px;">You're all set ✨</h1>
         <p style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.6;">
           Thanks for your order. We've received your payment and will be in touch about shipping.
         </p>
         <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f2ee; border-radius: 12px; padding: 16px 20px; margin: 24px 0;">
           <p style="margin: 0 0 8px;"><strong>Order</strong> ${safeRef}</p>
-          <p style="margin: 0 0 8px;"><strong>Item</strong> Cherry Whip × ${safeQty}</p>
+          <p style="margin: 0 0 8px;"><strong>Items</strong> ${safeItems}</p>
           <p style="margin: 0 0 8px;"><strong>Shipping</strong> ${safeShipping}</p>
           <p style="margin: 0;"><strong>Total paid</strong> ${safeTotal}</p>
           ${addressHtml}
@@ -88,7 +107,7 @@ function buildCustomerEmail({ orderRef, quantity, totalLabel, shippingLabel, add
       '',
       "You're all set.",
       `Order: ${orderRef}`,
-      `Item: Cherry Whip × ${quantity}`,
+      `Items: ${itemsText}`,
       `Shipping: ${shippingLabel}`,
       `Total paid: ${totalLabel}`,
       addressText ? `\nShip to:\n${addressText}` : '',
@@ -142,12 +161,8 @@ async function sendOrderConfirmationForSession(sessionId) {
     return { ok: false, reason: 'no_customer_email' };
   }
 
-  const quantity =
-    (session.line_items &&
-      session.line_items.data &&
-      session.line_items.data[0] &&
-      session.line_items.data[0].quantity) ||
-    1;
+  const items = describeLineItems(session.line_items);
+  const itemsText = items.text;
 
   const orderRef =
     (session.metadata && session.metadata.order_ref) ||
@@ -164,7 +179,7 @@ async function sendOrderConfirmationForSession(sessionId) {
   const addressText = formatAddress(session.shipping_details);
   const email = buildCustomerEmail({
     orderRef,
-    quantity,
+    itemsText,
     totalLabel,
     shippingLabel,
     addressText
@@ -194,13 +209,13 @@ async function sendOrderConfirmationForSession(sessionId) {
         from: FROM_EMAIL,
         to: [NOTIFY_EMAIL],
         replyTo: customerEmail,
-        subject: `[Order] ${orderRef} - Cherry Whip × ${quantity}`,
+        subject: `[Order] ${orderRef} - ${itemsText}`,
         text: [
           'New paid order',
           '',
           `Order: ${orderRef}`,
           `Customer: ${customerEmail}`,
-          `Item: Cherry Whip × ${quantity}`,
+          `Items: ${itemsText}`,
           `Total: ${totalLabel}`,
           `Shipping: ${shippingLabel}`,
           addressText ? `\nShip to:\n${addressText}` : '',
@@ -238,5 +253,7 @@ async function sendOrderConfirmationForSession(sessionId) {
 
 module.exports = {
   resolveStripeSecretKey,
-  sendOrderConfirmationForSession
+  sendOrderConfirmationForSession,
+  describeLineItems,
+  buildCustomerEmail
 };
