@@ -3134,21 +3134,22 @@ body.template-product .site-footer__legal {
 .festive-hero__subheading {
   margin: 1.4rem 0 2rem; max-width: 29rem; font-size: 1.2rem; line-height: 1.5; color: #efe6d6;
 }
-.btn.festive-hero__cta { border: 1.5px solid #d9b45a; padding: 1.1rem 2.6rem; letter-spacing: .12em; }
+.btn.festive-hero__cta { display: inline-flex; width: auto; max-width: 100%; border: 1.5px solid #d9b45a; padding: 1.1rem 2.6rem; letter-spacing: .12em; font-size: .95rem; }
 
 @media (max-width: 899px) {
-  .section--festive-hero { height: calc(100svh - 6.35rem); min-height: 620px; }
+  .section--festive-hero { height: calc(100svh - 6.35rem); min-height: 640px; }
   .festive-hero__bg { display: none; }
   .festive-hero__photo {
-    top: 38%; width: 100%; background-position: center 22%;
-    -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 14%);
-            mask-image: linear-gradient(180deg, transparent 0, #000 14%);
+    top: 40%; width: 100%; background-position: center 24%;
+    -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 12%);
+            mask-image: linear-gradient(180deg, transparent 0, #000 12%);
   }
-  .section--festive-hero::before { background: linear-gradient(180deg, rgba(8,14,32,0) 70%, rgba(8,14,32,.85) 100%); }
-  .festive-hero__content { align-items: flex-start; padding-top: 2.6rem; text-align: center; justify-content: center; }
+  .section--festive-hero::before { background: none; }
+  .festive-hero__content { align-items: flex-start; justify-content: center; padding-top: 4.4rem; text-align: center; }
   .festive-hero__copy { margin: 0 auto; }
-  .festive-hero__eyebrow { font-size: .65rem; margin-bottom: .9rem; }
-  .festive-hero__heading { font-size: clamp(2.2rem, 10vw, 2.8rem); }
-  .festive-hero__subheading { font-size: .95rem; margin: .8rem auto 0; max-width: 20rem; }
-  .btn.festive-hero__cta { position: absolute; left: 1.4rem; right: 1.4rem; bottom: 7.5rem; text-align: center; justify-content: center; }
+  .festive-hero__eyebrow { font-size: .62rem; margin-bottom: .7rem; padding: .35rem .75rem; }
+  .festive-hero__heading { font-size: clamp(2.1rem, 9.5vw, 2.7rem); }
+  .festive-hero__sub-long { display: none; }
+  .festive-hero__subheading { font-size: .95rem; margin: .6rem auto 1rem; }
+  .btn.festive-hero__cta { padding: .85rem 1.8rem; font-size: .8rem; }
 }
