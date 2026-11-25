@@ -210,7 +210,8 @@ async function sendOrderConfirmationForSession(sessionId) {
     await resend.emails.send(
       {
         from: FROM_EMAIL,
-        to: [NOTIFY_EMAIL],
+        // Sandbox/test orders: send the shop copy to the tester, not the client's inbox.
+        to: [session.livemode === false ? customerEmail : NOTIFY_EMAIL],
         replyTo: customerEmail,
         subject: `${testTag}[Order] ${orderRef} - ${itemsText}`,
         text: [

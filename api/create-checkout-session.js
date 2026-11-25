@@ -123,7 +123,7 @@ module.exports = async function handler(req, res) {
       invoice_creation: {
         enabled: true,
         invoice_data: {
-          description: 'Tan Bomb - ' + primary.name + ' order',
+          description: 'Tan Bomb order - ' + lineSpecs.map(function (spec) { return getProduct(spec.productId).name + ' x ' + spec.quantity; }).join(', '),
           footer:
             'Thanks for ordering from Tan Bomb. Free UK shipping. Questions? info@tan-bomb.com',
           metadata: {
