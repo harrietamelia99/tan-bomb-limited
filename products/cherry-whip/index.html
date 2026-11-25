@@ -225,9 +225,56 @@
   <script src="/products/product-page.js"></script>
   <script>
     (function () {
-      var previewCart = { item_count: 0, total_price: 0, items: [] };
+      var previewCart = (function () {
+        // Bag is saved in the browser so it follows the customer between pages.
+        var empty = { item_count: 0, total_price: 0, items: [] };
+        try {
+          var saved = JSON.parse(window.localStorage.getItem('tanbombCart') || 'null');
+          if (!saved || !Array.isArray(saved.items)) return empty;
+          var catalog = window.TanBombProducts;
+          var items = saved.items.map(function (i) {
+            var p = catalog && catalog.get ? catalog.get(i.productId) : null;
+            if (!p || p.soldOut || p.comingSoon || p.available === false) return null;
+            var qty = Math.max(1, Math.min(20, parseInt(i.quantity, 10) || 1));
+            return { key: p.id, title: p.name, quantity: qty, final_line_price: qty * p.priceFrom, productId: p.id };
+          }).filter(Boolean);
+          return {
+            items: items,
+            item_count: items.reduce(function (n, i) { return n + i.quantity; }, 0),
+            total_price: items.reduce(function (n, i) { return n + i.final_line_price; }, 0)
+          };
+        } catch (e) { return empty; }
+      })();
+      function setLineQuantity(key, qty) {
+        var line = previewCart.items.find(function (i) { return i.key === key; });
+        if (!line) return;
+        var unit = line.final_line_price / line.quantity;
+        if (qty <= 0) {
+          previewCart.items = previewCart.items.filter(function (i) { return i.key !== key; });
+        } else {
+          line.quantity = Math.min(20, qty);
+          line.final_line_price = line.quantity * unit;
+        }
+        previewCart.item_count = previewCart.items.reduce(function (n, i) { return n + i.quantity; }, 0);
+        previewCart.total_price = previewCart.items.reduce(function (n, i) { return n + i.final_line_price; }, 0);
+        renderPreviewCart();
+      }
+      document.addEventListener('click', function (e) {
+        var btn = e.target.closest('[data-cart-inc], [data-cart-dec], [data-cart-remove]');
+        if (!btn) return;
+        var lineEl = btn.closest('[data-line-key]');
+        if (!lineEl) return;
+        e.stopImmediatePropagation();
+        var key = lineEl.getAttribute('data-line-key');
+        var line = previewCart.items.find(function (i) { return i.key === key; });
+        if (!line) return;
+        if (btn.hasAttribute('data-cart-remove')) setLineQuantity(key, 0);
+        else if (btn.hasAttribute('data-cart-inc')) setLineQuantity(key, line.quantity + 1);
+        else setLineQuantity(key, line.quantity - 1);
+      }, true);
       function formatMoney(cents) { return '£' + (cents / 100).toFixed(2); }
       function renderPreviewCart() {
+        try { window.localStorage.setItem('tanbombCart', JSON.stringify(previewCart)); } catch (e) {}
         var drawer = document.querySelector('[data-cart-drawer]');
         var body = drawer.querySelector('[data-cart-drawer-body]');
         var footer = drawer.querySelector('[data-cart-footer]');
@@ -246,7 +293,7 @@
         }
         var html = '<ul class="cart-drawer__items">';
         previewCart.items.forEach(function (item) {
-          html += '<li class="cart-line"><div class="cart-line__details"><span class="cart-line__title">' + item.title + '</span><p class="cart-line__price">' + formatMoney(item.final_line_price) + '</p></div></li>';
+          html += '<li class="cart-line" data-cart-line data-line-key="' + item.key + '"><div class="cart-line__details"><span class="cart-line__title">' + item.title + '</span><p class="cart-line__price">' + formatMoney(item.final_line_price) + '</p><div class="cart-line__actions"><div class="cart-line__qty" role="group" aria-label="Quantity"><button type="button" class="cart-line__qty-btn" data-cart-dec aria-label="Decrease quantity">&minus;</button><span class="cart-line__qty-count">' + item.quantity + '</span><button type="button" class="cart-line__qty-btn" data-cart-inc aria-label="Increase quantity">+</button></div><button type="button" class="cart-line__remove" data-cart-remove>Remove</button></div></div></li>';
         });
         html += '</ul>';
         body.innerHTML = html;
@@ -290,6 +337,7 @@
             btn.textContent = 'Checkout';
           });
       });
+      renderPreviewCart();
     })();
   </script>
 </body>

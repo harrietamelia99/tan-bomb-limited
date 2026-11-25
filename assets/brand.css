@@ -3153,3 +3153,10 @@ body.template-product .site-footer__legal {
   .festive-hero__subheading { font-size: .95rem; margin: .6rem auto 1rem; }
   .btn.festive-hero__cta { padding: .85rem 1.8rem; font-size: .8rem; }
 }
+
+/* Bag quantity controls */
+.cart-line__actions { display: flex; align-items: center; gap: .9rem; margin-top: .4rem; }
+.cart-line__qty { display: inline-flex; align-items: center; border: 1px solid rgba(201,162,74,.6); border-radius: 999px; overflow: hidden; }
+.cart-line__qty-btn { background: none; border: 0; width: 2rem; height: 2rem; font-size: 1rem; line-height: 1; cursor: pointer; color: inherit; }
+.cart-line__qty-btn:hover { background: rgba(201,162,74,.15); }
+.cart-line__qty-count { min-width: 1.6rem; text-align: center; font-size: .9rem; }

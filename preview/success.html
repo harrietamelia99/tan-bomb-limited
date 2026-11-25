@@ -72,6 +72,7 @@
     (function () {
       var params = new URLSearchParams(window.location.search);
       var sessionId = params.get('session_id');
+      try { window.localStorage.removeItem('tanbombCart'); } catch (e) {}
       if (!sessionId) return;
 
       fetch('/api/send-order-confirmation', {
