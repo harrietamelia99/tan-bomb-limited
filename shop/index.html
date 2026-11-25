@@ -288,7 +288,7 @@
           html += '<h2 class="shop-card__title">' + p.name + '</h2>';
           html += '<p class="shop-card__tagline">' + (p.tagline || '') + '</p>';
           html += catalog.ratingHtml(p);
-          html += '<p class="shop-card__price">from ' + catalog.formatMoney(p.priceFrom) + '</p>';
+          html += '<p class="shop-card__price">' + catalog.priceHtml(p, 'from ') + '</p>';
           html += catalog.ctaHtml(p, 'Shop now');
           html += '</div></a>';
         });

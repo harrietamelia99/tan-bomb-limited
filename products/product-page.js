@@ -61,7 +61,7 @@
       html += '</div><div class="shop-card__body">';
       html += '<h3 class="shop-card__title">' + p.name + '</h3>';
       html += '<p class="shop-card__tagline">' + (p.tagline || '') + '</p>';
-      html += '<p class="shop-card__price">from ' + catalog.formatMoney(p.priceFrom) + '</p>';
+      html += '<p class="shop-card__price">' + catalog.priceHtml(p, 'from ') + '</p>';
       html += catalog.ctaHtml(p, 'View');
       html += '</div></a>';
     });
@@ -82,7 +82,8 @@
     set('[data-product-name]', product.name);
     set('[data-product-tagline]', product.tagline);
     set('[data-product-description]', product.description);
-    set('[data-product-price]', 'from ' + catalog.formatMoney(product.priceFrom));
+    var priceEl = document.querySelector('[data-product-price]');
+    if (priceEl) priceEl.innerHTML = catalog.priceHtml(product, 'from ');
     set('[data-product-size]', product.size);
     fillList('[data-product-benefits]', product.benefits);
     fillList('[data-product-ingredients]', product.ingredients);

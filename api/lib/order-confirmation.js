@@ -161,6 +161,7 @@ async function sendOrderConfirmationForSession(sessionId) {
     return { ok: false, reason: 'no_customer_email' };
   }
 
+  const testTag = session.livemode === false ? '[TEST] ' : '';
   const items = describeLineItems(session.line_items);
   const itemsText = items.text;
 
@@ -169,6 +170,8 @@ async function sendOrderConfirmationForSession(sessionId) {
     `TB-${String(session.id).replace(/^cs_(test|live)_/, '').slice(-8).toUpperCase()}`;
 
   const totalLabel = formatMoney(session.amount_total, session.currency);
+  const discountAmount = (session.total_details && session.total_details.amount_discount) || 0;
+  const discountLabel = discountAmount ? '-' + formatMoney(discountAmount, session.currency) : '';
   const shippingAmount =
     session.shipping_cost && typeof session.shipping_cost.amount_total === 'number'
       ? session.shipping_cost.amount_total
@@ -191,7 +194,7 @@ async function sendOrderConfirmationForSession(sessionId) {
       from: FROM_EMAIL,
       to: [customerEmail],
       replyTo: NOTIFY_EMAIL,
-      subject: email.subject,
+      subject: testTag + email.subject,
       html: email.html,
       text: email.text
     },
@@ -209,13 +212,14 @@ async function sendOrderConfirmationForSession(sessionId) {
         from: FROM_EMAIL,
         to: [NOTIFY_EMAIL],
         replyTo: customerEmail,
-        subject: `[Order] ${orderRef} - ${itemsText}`,
+        subject: `${testTag}[Order] ${orderRef} - ${itemsText}`,
         text: [
           'New paid order',
           '',
           `Order: ${orderRef}`,
           `Customer: ${customerEmail}`,
           `Items: ${itemsText}`,
+          discountLabel ? `Discount code: ${discountLabel}` : '',
           `Total: ${totalLabel}`,
           `Shipping: ${shippingLabel}`,
           addressText ? `\nShip to:\n${addressText}` : '',

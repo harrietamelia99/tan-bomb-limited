@@ -24,6 +24,13 @@
     }
   };
 
+
+  // Timed sales. Prices switch automatically; keep in sync with api/lib/products.js.
+  // Black Friday 2026: Gingerbread Delight £15, Fri 27 Nov 00:00 to Sun 29 Nov 23:59 (UK time, GMT).
+  var SALES = {
+    'gingerbread-delight': { price: 1500, start: '2026-11-27T00:00:00Z', end: '2026-11-30T00:00:00Z', badge: 'Black Friday' }
+  };
+
   var SHARED_INGREDIENTS = [
     'L-Tyrosine',
     'Hyaluronic Acid',
@@ -163,6 +170,14 @@
 
   Object.keys(PRODUCTS).forEach(function (id) {
     var p = PRODUCTS[id];
+    var sale = SALES[id];
+    var now = Date.now();
+    if (sale && now >= Date.parse(sale.start) && now < Date.parse(sale.end)) {
+      p.compareAtPrice = p.priceFrom;
+      p.priceFrom = sale.price;
+      p.badge = sale.badge;
+      p.onSale = true;
+    }
     if (p.comingSoon) {
       p.available = false;
       p.badge = COMING_SOON_LABEL;
@@ -243,6 +258,15 @@
     return PRODUCTS[id] || null;
   }
 
+  /** Price markup: shows the original price crossed out while a sale is on. */
+  function priceHtml(p, prefix) {
+    var now = formatMoney(p.priceFrom);
+    if (p.onSale && p.compareAtPrice) {
+      return '<s class="price-was">' + formatMoney(p.compareAtPrice) + '</s> <span class="price-now">' + now + '</span>';
+    }
+    return (prefix || '') + now;
+  }
+
   function listProducts(ids) {
     return (ids || GRID_ORDER).map(getProduct).filter(Boolean);
   }
@@ -252,6 +276,7 @@
     HOMEPAGE_FEATURED: HOMEPAGE_FEATURED,
     GRID_ORDER: GRID_ORDER,
     get: getProduct,
+    priceHtml: priceHtml,
     list: listProducts,
     formatMoney: formatMoney,
     mediaHtml: mediaHtml,

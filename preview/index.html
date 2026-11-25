@@ -641,7 +641,7 @@
           html += '</div><div class="shop-card__body">';
           html += '<h3 class="shop-card__title">' + p.name + '</h3>';
           html += catalog.ratingHtml(p);
-          html += '<p class="shop-card__price">from ' + catalog.formatMoney(p.priceFrom) + '</p>';
+          html += '<p class="shop-card__price">' + catalog.priceHtml(p, 'from ') + '</p>';
           html += catalog.ctaHtml(p, 'Shop now');
           html += '</div></a>';
         });

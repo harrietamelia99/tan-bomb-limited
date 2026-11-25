@@ -3160,3 +3160,7 @@ body.template-product .site-footer__legal {
 .cart-line__qty-btn { background: none; border: 0; width: 2rem; height: 2rem; font-size: 1rem; line-height: 1; cursor: pointer; color: inherit; }
 .cart-line__qty-btn:hover { background: rgba(201,162,74,.15); }
 .cart-line__qty-count { min-width: 1.6rem; text-align: center; font-size: .9rem; }
+
+/* Sale pricing */
+.price-was { opacity: .55; margin-right: .35rem; }
+.price-now { color: #b3203a; font-weight: 600; }

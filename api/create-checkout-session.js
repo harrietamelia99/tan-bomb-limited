@@ -86,6 +86,7 @@ module.exports = async function handler(req, res) {
       mode: 'payment',
       payment_method_types: ['card'],
       customer_creation: 'always',
+      allow_promotion_codes: true,
       line_items: lineSpecs.map(function (spec) {
         const product = getProduct(spec.productId);
         return {
