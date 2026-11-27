@@ -36,9 +36,9 @@ const PRODUCTS = {
 };
 
 // Timed sales. Keep in sync with assets/products.js.
-// Black Friday 2026: Gingerbread Delight £15, Fri 27 Nov 00:00 to Sun 29 Nov 23:59 (UK time, GMT).
+// Black Friday 2026: Gingerbread Delight £15, Fri 27 Nov 00:00 to Fri 27 Nov 18:00 (UK time, GMT) - ended early at client request.
 const SALES = {
-  'gingerbread-delight': { unitAmount: 1500, start: '2026-11-27T00:00:00Z', end: '2026-11-30T00:00:00Z' }
+  'gingerbread-delight': { unitAmount: 1500, start: '2026-11-27T00:00:00Z', end: '2026-11-27T18:00:00Z' }
 };
 
 function getProduct(id, now) {
